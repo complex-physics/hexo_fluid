@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="JPZhuang">
   <meta name="keywords" content="">
-  <title>Childs-量子线路 - JPZ</title>
+  <title>Childs-量子行走 - JPZ</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -164,7 +164,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      497 字
+      778 字
     </span>
   
 
@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      15
        分钟
     </span>
   
@@ -223,17 +223,52 @@
 </ul></li>
 </ol>
 <h2 id="摘要">摘要</h2>
-<h2 id="chapter-1-preliminaries">Chapter 1: Preliminaries</h2>
-<p>This chapter briefly reviews some background material on quantum computation. We cover these topics at a very high level, just to give a sense of what you should know to understand the rest of the lecture notes. If any of these topics are unfamiliar, you can learn more about them from a text on quantum computation such as Nielsen and Chuang [76]; Kitaev, Shen, and Vyalyi [62]; or Kaye, Laflamme, and Mosca [60].</p>
-<h3 id="quantum-data">1.1 Quantum data</h3>
-<p>A quantum computer is a device that uses a quantum mechanical representation of information to perform calculations. Information is stored in quantum bits, the states of which can be represented as <span class="math inline">\(\ell_{2}\)</span> -normalized vectors in a complex vector space. For example, we can write the state of <span class="math inline">\(n\)</span> qubits as <span class="math display">\[
-|\psi\rangle=\sum_{x \in\{0,1\}^{n}} a_{x}|x\rangle
-\]</span> where the <span class="math inline">\(a_{x} \in C\)</span> satisfy <span class="math inline">\(\sum_{x}\left|a_{x}\right|^{2}=1 .\)</span> We refer to the basis of states <span class="math inline">\(|x\rangle\)</span> as the computational basis. It will often be useful to think of quantum states as storing data in a more abstract form. For example, given a group <span class="math inline">\(G\)</span>, we could write <span class="math inline">\(|g\rangle\)</span> for a basis state corresponding to the group element <span class="math inline">\(g \in G\)</span>, and <span class="math display">\[
-|\phi\rangle=\sum_{g \in G} b_{g}|g\rangle
-\]</span> for an arbitrary superposition over the group. We assume that there is some canonical way of efficiently representing group elements using bit strings; it is usually unnecessary to make this representation explicit. If a quantum computer stores the state <span class="math inline">\(|\psi\rangle\)</span> and the state <span class="math inline">\(|\phi\rangle\)</span>, its overall state is given by the tensor product of those two states. This may be denoted <span class="math inline">\(|\psi\rangle \otimes|\phi\rangle=|\psi\rangle|\phi\rangle=|\psi, \phi\rangle\)</span>.</p>
-<h3 id="quantum-circuits">1.2 Quantum circuits</h3>
-<p>The allowed operations on (pure) quantum states are those that map normalized states to normalized states, namely unitary operators <span class="math inline">\(U\)</span>, satisfying <span class="math inline">\(U U^{\dagger}=U^{\dagger} U=I\)</span>. (You probably know that there are more general quantum operations, but for the most part we will not need to use them in this course.)</p>
-<p>To have a sensible notion of efficient computation, we require that the unitary operators appearing in a quantum computation are realized by quantum circuits. We are given a set of gates, each of which acts on one or two qubits at a time (meaning that it is a tensor product of a one- or two-qubit operator with the identity operator on the remaining qubits). A quantum computation begins in the <span class="math inline">\(|0\rangle\)</span> state, applies a sequence of one- and two-qubit gates chosen from the set of allowed gates, and finally reports an outcome obtained by measuring in the computational basis.</p>
+<h2 id="chapter-16-continuous-time-quantum-walk">Chapter 16: Continuous-time quantum walk</h2>
+<p>We now turn to our second major topic in quantum algorithms, the concept of quantum walk. In this lecture we will introduce continuous-time quantum walk as a natural analog of continuous-time classical random walk, and we'll see some examples of how the two kinds of processes differ.</p>
+<h3 id="continuous-time-quantum-walk">16.1 Continuous-time quantum walk</h3>
+<p>Random walks come in two flavors:</p>
+<ul>
+<li>discrete time.</li>
+<li>continuous-time.</li>
+</ul>
+<p>It is easiest to define a quantum analog of a continuous-time random walk [43], so we consider this case first. Given a graph <span class="math inline">\(G=(V, E)\)</span>, we define the continuous-time random walk on <span class="math inline">\(G\)</span> as follows. Let <span class="math inline">\(A\)</span> be the adjacency matrix of <span class="math inline">\(G\)</span>, the <span class="math inline">\(|V| \times|V|\)</span> matrix with <span class="math display">\[
+A_{j, k}=\left\{\begin{array}{ll}
+1 &amp; (j, k) \in E \\
+0 &amp; (j, k) \notin E
+\end{array}\right.
+\]</span> for every pair <span class="math inline">\(j, k \in V\)</span>. In particular, if we disallow self loops, then the diagonal of <span class="math inline">\(A\)</span> is zero. There is another matrix associated with <span class="math inline">\(G\)</span> that is nearly as important: the Laplacian of <span class="math inline">\(G\)</span>, which has <span class="math display">\[
+L_{j, k}=\left\{\begin{array}{ll}
+-\operatorname{deg}(j) &amp; j=k \\
+1 &amp; (j, k) \in E \\
+0 &amp; \text { otherwise }
+\end{array}\right.
+\]</span> where</p>
+<ul>
+<li><span class="math inline">\(\operatorname{deg}(j)\)</span> denotes the degree of vertex <span class="math inline">\(j .\)</span></li>
+</ul>
+<p>(The Laplacian is sometimes defined differently than this - e.g., sometimes with the opposite sign. We use this definition because it makes <span class="math inline">\(L\)</span> a discrete approximation of the Laplacian operator <span class="math inline">\(\nabla^{2}\)</span> in the continuum.)</p>
+<p>The continuous-time random walk on <span class="math inline">\(G\)</span> is defined as the solution of the differential equation <span class="math display">\[
+\frac{ d }{ d t} p_{j}(t)=\sum_{k \in V} L_{j k} p_{k}(t)
+\]</span> Here <span class="math inline">\(p_{j}(t)\)</span> denotes the probability associated with vertex <span class="math inline">\(j\)</span> at time <span class="math inline">\(t\)</span>.</p>
+<p>This can be viewed as a discrete analog of the diffusion equation. Note that <span class="math display">\[
+\frac{ d }{ d t} \sum_{j \in V} p_{j}(t)=\sum_{j, k \in V} L_{j k} p_{k}(t)=0
+\]</span> (since the columns of <span class="math inline">\(L\)</span> sum to 0 ), which shows that an initially normalized distribution remains normalized: the evolution of the continuous-time random walk for any time <span class="math inline">\(t\)</span> is a stochastic process. The solution of the differential equation can be given in closed form as <span class="math display">\[
+p(t)=e^{L t} p(0)
+\]</span> Now notice that the equation (16.3) is very similar to the Schrödinger equation <span class="math display">\[
+i \frac{ d }{ d t}|\psi\rangle=H|\psi\rangle
+\]</span> except that it lacks the factor of i. If we simply insert this factor, and rename the probabilities <span class="math inline">\(p_{j}(t)\)</span> as quantum amplitudes <span class="math inline">\(q_{j}(t)=\langle j \mid \psi(t)\rangle\)</span> (where <span class="math inline">\(\{|j\rangle: j \in V\}\)</span> is an orthonormal basis for the Hilbert space), then we obtain the equation <span class="math display">\[
+i \frac{ d }{ d t} q_{j}(t)=\sum_{k \in V} L_{j k} q_{k}(t)
+\]</span> which is simply the Schrödinger equation with the Hamiltonian given by the Laplacian of the graph. Since the Laplacian is a Hermitian operator, these dynamics preserve normalization in the sense that <span class="math inline">\(\frac{ d }{ d t} \sum_{j \in V}\left|q_{j}(t)\right|^{2}=0\)</span></p>
+<p>Again the solution of the differential equation can be given in closed form, but here it is <span class="math inline">\(|\psi(t)\rangle=\)</span> <span class="math inline">\(e^{-i L t}|\psi(0)\rangle\)</span> We could also define a continuous-time quantum walk using any Hermitian Hamiltonian that respects the structure of <span class="math inline">\(G\)</span>. For example, we could use the adjacency matrix <span class="math inline">\(A\)</span> of <span class="math inline">\(G\)</span>, even though this matrix cannot be used as the generator of a continuous-time classical random walk.</p>
+<h3 id="random-and-quantum-walks-on-the-hypercube">16.2 Random and quantum walks on the hypercube</h3>
+<p>Let's begin by investigating a simple, dramatic example of a difference between the behavior of random and quantum walks. Consider the Boolean hypercube, the graph with vertex set <span class="math inline">\(V=\{0,1\}^{n}\)</span> and edge set <span class="math inline">\(E=\left\{(x, y) \in V^{2}: \Delta(x, y)=1\right\}\)</span>, where <span class="math inline">\(\Delta(x, y)\)</span> denotes the Hamming distance between the strings <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. When <span class="math inline">\(n=1\)</span>, the hypercube is simply an edge, with adjacency matrix <span class="math display">\[
+\sigma_{x}:=\left(\begin{array}{ll}
+0 &amp; 1 \\
+1 &amp; 0
+\end{array}\right)
+\]</span> For general <span class="math inline">\(n\)</span>, the graph is the direct product of this graph with itself <span class="math inline">\(n\)</span> times, and the adjacency matrix is <span class="math display">\[
+A=\sum_{j=1}^{n} \sigma_{x}^{(j)}
+\]</span></p>
 
             </article>
             <hr>
@@ -268,9 +303,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2021/02/15/QC02_QML01_book01/">
+                      <a href="/2021/02/14/QC04_Algorithm03_Childs03/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">书籍《量子机器学习》</span>
+                        <span class="hidden-mobile">Childs-量子线路</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -278,8 +313,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2021/02/14/QC04_Algorithm05_Lecture/">
-                        <span class="hidden-mobile">Childs-量子行走</span>
+                      <a href="/2021/02/14/QC04_Algorithm03_Childs04/">
+                        <span class="hidden-mobile">Childs-代数问题的量子算法</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -419,7 +454,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Childs-量子线路&nbsp;",
+        "Childs-量子行走&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

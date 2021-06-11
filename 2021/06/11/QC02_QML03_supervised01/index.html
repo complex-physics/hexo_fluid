@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>Supervised 信息编码 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/QC02_QML02_supervised.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-11 14:23">
+      June 11, 2021 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="前言">前言</h2>
+<p>[TOC]</p>
+<h2 id="参考文献">参考文献</h2>
+<p>《Supervised Learning with Quantum Computers》 Maria Schuld . Francesco Petruccione</p>
+<h2 id="strategies-of-information-encoding">3.4 Strategies of Information Encoding</h2>
+<p>There are different ways to encode information into a <span class="math inline">\(n\)</span> -qubit system described by a state (3.16), and we will introduce some relevant strategies in this section. While for data mining and machine learning the question of information encoding becomes central, this is not true for many other topics in quantum computing, which is presumably why quantum computing so far has no terminology for such strategies. We will therefore refer to them as basis encoding, amplitude encoding, qsample encoding and dynamic encoding. The encoding methods presented here will be explored in more detail in Chap. 5, where we look at them in relation to quantum machine learning algorithms.</p>
+<p>An illustration of the different encoding methods can be found in Fig. <span class="math inline">\(3.11\)</span></p>
+<p>a summary of the notation used here can be found in Table <span class="math inline">\(3.5 .\)</span> It is interesting to note that many quantum algorithms - such as the matrix inversion routine introduced below-can be understood as strategies of transforming information from one kind of encoding to the other.</p>
+<h3 id="basis-encoding">3.4.1 Basis Encoding</h3>
+<p>Basis encoding associates a computational basis state of a <span class="math inline">\(n\)</span> -qubit system (such as <span class="math inline">\(|3\rangle=|0011\rangle\)</span> ) with a classical <span class="math inline">\(n\)</span> -bit-string <span class="math inline">\((0011) .\)</span> In a way, this is the most straight forward way of computation, since each bit gets literally replaced by a qubit, and a 'computation' acts in parallel on all bit sequences in a superposition. We have used basis encoding in the algorithms investigated so far in this chapter.</p>
+<p>The value of the amplitudes <span class="math inline">\(\alpha_{i}\)</span> of each basis state does not carry any other information than to 'mark' the result of the computation with a high enough probability of being measured. For example, if the basis state <span class="math inline">\(|0011\rangle\)</span> with amplitude <span class="math inline">\(\alpha_{0011}\)</span> has a probability <span class="math inline">\(\left|\alpha_{0011}\right|^{2}&gt;0.5\)</span> of being measured, repeated execution of the algorithm and measurement of the final state in the computational basis will reveal it as the most likely measurement result, and hence the overall result of the algorithm. For the basis encoding method, the goal of a quantum algorithm is therefore to increase the probability or absolute square of the amplitude that corresponds to the basis state encoding the solution.</p>
+<p>Like in classical computers, basis encoding uses a binary representation of numbers. A quantum state <span class="math inline">\(|x\rangle\)</span> with <span class="math inline">\(x \in R\)</span> will therefore refer to a binary representation of <span class="math inline">\(x\)</span> with the number <span class="math inline">\(n\)</span> of bits that the qubit register encoding <span class="math inline">\(|x\rangle\)</span> provides. There are different ways to represent a real number in binary form, for example by fixed or floating point representations. In the following it is always assumed that such a strategy is given, and we will elaborate more on this point where the need arises.</p>
+<h4 id="例子">例子</h4>
+<p>把向量 <span class="math inline">\(x=(0.1,-0.6,1.0)\)</span> 进行binary fraction representation编码，精度 <span class="math inline">\(\tau=4\)</span> <span class="math display">\[
+\begin{aligned}
+0.1 &amp; \rightarrow 0\quad0001 \ldots \\
+-0.6 &amp; \rightarrow 1\quad1001 \ldots \\
+1.0 &amp; \rightarrow 0\quad1111 \ldots
+\end{aligned}
+\]</span> 其中</p>
+<ul>
+<li>第一位是正负号</li>
+<li></li>
+</ul>
+<p><span class="math display">\[
+0.1 \rightarrow 0 \quad 0001 \ldots
+\]</span></p>
+<p><span class="math display">\[
+0.1=0\times\frac{1}{2^{1}}+0\times\frac{1}{2^{2}}+0\times\frac{1}{2^{3}}+\frac{1}{2^{4}}+...
+=0.0625+....
+\]</span></p>
+<p>看起来误差挺大的</p>
+<p>如果精确度扩大 <span class="math inline">\(0.1 \rightarrow\)</span> 0.0001100110011001100110011 可以减小误差 <span class="math display">\[
+\begin{aligned}
+0.6=&amp;\frac{1}{2^{1}}+0\times\frac{1}{2^{2}}+0\times\frac{1}{2^{3}}+\frac{1}{2^{4}}+...\\
+=&amp;0.5+0.0625
+\\=&amp;0.5625
+\end{aligned}
+\]</span> 如果精确度扩大<span class="math inline">\(0.6 \rightarrow\)</span> 0.100110011001100110011001100110011 可以减小误差 <span class="math display">\[
+1=\frac{1}{2^{1}}+\frac{1}{2^{2}}+\frac{1}{2^{3}}+\frac{1}{2^{4}}+...=0.9375
+\]</span> 如果级数趋于无穷，收敛到1</p>
+<p>所以向量 <span class="math inline">\(x=(0.1,-0.6,1.0)\)</span> 对应的二进制序列是 <span class="math display">\[
+b=(00001\quad11001\quad01111)
+\]</span> 可以表示这个向量的量子态 <span class="math display">\[
+\begin{array}{llll}
+\mid 00001 &amp; 11001 &amp; 01111\rangle
+\end{array}
+\]</span></p>
+<h3 id="amplitude-encoding">Amplitude Encoding</h3>
+<p>Amplitude encoding is much less common in quantum computing, as it associates classical information such as a real vector with quantum amplitudes, and there are different options to do so. A normalised classical vector <span class="math inline">\(x \in C ^{2^{n}}, \sum_{k}\left|x_{k}\right|^{2}=1\)</span> can be represented by the amplitudes of a quantum state <span class="math inline">\(|\psi\rangle \in H\)</span> via <span class="math display">\[
+x=\left(\begin{array}{c}
+x_{1} \\
+\vdots \\
+x_{2^{n}}
+\end{array}\right) \leftrightarrow\left|\psi_{x}\right\rangle=\sum_{j=1}^{2^{n}} x_{j}|j\rangle
+\]</span> In the same fashion a classical matrix <span class="math inline">\(A \in C ^{2^{n} \times 2^{m}}\)</span> with entries <span class="math inline">\(a_{i j}\)</span> that fulfil <span class="math inline">\(\sum_{i j}\left|a_{i j}\right|^{2}=1\)</span>, can be encoded as <span class="math display">\[
+\left|\psi_{A}\right\rangle=\sum_{i=1}^{2^{m}} \sum_{j=1}^{2^{n}} a_{i j}|i\rangle|j\rangle
+\]</span> by enlarging the Hilbert space accordingly. This turns out to be rather useful for quantum algorithms, since the 'index registers' <span class="math inline">\(|i\rangle,|j\rangle\)</span> refer to the <span class="math inline">\(i\)</span> th row and the <span class="math inline">\(j\)</span> th column respectively. By fixing either of the register we can therefore address a row or column of the matrix. For Hermitian positive trace- 1 matrices <span class="math inline">\(A \in C ^{2^{n} \times 2^{n}}\)</span>, another option arises: One can associate its entries with the entries of a density matrix <span class="math inline">\(\rho_{A}\)</span>, so that <span class="math inline">\(a_{i j} \leftrightarrow \rho_{i j}\)</span>.</p>
+<p>Encoding information into the probabilistic description of a quantum system necessarily poses severe limitations on which operations can be executed. This becomes particularly important when we want to perform a nonlinear map on the amplitudes, which is impossible to implement in a unitary fashion. This has been extensively debated under the keyword of nonlinear quantum theories <span class="math inline">\([39,40]\)</span> and it has been demonstrated that assumptions of nonlinear operators would immediately negate fundamental principles of nature that are believed to be true <span class="math inline">\([41,42]\)</span>.</p>
+<p>Another obvious restriction of this method is that only normalised classical vectors can be processed. Effectively this means that quantum states represent the data in one less dimension or with one less degree of freedom: A classical two dimensional vector <span class="math inline">\(\left(x_{1}, x_{2}\right)\)</span> can only be associated with an amplitude vector <span class="math inline">\(\left(\alpha_{1}, \alpha_{2}\right)\)</span> of a qubit which fulfils <span class="math inline">\(\left|\alpha_{1}\right|^{2}+\left|\alpha_{2}\right|^{2}=1\)</span>. This means that it lies on a unit circle, a onedimensional shape in two dimensional space. Three-dimensional vectors encoded in three amplitudes of a 2 -qubit quantum system (where the last of the four amplitudes is redundant and set to zero) will reduce the 3 -dimensional space to the surface of a sphere, and so on. A remedy can be to increase the space of the classical vector by one dimension <span class="math inline">\(x_{N+1}=1\)</span> and normalise the resulting vector. The <span class="math inline">\(N\)</span> -dimensional space will then be embedded in a <span class="math inline">\(N+1\)</span> -dimensional space in which the data is normalised without loss of information (Fig. 3.12).</p>
+<h4 id="例子-1">例子</h4>
+<p>Example 3.5 (Amplitude encoding)</p>
+<p>To encode the same vector from Example 3.4, <span class="math inline">\(x=(0.1,-0.6,1.0)\)</span>, in amplitude encoding, we have to first normalise it to unit length (rounding to three digits here) and pad it with zeros to a dimension of integer logarithm, <span class="math display">\[
+x^{\prime}=(0.073,-0.438,0.730,0.000) .
+\]</span></p>
+<blockquote>
+<p>计算过程 <span class="math display">\[
+\begin{aligned}
+\frac{0.1}{(0.1)^{2}+(-0.6)^{2}+(1)^{2}}&amp;=0.073\\
+\frac{0.1}{(-0.6)^{2}+(-0.6)^{2}+(1)^{2}}&amp;=-0.438\\
+\frac{1}{(0.1)^{2}+(-0.6)^{2}+(1)^{2}}&amp;=0.730\\
+\end{aligned}
+\]</span></p>
+</blockquote>
+<p>Now it can be represented by a quantum state of 2 qubits: <span class="math display">\[
+0.073|00\rangle-0.438|01\rangle+0.730|10\rangle+0|11\rangle
+\]</span> This state would at the same time encode the matrix <span class="math display">\[
+A=\left(\begin{array}{ll}
+0.073 &amp; -0.438 \\
+0.730 &amp; 0.000
+\end{array}\right)
+\]</span> if we interpret the first qubit as an index for the row and the second qubit as an index for the column.</p>
+<h3 id="qsample-encoding">3.4.3 Qsample Encoding</h3>
+<p>Consider an <span class="math inline">\(n\)</span> -qubit quantum state described by an amplitude vector <span class="math inline">\(\alpha=\)</span> <span class="math inline">\(\left(\alpha_{1}, \ldots, \alpha_{2^{n}}\right)^{T}\)</span>. Measuring the <span class="math inline">\(n\)</span> qubits in the computational basis is equivalent to sampling a bit string of length <span class="math inline">\(n\)</span> from a discrete probability distribution <span class="math display">\[
+p_{1}=\left|\alpha_{1}\right|^{2}, \ldots, p_{2^{n}}=\left|\alpha_{2^{n}}\right|^{2}
+\]</span> By 'equivalent' we mean that both the measurement and the classical sampling routine draw samples with the same probability. This means that we can use the amplitude vector to represent a classical discrete probability distribution. Given a classical discrete probability distribution over binary strings <span class="math inline">\(p_{1}, \ldots, p_{2^{n}}\)</span>, the quantum state <span class="math display">\[
+|\psi\rangle=\sum_{i=1}^{2^{n}} \sqrt{p_{i}}|i\rangle
+\]</span> is sometimes referred to as a qsample <span class="math inline">\([43,44]\)</span>, a term that we will apply here as well.</p>
+<h3 id="dynamic-encoding">3.4.4 Dynamic Encoding</h3>
+<p>For some applications it can be useful to encode matrices into the dynamic evolution, for example into unitary operators. While unitary operators obviously restrict the class of matrices that they can represent, a useful option from <span class="math inline">\([45]\)</span> is to associate a Hamiltonian <span class="math inline">\(H\)</span> with a square matrix <span class="math inline">\(A\)</span>. In case <span class="math inline">\(A\)</span> is not Hermitian, one can sometimes use the trick of instead encoding <span class="math display">\[
+\tilde{A}=\left(\begin{array}{cc}
+0 &amp; A \\
+A^{\dagger} &amp; 0
+\end{array}\right)
+\]</span> and only considering part of the output. This way, the eigenvalues of <span class="math inline">\(A\)</span> can be processed in a quantum routine, for example to multiply <span class="math inline">\(A\)</span> or <span class="math inline">\(A^{-1}\)</span> with an amplitude encoded vector. Table <span class="math inline">\(3.5\)</span> summarises the different strategies of information encoding mentioned here.</p>
+<h4 id="例子-2">例子</h4>
+<p>Example 3.6 (Hamiltonian encoding) The matrix <span class="math display">\[
+A=\left(\begin{array}{ll}
+0.073 &amp; -0.438 \\
+0.730 &amp; 0.000
+\end{array}\right)
+\]</span> from Example <span class="math inline">\(3.5\)</span> can also define the dynamics of a quantum system. Since <span class="math inline">\(A\)</span> is not Hermitian we define the Hamiltonian</p>
+<p>The effect of applying the Hamiltonian via <span class="math inline">\(e^{-i H t}\)</span> to an amplitude vector <span class="math inline">\(\alpha\)</span> can be calculated from the corresponding eigenvalue equations. The eigenvectors/values of <span class="math inline">\(H\)</span> are</p>
+<p>These eigenvectors form a basis and hence <span class="math inline">\(\alpha\)</span> can be decomposed in this basis as <span class="math display">\[
+\alpha=\gamma_{1} v^{2}+\gamma_{2} v^{2}+\gamma_{3} v^{3}+\gamma_{4} v^{4}
+\]</span> with <span class="math inline">\(\gamma_{i}=\alpha^{T} v^{i}\)</span> for <span class="math inline">\(i=1, \ldots, 4\)</span>. Applying the Hamiltonian therefore leads to <span class="math display">\[
+\psi= e ^{-i H t} \alpha= e ^{-i \lambda_{1} t} \gamma_{1} v^{1}+e^{-i \lambda_{2} t} \gamma_{2} v^{2}+e^{-i \lambda_{3} t} \gamma_{3} v^{3}+e^{-i \lambda_{4} t} \gamma_{4} v^{4}
+\]</span> or, in Dirac notation, <span class="math display">\[
+\begin{aligned}
+|\psi\rangle=&amp;\left(-0.108 e ^{-i \lambda_{1} t} \gamma_{1}+0.699 e ^{-i \lambda_{2} t} \gamma_{2}+0.699 e ^{-i \lambda_{3} t} \gamma_{3}+0.108 e ^{-i \lambda_{4} t} \gamma_{4}\right)|00\rangle \\
+&amp;+\left(-0.699 e^{-i \lambda_{1} t} \gamma_{1}-0.108 e ^{-i \lambda_{2} t} \gamma_{2}-0.108 e ^{-i \lambda_{3} t} \gamma_{3}+0.699 e ^{-i \lambda_{4} t} \gamma_{4}\right)|01\rangle \\
+&amp;+\left(0.704 e ^{-i \lambda_{1} t} \gamma_{1}+0.065 e ^{-i \lambda_{2} t} \gamma_{2}-0.065 e ^{-i \lambda_{3} t} \gamma_{3}+0.704 e ^{-i \lambda_{4} t} \gamma_{4}\right)|10\rangle \\
+&amp;+\left(-0.065 e ^{-i \lambda_{1} t} \gamma_{1}+0.704 e ^{-i \lambda_{2} t} \gamma_{2}-0.704 e ^{-i \lambda_{3} t} \gamma_{3}-0.064 e ^{-i \lambda_{4} t} \gamma_{4}\right)|10\rangle
+\end{aligned}
+\]</span></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Quantum-Computation/">Quantum Computation</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Quantum-Computation/%E9%87%8F%E5%AD%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">量子机器学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/AI/">AI</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Quantum-Computation/">Quantum Computation</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%87%8F%E5%AD%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">量子机器学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/11/QC02_QML02_supervised01/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Supervised 信息编码</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/10/Math_08_Matrix_03/">
+                        <span class="hidden-mobile">Eigenvectors and SVD</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Supervised 信息编码&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
