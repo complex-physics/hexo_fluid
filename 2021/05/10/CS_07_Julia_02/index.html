@@ -164,7 +164,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      47 字
+      629 字
     </span>
   
 
@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      9
        分钟
     </span>
   
@@ -205,17 +205,132 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="参考">参考</h2>
+              <p>[TOC]</p>
+<h2 id="参考">参考</h2>
 <ol type="1">
-<li><a href="https://discourse.juliacn.com/t/topic/159" target="_blank" rel="noopener">Julia 语言入门指引</a></li>
+<li><a href="https://discourse.juliacn.com/t/topic/159" target="_blank" rel="noopener">Julia 语言入门指引</a> 中文社区</li>
+<li><a href="https://julialang.org/learning/" target="_blank" rel="noopener">Julia Tutorials</a> 英文社区，课程，书籍</li>
 <li><a href="https://github.com/QuantumBFS/SSSS" target="_blank" rel="noopener">松山湖春季学校GitHub</a> Julia应用</li>
+<li><a href="https://juliaphysics.github.io/latest/tutorials/" target="_blank" rel="noopener">JuliaPhysics</a></li>
 </ol>
+<h2 id="运行平台">运行平台</h2>
 <p>如果不想在本地运行，免费的云端计算平台</p>
 <ol type="1">
+<li>Colab</li>
 <li><a href="https://nextjournal.com/" target="_blank" rel="noopener">Nextjournal</a> 多语言运行</li>
 <li><a href="https://www.jiqizhixin.com/articles/2020-11-05-7" target="_blank" rel="noopener">Jakub</a></li>
 </ol>
-<h2 id="画图">画图</h2>
+<h3 id="colab">Colab</h3>
+<p>如何在 Colab 上运行 Julia</p>
+<p>参考</p>
+<ul>
+<li><a href="https://discourse.juliacn.com/t/topic/3239" target="_blank" rel="noopener">使用google colab实现Julia GPU加速</a></li>
+</ul>
+<p>步骤</p>
+<ol type="1">
+<li>在本地创建 test.txt 文件(名称自选，不一定test)，写入以下内容</li>
+</ol>
+<pre><code class="hljs python">&#123;
+  <span class="hljs-string">"nbformat"</span>: <span class="hljs-number">4</span>,
+  <span class="hljs-string">"nbformat_minor"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-string">"metadata"</span>: &#123;
+    <span class="hljs-string">"colab"</span>: &#123;
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"Julia on Colab.ipynb"</span>,
+      <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.3.2"</span>,
+      <span class="hljs-string">"provenance"</span>: []
+    &#125;,
+    <span class="hljs-string">"kernelspec"</span>: &#123;
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"julia-1.4"</span>,
+      <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Julia 1.4"</span>
+    &#125;,
+    <span class="hljs-string">"accelerator"</span>: <span class="hljs-string">"GPU"</span>
+  &#125;,
+  <span class="hljs-string">"cells"</span>: [
+    &#123;
+      <span class="hljs-string">"metadata"</span>: &#123;
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"oMSuTc3pDlHv"</span>,
+        <span class="hljs-string">"colab_type"</span>: <span class="hljs-string">"code"</span>,
+        <span class="hljs-string">"colab"</span>: &#123;&#125;
+      &#125;,
+      <span class="hljs-string">"cell_type"</span>: <span class="hljs-string">"code"</span>,
+      <span class="hljs-string">"source"</span>: [
+        <span class="hljs-string">""</span>
+      ],
+      <span class="hljs-string">"execution_count"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-string">"outputs"</span>: []
+    &#125;
+  ]
+&#125;</code></pre>
+<ol start="2" type="1">
+<li>把test.txt文件后缀改为 .ipynb</li>
+<li>打开google colab 上传 test.ipynb</li>
+<li>安装julia，现在的google colab已经预安装好了CUDA 10.1，因此直接安装julia就可以了。在一个代码行中输入以下命令。</li>
+</ol>
+<pre><code class="hljs python">!curl -sSL <span class="hljs-string">"https://julialang-s3.julialang.org/bin/linux/x64/1.4/julia-1.4.0-linux-x86_64.tar.gz"</span> -o julia.tar.gz
+!tar -xzf julia.tar.gz -C /usr --strip-components <span class="hljs-number">1</span>
+!rm -rf julia.tar.gz*
+!julia -e <span class="hljs-string">'using Pkg; pkg" up; add IJulia ;  precompile"'</span></code></pre>
+<ol start="5" type="1">
+<li>刷新页面(或者重启内核)，就可以正常使用julia和GPU了</li>
+</ol>
+<h5 id="方法2">方法2</h5>
+<ol type="1">
+<li>首先 <code>git clone https://github.com/eatcosmos/Julia-on-Colab.git</code> 下载到谷歌网盘路径下，</li>
+<li>然后再在谷歌网盘的web界面里找到 Julia_on_colab.ipynb 双击打开，按照里面的操作即可</li>
+</ol>
+<h5 id="github">GitHub</h5>
+<p>从GitHub复制一个项目过来</p>
+<pre><code class="hljs c">git clone https:<span class="hljs-comment">//github.com/qiskit-community/qiskit-textbook.git</span></code></pre>
+<h5 id="常见命令">常见命令</h5>
+<p><code>cd SSSS</code> 打开文件夹SSSS</p>
+<p><code>cd ../2_tensor_network/</code>上一级文件夹里面的文件夹</p>
+<p><code>ls</code> 列出文件夹里面的文件</p>
+<h5 id="网盘的文件">网盘的文件</h5>
+<blockquote>
+<p>colab如何引用谷歌网盘的文件</p>
+</blockquote>
+<h3 id="binder">Binder</h3>
+<p>Binder: is a free, open source service that runs scientific notebooks in the cloud! you can run the notebooks online</p>
+<ul>
+<li><a href="https://mybinder.readthedocs.io/en/latest/tutorials/index.html" target="_blank" rel="noopener">Tutorials</a></li>
+<li>example: This <a href="https://github.com/IvanIsCoding/Quantum" target="_blank" rel="noopener">repository</a> contains a collection of quantum circuits and quantum algorithms in Python using Qiskit.
+<ul>
+<li><strong><a href="https://hub.gke2.mybinder.org/user/ivaniscoding-quantum-4grsmbn1/notebooks/Algorithms/Deutsch.ipynb" target="_blank" rel="noopener">Deutsch's Algorithm</a></strong></li>
+<li><strong><a href="https://hub.gke2.mybinder.org/user/ivaniscoding-quantum-4grsmbn1/notebooks/Algorithms/Deutsch-Jozsa.ipynb" target="_blank" rel="noopener">Deutsch-Jozsa's Algorithm</a></strong></li>
+<li><strong><a href="https://hub.gke2.mybinder.org/user/ivaniscoding-quantum-4grsmbn1/notebooks/Algorithms/Bernstein-Vazirani.ipynb" target="_blank" rel="noopener">Bernstein-Vazirani's Algorithm</a></strong></li>
+<li><strong><a href="https://hub.gke2.mybinder.org/user/ivaniscoding-quantum-4grsmbn1/notebooks/Algorithms/Grover.ipynb" target="_blank" rel="noopener">Grover's Algorithm</a></strong></li>
+</ul></li>
+<li></li>
+</ul>
+<p><a href="https://notebook.community/" target="_blank" rel="noopener">notebook community</a> is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text.</p>
+<ul>
+<li>例子：<a href="https://notebook.community/antoniomezzacapo/qiskit-tutorial/to_sort/circuit_drawing" target="_blank" rel="noopener">量子线路画图</a></li>
+</ul>
+<h3 id="本地">本地</h3>
+<ol type="1">
+<li><a href="https://julialang.org/downloads/" target="_blank" rel="noopener">下载</a>Julia并安装</li>
+<li>安装<strong><a href="https://github.com/JuliaLang/IJulia.jl" target="_blank" rel="noopener">IJulia</a></strong>用命令 <code>Pkg.add("IJulia")</code> 就可以在 Jupyter 上运行Julia</li>
+</ol>
+<blockquote>
+<p>缺乏一个包，pip上没有，在GitHub上有，怎么下载到本地</p>
+</blockquote>
+<ol type="1">
+<li>在<code>cmd</code>界面输入<code>git clone</code>+地址，例如</li>
+</ol>
+<pre><code class="hljs html">git clone https://github.com/qiskit-community/qiskit-textbook.git</code></pre>
+<ol start="2" type="1">
+<li>进入文件夹 <code>cd qiskit-textbook</code></li>
+<li>安装那个包 <code>pip install ./qiskit-textbook-src</code></li>
+</ol>
+<blockquote>
+<p>查看本地安装的python包</p>
+</blockquote>
+<p>在<code>cmd</code>界面输 <code>pip list</code></p>
+<h2 id="量子计算">量子计算</h2>
+<p><a href="https://yaoquantum.org/" target="_blank" rel="noopener">Yao</a> is an open source framework that aims to empower quantum information research with software tools</p>
+<ul>
+<li><a href="https://github.com/QuantumBFS/Yao.jl" target="_blank" rel="noopener">Github</a></li>
+</ul>
 
             </article>
             <hr>
