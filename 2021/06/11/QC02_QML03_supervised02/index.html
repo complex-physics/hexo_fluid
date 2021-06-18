@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>Supervised 量子优势 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/QC02_QML02_supervised.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-11 15:04">
+      June 11, 2021 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      51
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="前言">前言</h2>
+<p>[TOC]</p>
+<h2 id="参考文献">参考文献</h2>
+<p>《Supervised Learning with Quantum Computers》 Maria Schuld . Francesco Petruccione</p>
+<ul>
+<li>Chapter 4 Quantum Advantages</li>
+</ul>
+<p>Before coming to the design of quantum machine learning algorithms, this chapter is an interlude to discuss how quantum computing can actually assist machine learning. Although quantum computing researchers often focus on asymptotic computational speedups, there is more than one measure of merit when it comes to machine learning. We will discuss three dimensions here, namely the computational complexity, the sample complexity and the model complexity. <span class="math inline">\({ }^{1}\)</span> While the section on computational complexity allows us to establish the terminology already used in previous chapters with more care, the section on sample complexity ventures briefly into quantum extensions of statistical learning theory. The last section on model complexity provides arguments towards what has been called the exploratory approach to quantum machine learning, in which quantum physics is used as a resource to build new types of models altogether.</p>
+<h2 id="computational-complexity-of-learning">4.1 Computational Complexity of Learning</h2>
+<p>The concept of runtime complexity and speedups has already been used in the previous sections and is the most common figure of merit when accessing potential contributions of quantum computing to machine learning. Quantum machine learning inherited this focus on runtime speedups from quantum computing, where- - for lack of practical experiments-researchers mostly resort to proving theoretical runtime bounds to advertise the power of their algorithms. Let us briefly introduce the basics of asymptotic computational complexity.</p>
+<p>The runtime of an algorithm on a computer is the time it takes to execute the algorithm, in other words, the number of elementary operations multiplied by their respective execution times. In conventional computers, the number of elementary operations could in theory still be established by choosing the fastest implementations for every subroutine and count the logic gates. However, with fast technological advancements in the IT industry it becomes obvious that a device-dependent runtime is not a suitable theoretical tool to measure the general speed of an algorithm. This is why computational complexity theory looks at the asymptotic complexity or the rate of growth of the runtime with the size <span class="math inline">\(n\)</span> of the input. "Asymptotic" thereby refers to the fact that one is interested in laws for sufficiently large inputs only. If the resources needed to execute an algorithm or the number of elementary operations grow polynomially (that is, not more than a factor <span class="math inline">\(n^{c}\)</span> for a constant <span class="math inline">\(c\)</span> ) with the size of the input <span class="math inline">\(n\)</span>, it is tractable and the problem in theory efficiently solvable. Of course, if <span class="math inline">\(c\)</span> is large, even polynomial runtime algorithms can take too long to make them feasible for certain applications. The argument is that if we just wait a reasonable amount of time, our technology could in principle master the task. Exponential growth makes an algorithm intractable and the problem hard because for large enough problem sizes, it quickly becomes impossible to solve the problem.</p>
+<p>An illustrative example for an intractable problem is guessing the number combination for the security code of a safe, which without further structure requires a brute force search: While a code of two digits only requires 100 attempts in the worst case (and half of those guesses in the average case), a code of <span class="math inline">\(n=10\)</span> digits requires ten billion guesses in the worst case, and a code of <span class="math inline">\(n=30\)</span> digits has more possible configurations than our estimation for the number of stars in the universe. No advancement in computer technology could possibly crack this code.</p>
+<p>When thinking about quantum computers, estimating the actual runtime of an algorithm is even more problematic. Not only do we not have a unique implementation of qubits yet that gives us a set of elementary operations to work with, but even if we agreed on a set of elementary gates as well as a technology, it is nontrivial to decompose quantum algorithms into this set. In many cases, we can claim that we know there is such a sequence of elementary gates, but it is by no means clear how to construct it. The vast majority of authors in quantum information processing are therefore interested in the asymptotic complexity of their routines, and how they compare to classical algorithms. In a qubit-based quantum computer, the input is considered to be the number of qubits <span class="math inline">\(n\)</span>, which we already hinted at by the notation. To avoid confusion when looking at different concepts for the input, we will call polynomial algorithms regarding the number of qubits qubit-efficient. Algorithms which are efficient with respect to the number of amplitudes (see for example Grover search 3.5.1) will be referred to as amplitude-efficient.</p>
+<p>The field of quantum complexity theory has been developed as an extension to classical complexity theory <span class="math inline">\([1,2]\)</span> and is based on the question whether quantum computers are in principle able to solve computational problems faster in relation to the runtime complexity. In the following, complexity will always refer to the asymptotic runtime complexity unless stated otherwise. A runtime advantage in this context is called a quantum enhancement, quantum advantage, or simply a quantum speedup. Demonstrating an exponential speedup has been controversially referred to as quantum supremacy.</p>
+<p>A collaboration of researchers at the forefront of benchmarking quantum computers came up with a useful typology for the term of 'quantum speedup' [3] which shows the nuances of the term: 1. A provable quantum speedup requires a proof that there can be no classical algorithm that performs as well or better than the quantum algorithm. Such a provable speedup has been demonstrated for Grover's algorithm, which scales quadratically better than classical [4] given that there is an oracle to mark the desired state <span class="math inline">\([5]\)</span> 2. A strong quantum speedup compares the quantum algorithm with the best known classical algorithm. The most famous example of a strong speedup is Shor's quantum algorithm to factorise prime numbers in time growing polynomially (instead of exponentially) with the number of digits of the prime number, which due to far-reaching consequences for cryptography systems gave rise to the first major investments into quantum computing. 3. If we relax the term 'best classical algorithm' (which is often not known) to the 'best available classical algorithm' we get the definition of a common quantum speedup. 4. The fourth category of potential quantum speedup relaxes the conditions further by comparing two specific algorithms and relating the speedup to this instance only. 5. Lastly, and useful when doing benchmarking with quantum annealers, is the limited quantum speedup that compares to "corresponding" algorithms such as quantum and classical annealing.</p>
+<p>Although the holy grail of quantum computing remains to find a provable exponential speedup, the wider definition of a quantum advantage in terms of the asymptotic complexity opens a lot more avenues for realistic investigations. Two common pitfalls have to be avoided. Firstly, quantum algorithms often have to be compared with classical sampling, which is likewise non-deterministic and has close relations to quantum computing. Secondly, complexity can easily be hidden in spatial resources, and one could argue that quantum computers have to be compared to cluster computing, which will surely be its main competitor in years to come <span class="math inline">\([3,6]\)</span>.</p>
+<p>We want to introduce some particulars of how to formulate the asymptotic complexity of a (quantum) machine learning algorithm. The 'size' of the input in the context of machine learning usually refers to the number of data points <span class="math inline">\(M\)</span> as well as the number of features <span class="math inline">\(N\)</span>. Since this differs from what the quantum computing community considers as an input, we will call algorithms that are efficient with regards to the data "data-efficient". When dealing with sparse inputs that can be represented more compactly, the number of features is replaced by the maximum number <span class="math inline">\(s\)</span> of nonzero elements in any training input. Complexity analysis commonly considers other numbers of merit. The error <span class="math inline">\(\epsilon\)</span> of a mathematical object <span class="math inline">\(z\)</span> is the precision to which <span class="math inline">\(z^{\prime}\)</span> calculated by the algorithm is correct, <span class="math inline">\(\epsilon=\left\|z-z^{\prime}\right\|\)</span> (with a suitable norm). When dealing with matrices, the condition number <span class="math inline">\(\kappa\)</span>, which is the ratio of the largest and the smallest eigenvalue or singular value, is sometimes of interest to find an upper bound for the runtime (since <span class="math inline">\(\kappa\)</span> gives us an idea of the eigenvalue spectrum of the matrix). Many quantum machine learning algorithms have a chance of failure, for example because of a conditional measurement. In this case the average number of attempts required to execute it successfully needs to be taken into account as well. A success probability of <span class="math inline">\(p_{s}\)</span> generally leads to a factor of <span class="math inline">\(1 / p_{s}\)</span> in the runtime. For example, if the algorithm will only succeed in <span class="math inline">\(1 \%\)</span> of the cases, one has to repeat it on average for 100 times to encounter a successful run.</p>
+<p>To express the asymptotic complexity, the runtime's dependency on these variables is given in the"big-O" notation (see Fig. 4.1):</p>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210615203130462.png" srcset="/img/loading.gif" style="zoom:67%;" /></p>
+<blockquote>
+<p>Fig. <span class="math inline">\(4.1\)</span> Illustration of the big-O notation. If a function <span class="math inline">\(f(x)\)</span> (in this context <span class="math inline">\(f\)</span> is the runtime and <span class="math inline">\(x\)</span> the input) is 'in' <span class="math inline">\(O (g(x))\)</span>, there exists a <span class="math inline">\(\lambda \in R\)</span> such that <span class="math inline">\(|f(x)| \leq \lambda g(x)\)</span> for large enough <span class="math inline">\(x\)</span>. The <span class="math inline">\(\Omega\)</span> symbol stands for the inequality <span class="math inline">\(|f(x)| \geq \lambda g(x)\)</span>, while the <span class="math inline">\(\Theta\)</span> symbol signifies that there are two <span class="math inline">\(\lambda_{1}&lt;\lambda_{2} \in R\)</span> such that <span class="math inline">\(f(x)\)</span> lies between the functions <span class="math inline">\(\lambda_{1} g(x)\)</span> and <span class="math inline">\(\lambda_{2} g(x)\)</span></p>
+</blockquote>
+<ul>
+<li><span class="math inline">\(O (g(x))\)</span> means that the true runtime <span class="math inline">\(f\)</span> has an upper bound of <span class="math inline">\(\lambda g(x)\)</span> for some <span class="math inline">\(\lambda \in R\)</span>, a function <span class="math inline">\(g\)</span> and the variable <span class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\Omega(g(x))\)</span> means that the runtime has a lower bound of <span class="math inline">\(\lambda g(x)\)</span> for some <span class="math inline">\(\lambda \in R\)</span>.</li>
+<li><span class="math inline">\(\Theta(g(x))\)</span> means that the run time has a lower bound of <span class="math inline">\(\lambda_{1} g(x)\)</span> and an upper bound of <span class="math inline">\(\lambda_{2} g(x)\)</span> for some <span class="math inline">\(\lambda_{1}, \lambda_{2} \in R\)</span></li>
+</ul>
+<p>Having introduced time complexity, the question remains what speedups can be detected specifically in quantum machine learning. Of course, machine learning is based on common computational routines such as search or matrix inversion, and quantum machine learning derives its advantages from tools developed by the quantum information processing community. It is therefore no surprise that the speedups achieved in quantum machine learning are directly derived from the speedups in quantum computing. Roughly speaking (and with more details in the next chapters), three different types of speedups can be claimed:</p>
+<ol type="1">
+<li>Provable quadratic quantum speedups arise from variations of Grover's algorith<span class="math inline">\(m\)</span> or quantum walks applied to search problems. Note that learning can always be understood as a search in a space of hypotheses <span class="math inline">\([7]\)</span>.</li>
+<li>Exponential speedups are naturally more tricky, even if we only look at the categories of either strong or common speedups. Within the discipline, they are usually only claimed by quantum machine learning algorithms that execute linear algebra computations in amplitude encoding. But these come with serious conditions, for example about the sparsity or redundancy in the dataset.</li>
+<li>More specific comparisons occur when quantum annealing is used to solve optimisation problems derived from machine learning tasks <span class="math inline">\([8]\)</span>, or to prepare a quantum system in a certain distribution [9]. It is not clear yet whether any provable speedups will occur, but benchmarking against specific classical algorithms show that there are problems where quantum annealing can be of advantage for sampling problems.</li>
+</ol>
+<p>Altogether, computational complexity is of course important for machine learning, since it defines what is practically possible. However, limiting the focus only on this aspect severely and unnecessarily limits the scope of quantum machine learning. Very often, provably hard problems in machine learning can be solved for relevant special cases, sometimes without even a solid theoretical understanding why this is so. It is therefore important to look for other aspects in which quantum computing could contribute to machine learning.</p>
+<h2 id="sample-complexity">4.2 Sample Complexity</h2>
+<p>Besides the asymptotic computational complexity, the so called sample complexity is an important figure of merit in classical machine learning, and offers a wealth of theoretical results regarding the subject of learning, summarised under the keyword statistical learning theory [10]. It also offers a door to explore more fundamental questions of quantum machine learning, for example what it means to learn in a quantum setting, or how we can formulate a quantum learning theory [11]. Although such questions are not the focus of this book, we use this opportunity for a small excursion into the more theoretical branch of quantum machine learning.</p>
+<p>loosensee 1 Sample complexity refers to the number of samples needed to generalise from data. Samples can either be given as training instances drawn from a certain distribution ( examples) or by computing outputs to specifically chosen inputs (queries). For the supervised pattern recognition problem we analysed so far, the dataset is given as examples and no queries can be made. One can easily imagine a slightly different setting where queries are possible, for example when a certain experiment results in input-output pairs, and we can choose the settings for the experiment to generate the data.</p>
+<p>Considerations about sample complexity are usually based on binary functions <span class="math inline">\(f:\{0,1\}^{N} \rightarrow\{0,1\} .\)</span> The sample complexity of a machine learning algorithm refers to the number of samples that are required to learn a concept from a given concept class. A concept is the rule <span class="math inline">\(f\)</span> that divides the input space into subsets of the two class labels 0 and 1, in other words, it is the law that we want to recover with a model. There are two important settings in which sample complexity is analysed.</p>
+<ol type="1">
+<li>In exact learning from membership queries [12], one learns the function <span class="math inline">\(f\)</span> by querying a membership oracle with inputs <span class="math inline">\(x\)</span> and receives the answer whether <span class="math inline">\(f(x)\)</span> evaluates to 1 or not.</li>
+<li>The framework of Probably Approximately Correct <span class="math inline">\((P A C)\)</span> learning was introduced by Valiant [13] and asks how many examples from the original concept are needed in the worst case to train a model so that the probability of an error <span class="math inline">\(\epsilon\)</span> (i.e., the probability of assigning the wrong label) is smaller than <span class="math inline">\(1-\delta\)</span> for <span class="math inline">\(0 \leq \delta \leq 1\)</span>. The examples are drawn from an arbitrary distribution via an example oracle. This framework is closely related to the Vapnik-Chervonenkis- or VC-dimension of a model (see Sect. 4.3).</li>
+</ol>
+<p>To translate these two settings into a quantum framework (see Fig. 4.2), a quantum membership oracle as well as a quantum example oracle are introduced. They are in a sense parallelised versions of the classical sample generators, and with quantum interference of amplitudes we can hope to extract more information from the distribution than possible in the classical case. Rather surprisingly, it turns out that the classical and quantum sample complexity are polynomially equivalent, or as stated by Servedio and Gortler [14]:</p>
+<blockquote>
+<p>[F]or any learning problem, if there is a quantum learning algorithm which uses polynomially many [samples] then there must also exist a classical learning algorithm which uses polynomially many [samples].</p>
+</blockquote>
+<p>Note that this only concerns the sample complexity; the same authors find an instance for a problem that is efficiently learnable by a quantum algorithm in terms of computational complexity, while the best classical algorithm is intractable.</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Quantum-Computation/">Quantum Computation</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Quantum-Computation/%E9%87%8F%E5%AD%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">量子机器学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/AI/">AI</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Quantum-Computation/">Quantum Computation</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%87%8F%E5%AD%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">量子机器学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/13/CS_07_Julia_02ML_ising/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第一次在本地跑Julia</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/11/QC02_QML03_supervised01/">
+                        <span class="hidden-mobile">Supervised 信息编码</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Supervised 量子优势&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

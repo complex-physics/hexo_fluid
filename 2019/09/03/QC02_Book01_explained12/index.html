@@ -276,39 +276,46 @@ U=P_{0} \otimes I+P_{1} \otimes X
 <p>解答</p>
 <p>Since the environment is a single qubit, the basis for the environment is the computational basis. For clarity, we will denote the basis states for the environment by <span class="math inline">\(\left\{\left|0_{E}\right\rangle,\left|1_{E}\right\rangle\right\}\)</span>. The Kraus operators are then found by calculating <span class="math inline">\(A_{0}=\left\langle 0_{E}|U| 0_{E}\right\rangle\)</span> and <span class="math inline">\(A_{1}=\left\langle 1_{E}|U| 0_{E}\right\rangle .\)</span> In the first case we have <span class="math display">\[
 \begin{aligned}
-A_{0} &amp;=\left\langle 0_{E}|U| 0_{E}\right\rangle=\left\langle 0_{E}\left|P_{0} \otimes I+P_{1} \otimes X\right| 0_{E}\right\rangle \\
+A_{0} &amp;=\left\langle 0_{E}|U| 0_{E}\right\rangle\\
+&amp;=\left\langle 0_{E}\left|P_{0} \otimes I+P_{1} \otimes X\right| 0_{E}\right\rangle \\
 &amp;=\left\langle 0_{E}\left|P_{0} \otimes I\right| 0_{E}\right\rangle+\left\langle 0_{E}\left|P_{1} \otimes X\right| 0_{E}\right\rangle \\
-&amp;=P_{0}\left\langle 0_{E} \mid 0_{E}\right\rangle+P_{1}\left\langle 0_{E} \mid 1_{E}\right\rangle=P_{0}
+&amp;=P_{0}\left\langle 0_{E} \mid 0_{E}\right\rangle+P_{1}\left\langle 0_{E} \mid 1_{E}\right\rangle\\
+&amp;=P_{0}
 \end{aligned}
 \]</span> Notice that when doing calculations with terms like <span class="math inline">\(A \otimes B\)</span>, the operator <span class="math inline">\(A\)</span> acts on states of the principal system while <span class="math inline">\(B\)</span> acts on states of the environment. Hence we just let <span class="math inline">\(A\)</span> pass through and only consider the action of <span class="math inline">\(B\)</span> when deriving the Kraus operator. Continuing, we have <span class="math display">\[
 \begin{aligned}
-A_{1} &amp;=\left\langle 1_{E}|U| 0_{E}\right\rangle=\left\langle 1_{E}\left|P_{0} \otimes I+P_{1} \otimes X\right| 0_{E}\right\rangle \\
+A_{1} &amp;=\left\langle 1_{E}|U| 0_{E}\right\rangle\\
+&amp;=\left\langle 1_{E}\left|P_{0} \otimes I+P_{1} \otimes X\right| 0_{E}\right\rangle \\
 &amp;=\left\langle 1_{E}\left|P_{0} \otimes I\right| 0_{E}\right\rangle+\left\langle 1_{E}\left|P_{1} \otimes X\right| 0_{E}\right\rangle \\
-&amp;=P_{0}\left\langle 1_{E} \mid 0_{E}\right\rangle+P_{1}\left\langle 1_{E} \mid 1_{E}\right\rangle=P_{1}
+&amp;=P_{0}\left\langle 1_{E} \mid 0_{E}\right\rangle+P_{1}\left\langle 1_{E} \mid 1_{E}\right\rangle\\
+&amp;=P_{1}
 \end{aligned}
 \]</span> Since <span class="math inline">\(P_{j}=P_{j}^{\dagger}\)</span>, the operator-sum representation of this quantum operation is <span class="math display">\[
 \Phi(\rho)=P_{0} \rho P_{0}+P_{1} \rho P_{1}=|0\rangle\langle 0|\rho| 0\rangle\langle 0|+| 1\rangle\langle 1|\rho| 1\rangle\langle 1|
 \]</span> If <span class="math inline">\(|\psi\rangle=\alpha|0\rangle+\beta|1\rangle\)</span>, the density operator for the system is <span class="math display">\[
 \begin{aligned}
-\rho &amp;=|\psi\rangle\left\langle\psi \left|=(\alpha|0\rangle+\beta|1\rangle)\left(\alpha^{*}\langle 0|+\beta^{*}\langle 1|\right)\right.\right.\\
-&amp;=|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1|
+\rho &amp;=|\psi\rangle \langle\psi  |\\
+&amp;=(\alpha|0\rangle+\beta|1\rangle)\left(\alpha^{*}\langle 0|+\beta^{*}\langle 1|\right)\\
+&amp;=|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle  0|+| \beta\right|^{2} \mid 1 \rangle\langle 1|
 \end{aligned}
 \]</span> Hence <span class="math display">\[
 \begin{aligned}
-\rho|0\rangle &amp;=\left(|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1|\right)|0\rangle \\
+\rho|0\rangle &amp;=\left(|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle 0|+| \beta\right|^{2} \mid 1 \rangle\langle 1|\right)|0\rangle \\
 &amp;=|\alpha|^{2}|0\rangle+\alpha^{*} \beta|1\rangle
 \end{aligned}
 \]</span> So we have <span class="math display">\[
 \begin{aligned}
-P_{0} \rho P_{0} &amp;=|0\rangle\langle 0|\rho| 0\rangle\langle 0|=| 0\rangle\left\langle0 \left|\left(|\alpha|^{2}|0\rangle+\alpha^{*} \beta|1\rangle\right)\langle 0|\right.\right.\\
-&amp;=|\alpha|^{2}|0\rangle\langle 0| \\
-|1\rangle\langle 1|\rho| 1\rangle\langle 1| &amp;=|1\rangle\left\langle1 \left|\left(\alpha \beta^{*}|0\rangle+|\beta|^{2}|1\rangle\right)\langle 1|\right.\right.\\
+P_{0} \rho P_{0} &amp;=|0\rangle\langle 0|\rho| 0\rangle\langle 0|\\
+&amp;=| 0\rangle \langle0  |\left(|\alpha|^{2}|0\rangle+\alpha^{*} \beta|1\rangle\right)\langle 0| \\
+&amp;=|\alpha|^{2}|0\rangle\langle 0|  
+|1\rangle\langle 1|\rho| 1\rangle\langle 1| \\
+&amp;=|1\rangle\left\langle1 \left|\left(\alpha \beta^{*}|0\rangle+|\beta|^{2}|1\rangle\right)\langle 1|\right.\right.\\
 &amp;=|\beta|^{2}|1\rangle\langle 1|
 \end{aligned}
 \]</span> The operator-sum representation is then <span class="math display">\[
 \Phi(\rho)=|\alpha|^{2}|0\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1|
 \]</span> Since <span class="math display">\[
-|0\rangle\left\langle 0\left|=\left(\begin{array}{l}
+|0\rangle \langle 0 |=\left(\begin{array}{l}
 1 \\
 0
 \end{array}\right)\left(\begin{array}{ll}
@@ -316,7 +323,9 @@ P_{0} \rho P_{0} &amp;=|0\rangle\langle 0|\rho| 0\rangle\langle 0|=| 0\rangle\le
 \end{array}\right)=\left(\begin{array}{ll}
 1 &amp; 0 \\
 0 &amp; 0
-\end{array}\right), \quad\right| 1\right\rangle\langle 1|=\left(\begin{array}{l}
+\end{array}\right) 
+\]</span> <span class="math display">\[
+| 1 \rangle\langle 1|=\left(\begin{array}{l}
 0 \\
 1
 \end{array}\right)\left(\begin{array}{ll}
@@ -325,7 +334,8 @@ P_{0} \rho P_{0} &amp;=|0\rangle\langle 0|\rho| 0\rangle\langle 0|=| 0\rangle\le
 0 &amp; 0 \\
 0 &amp; 1
 \end{array}\right)
-\]</span> the matrix representation is <span class="math display">\[
+\]</span></p>
+<p>the matrix representation is <span class="math display">\[
 \Phi(\rho)=\left(\begin{array}{cc}
 |\alpha|^{2} &amp; 0 \\
 0 &amp; |\beta|^{2}
@@ -359,13 +369,19 @@ U\left|1_{E}\right\rangle=e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left
 \end{array}
 \]</span> Therefore <span class="math display">\[
 \begin{aligned}
-A_{0} &amp;=\left\langle 0_{E}|U| \phi_{E}\right\rangle=\left\langle 0_{E}\right| U\left(\frac{\left|0_{E}\right\rangle+\left|1_{E}\right\rangle}{\sqrt{2}}\right)=\left\langle 0_{E}\right|\left(\frac{e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|0_{E}\right\rangle+e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2|1 E\rangle}}{\sqrt{2}}\right) \\
-&amp;=\left\langle 0_{E}\right|\left(\frac{e^{-i \theta Z_{P} / 2}\left|0_{E}\right\rangle+e^{i \theta Z_{P} / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right)=\frac{1}{\sqrt{2}} e^{-i \theta Z_{P} / 2}
+A_{0} &amp;=\left\langle 0_{E}|U| \phi_{E}\right\rangle\\
+&amp;=\left\langle 0_{E}\right| U\left(\frac{\left|0_{E}\right\rangle+\left|1_{E}\right\rangle}{\sqrt{2}}\right)\\
+&amp;=\left\langle 0_{E}\right|\left(\frac{e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|0_{E}\right\rangle+e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2|1 E\rangle}}{\sqrt{2}}\right) \\
+&amp;=\left\langle 0_{E}\right|\left(\frac{e^{-i \theta Z_{P} / 2}\left|0_{E}\right\rangle+e^{i \theta Z_{P} / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right)\\
+&amp;=\frac{1}{\sqrt{2}} e^{-i \theta Z_{P} / 2}
 \end{aligned}
 \]</span> and <span class="math display">\[
 \begin{aligned}
-A_{1} &amp;=\left\langle 1_{E}|U| \phi_{E}\right\rangle=\left\langle 1_{E}\right| U\left(\frac{\left|0_{E}\right\rangle+\left|1_{E}\right\rangle}{\sqrt{2}}\right)=\left\langle 1_{E}\right|\left(\frac{e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|0_{E}\right\rangle+e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right) \\
-&amp;=\left\langle 1_{E}\right|\left(\frac{e^{-i \theta Z_{P} / 2}\left|0_{E}\right\rangle+e^{i \theta Z_{P} / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right)=\frac{1}{\sqrt{2}} e^{i \theta Z_{P} / 2}
+A_{1} &amp;=\left\langle 1_{E}|U| \phi_{E}\right\rangle\\
+&amp;=\left\langle 1_{E}\right| U\left(\frac{\left|0_{E}\right\rangle+\left|1_{E}\right\rangle}{\sqrt{2}}\right)\\
+&amp;=\left\langle 1_{E}\right|\left(\frac{e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|0_{E}\right\rangle+e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right) \\
+&amp;=\left\langle 1_{E}\right|\left(\frac{e^{-i \theta Z_{P} / 2}\left|0_{E}\right\rangle+e^{i \theta Z_{P} / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right)\\
+&amp;=\frac{1}{\sqrt{2}} e^{i \theta Z_{P} / 2}
 \end{aligned}
 \]</span> The operator-sum representation is <span class="math display">\[
 \Phi(\rho)=A_{0} \rho A_{0}^{\dagger}+A_{1} \rho A_{1}^{\dagger}
@@ -402,7 +418,8 @@ C_{X}=P_{0} \otimes I+P_{1} \otimes X
 \]</span> Remember, we just pass through operators that act on the principal system, The action of <span class="math inline">\(C_{X}\)</span> on <span class="math inline">\(\left|\phi_{E}\right\rangle=\sqrt{1-p}|0\rangle+\sqrt{p}|1\rangle\)</span> then is <span class="math display">\[
 \begin{aligned}
 C_{X}\left|\phi_{E}\right\rangle &amp;=\left(P_{0} \otimes I+P_{1} \otimes X\right)(\sqrt{1-p}|0\rangle+\sqrt{p}|1\rangle) \\
-&amp;=(\sqrt{1-p}|0\rangle\langle 0 \mid 0\rangle I+\sqrt{p}|1\rangle\langle 1 \mid 1\rangle X)=\sqrt{1-p}|0\rangle I+\sqrt{p}|1\rangle X
+&amp;=(\sqrt{1-p}|0\rangle\langle 0 \mid 0\rangle I+\sqrt{p}|1\rangle\langle 1 \mid 1\rangle X)\\
+&amp;=\sqrt{1-p}|0\rangle I+\sqrt{p}|1\rangle X
 \end{aligned}
 \]</span> Hence the Kraus operators are <span class="math display">\[
 \begin{align}
@@ -450,9 +467,9 @@ A_{1}&amp;=\left\langle1 _ { E } \left| C_{X}\left(\sqrt{1-p}\left|0_{E}\right\r
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2019/09/04/Te02_technique/">
+                      <a href="/2019/09/04/A01_IN01_me/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">技术宅</span>
+                        <span class="hidden-mobile">简介</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>量模1 光晶格中冷原子的量子多体模拟 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/Cold_05_Simulating_quantum01.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-18 14:05">
+      June 18, 2021 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      65
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>[TOC]</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li>《Ultracold Atoms in Optical Lattices Simulating quantum many-body systems》 by Maciej Lewenstein, Anna Sanpera, Veronica Ahufinger (2012)</li>
+</ul>
+<h4 id="大目录">大目录</h4>
+<p>1 Introduction 2 Statistical physics of condensed matter: basic concepts 3 Ultracold gases in optical lattices: basic concepts 4 Quantum simulators of condensed matter 5 Bose–Hubbard models: methods of treatment 6 Fermi and Fermi–Bose Hubbard models: methods of treatment 7 Ultracold spinor atomic gases 8 Ultracold dipolar gases 9 Disordered ultracold atomic gases 10 Frustrated ultracold atom systems 11 Ultracold atomic gases in ‘artificial’ gauge fields 12 Many-body physics from a quantum information perspective 13 Quantum information with lattice gases 14 Detection of quantum systems realized with ultracold atoms 15 Perspectives: beyond standard optical lattices</p>
+<h2 id="the-third-quantum-revolution">1.1. The third quantum revolution</h2>
+<p>The achievement of Bose-Einstein condensation (BEC) in dilute gases in 1995 (Anderson et al., 1995; Bradley et al., 1995; Davis et al., 1995) marks the beginning of a new era. For the so-called AMO community - comprising atomic, molecular, optics, and quantum optics scientists - it soon became evident that condensed-matter physics, i.e. degenerate quantum many-body systems, could be in reach. The condensed-matter community were much more sceptical at that stage. They argued that, in the end, what had been achieved experimentally was a regime of weakly interacting Bose gases: a domain that had been thoroughly investigated by condensed-matter theorists in the 1950 s and 1960 s (Fetter and Walecka, 1971; Mahan, 1993). For solid state/condensed matter experts the fact that the AMO experiments dealt with confined systems of finite size and typically inhomogeneous densities was a technical issue rather than a question of fundamental importance. Nonetheless, the Nobel foundation awarded its yearly prize for physics in 2001 to <span class="math inline">\(E\)</span>. A. Cornell, C. E. Wieman, and W. Ketterle 'for the achievement of BEC in dilute gases of alkali atoms, and for early fundamental studies of the properties of the condensates' (Cornell and Wieman, 2002; Ketterle, 2002). However, today we can see that, due to the efforts of the whole community, these fundamental studies have enriched the standard 'condensed matter' understanding of the static and dynamical properties of weakly interacting Bose gases (Pitaevskii and Stringari, 2003).</p>
+<p>From the very beginning the AMO community pushed BEC physics towards new regimes and new challenges. Progress was spectacular, and at the beginning of the third millennium is was clear, both for the AMO and condensed-matter communities, that they were entering a truly new quantum era, with unprecedented possibilities for the control of many-body systems. In particular, it became clear that the regime of strongly correlated systems might be reached with ultracold atoms and/or molecules. In 1999 , a few years after the first observation of BEC, atomic degenerate Fermi gases were achieved (De Marco and Jin, 1999; Schreck et al., 2001; Truscott et al., 2001) paving the way toward the observations of Fermi superfluidity. This is described, in the weak interaction limit, by the BardeenCooper-Schrieffer theory (BCS) (Fetter and Walecka, 1971) and the so called BEC-BCS crossover in the limit of strong correlations. For recent reviews reporting the intense activity in this field see Giorgini et al. (2008) and Bloch et al. (2008). Earlier, following the seminal proposal by Jaksch et al. (1998), Greiner et al. (2002) had observed the signatures of the quantum phase transition from the superfluid to the so-called Mott-insulator (MI) state for bosons confined in an optical lattice.</p>
+<p>Nowadays, ultracold atomic and molecular systems are at the frontiers of modern quantum physics, and are considered to provide the most controllable systems for the study of many-body physics. It is believed that these systems will also find highly non-trivial applications in quantum information and quantum metrology and will serve as powerful quantum simulators. At the theory level, the broadness of the different fields touched by ultracold atoms has led to a 'grand unification', where AMO, condensed-matter, nuclearphysics, and even high-energy physics theorists are involved. For reviews see Lewenstein et al. (2007) and Bloch et al. (2008).</p>
+<p>After the first quantum revolution at the beginning of the twentieth century came a second one associated with the name of John Bell and the experimental quest for non-locality of quantum mechanics and experimental control over single-, or few-particle systems - see in particular Alain Aspect's introduction to the famous Bell's book (Bell, 2004). Now we are witnessing the third one: the quantum revolution associated with control over macroscopic quantum systems and the rise of quantum technologies.</p>
+<h2 id="cold-atoms-from-a-historical-perspective">1.2. Cold atoms from a historical perspective</h2>
+<p>The third quantum revolution has not arrived completely unexpectedly: the developments of atomic physics and quantum optics in the last 30 years made it inevitable. In the 1970 s and 1980 s, atomic physics was a very well established and respected area of physics. It was, however, by no means a 'hot' area. On the theory side, even though one had to deal with complex problems of many-electron systems, most of the methods and techniques had already been developed. The major problems that were considered mainly concerned optimization of these methods and reflected an evolutionary progress rather than a revolutionary search for totally new phenomena. On the experimental side, quantum optics was entering its golden age. The development of laser physics and non-linear optics led in 1981 to the awarding of the Nobel prize to A. L. Schawlow and N. Bloembergen 'for their contribution to the development of laser spectroscopy'. Meanwhile, studies of quantum systems at the single-particle level culminated in 1989 with a Nobel prize for H. G. Dehmelt and W. Paul 'for the development of the ion trap technique', their award being shared with N. F. Ramsey 'for the invention of the separated oscillatory fields method and its use in the hydrogen maser and other atomic clocks'.</p>
+<p>Theoretical quantum optics was born in the 1960 s with the work on quantum coherence theory by the 2005 Nobel prize winner, R. J. Glauber <span class="math inline">\((1963 a, b)\)</span>, and with the development of the laser theory in the late 1960 s by <span class="math inline">\(H\)</span>. Haken and by M. O. Scully and W. E. Lamb, a Nobel laureate of <span class="math inline">\(1955 .\)</span> In the <span class="math inline">\(1970 s\)</span> and <span class="math inline">\(1980 s\)</span>, however, theoretical quantum optics was not considered to be a separate, established area of theoretical physics. One of the reasons for this situation was that quantum optics at that time was primarily dealing with single-particle problems. Most of the many-body problems of quantum optics, such as laser theory or, more generally, optical instabilities (Walls and Milburn, 2006 ), could have been solved either using linear models or by employing relatively simple versions of the mean-field approach. Perhaps the most sophisticated theoretical contributions concerned understanding of quantum fluctuations and quantum noise (Gardiner and Zoller, 2004; Walls and Milburn, 2006).</p>
+<p>This situation has drastically changed due to the unprecedented level of quantum engineering, i.e. preparation, manipulation, control, and detection of quantum systems developed and achieved by atomic physics and quantum optics. There have been several seminal discoveries that have triggered these changes: - The cooling and trapping of atoms, ions, and molecules is now possible in regimes of low temperature (today down to nanokelvin levels) and precision that were considered unattainable just two decades ago. These developments were recognized by the Nobel Foundation in 1997 , when they awarded their prize to <span class="math inline">\(S\)</span>. Chu (1998), C. CohenTannoudji (1998), and W. D. Phillips (1998) 'for the development of methods to cool and trap atoms with laser light'. Laser cooling and mechanical manipulations of particles with light (Metcalf and van der Straten, 2001) was essential for the development of completely new areas of atomic physics and quantum optics, such as atom optics (Meystre, 2001), and for reaching new territories of precision metrology and quantum engineering. - In 1995 , laser cooling combined with evaporative cooling allowed the experimental observation of BEC (Anderson et al., 1995; Bradley et al., 1995; Davis et al., 1995), a phenomenon predicted by Bose and Einstein more than 70 years earlier. As we mentioned above, these experiments marked the beginning of a new era. E. Cornell and C. Wieman (2002) and W. Ketterle (2002) received the Nobel Prize in 2001 'for the achievement of BEC in dilute gases of alkali atoms, and for early fundamental studies of the properties of the condensates'. This was truly a breakthrough moment, in which 'atomic physics and quantum optics has met condensed matter physics' (Ketterle, 2002). The condensed-matter community at that time remained, however, very cautious. After all, BEC was observed in weakly interacting dilute gases, where it was very well described by the mean-field Bogoliubov-de Gennes theory (Pitaevskii and Stringari, 2003 ), developed for homogeneous systems in the <span class="math inline">\(1950 s\)</span>. - The study of quantum correlations and entanglement. The seminal theoretical works of the late A. Peres <span class="math inline">\((1993,1996)\)</span>, the proposals of quantum cryptography by C. H. Bennett and G. Brassard (1984) and A. K. Ekert (1991), the quantum communication proposals by C. H. Bennett and S. J. Wiesner (1992) and C. H. Bennett et al. (1993), the discovery of the quantum factorizing algorithm by P. Shor (1994), and the quantum computer proposal by J. I. Cirac and P. Zoller (1995) gave birth to the field of quantum information (Bouwmeester et al., 2000 ; Zoller et al., <span class="math inline">\(2005 a\)</span> ). These studies, together with the rapid development of the theory have led to enormous progress in our understanding of quantum correlations and entanglement and, in particular, how to prepare and use entangled states as a resource. The ideas from quantum information nowadays constantly impact upon the physics of cold atoms, molecules, and ions, and stimulate new approaches. It is very probable that the first quantum computers will be, as has already been suggested by Feynman (1986), special purpose computers quantum simulators (Cirac and Zoller, 2004) that will efficiently simulate quantum many-body systems that where this cannot be done using 'classical' computers (Zoller et al., <span class="math inline">\(2005 a\)</span> ). - Optical lattices and Feshbach resonances. The physics of ultracold atoms entered the area of strongly correlated systems with the seminal proposal of Jaksch et al. (1998) on how to achieve the transition superfluid-Mott-insulator (SF-MI) in cold atoms using optical lattices. The proposal was based on the bosonic MI transition suggested in condensed matter (Fisher et al., 1989 ), but the authors of this paper were in fact motivated by the possibility of realizing quantum computing with cold atoms in a lattice. Transition to the MI state was supposed to be an efficient method of preparation of a quantum register with a fixed number of atoms per lattice site. Entanglement between atoms could be achieved via controlled collisions (Jaksch et al. 1999). The experimental observation of the SF-MI transition by the Bloch-Hänsch group (Greiner et al., 2002 ) was without doubt a benchmark for studies of strongly correlated systems with ultracold atoms (Bloch, 2004). Several other groups have observed bosonic SF-MI transitions in pure Bose systems (Köhl et al., 2005), in disordered Bose systems (Fallani et al., 2007<span class="math inline">\()\)</span>, and in Bose-Fermi (Ospelkaus et al. 2006; Günter et al., 2006 ) and Bose-Bose mixtures (Thalhammer et al., 2008 ). The possibility of changing the collision properties of ultracold atoms by means of tuning the Feschbach resonances of the atomic species has been another tool of inestimable value, and has led to the fermionic MI (Jördens et al., 2008; Schneider et al., 2008). MI states of molecules have been created (Volz et al., 2006 ) and bound repulsive pairs of atoms (i.e. pairs of atoms at a site that cannot release their repulsive energy due to the band structure of the spectrum in the lattice) have been observed (Winkler et al. , <span class="math inline">\(2006)\)</span>. - Cold trapped ions were initially investigated to realize the Cirac-Zoller quantum gate (1995), in an attempt to build an scalable quantum computer using a bottom-up approach (Schmidt-Kaler et al., 2003; Home et al., 2009). A stream of new ideas for using cold ions for quantum simulators has recently appeared. The first results have shown that ion-ion interactions mediated by phonons can be manipulated to implement various spin models (Mintert and Wunderlich, 2001; Wunderlich, 2002; Porras and Cirac, <span class="math inline">\(2004 a\)</span> ) where the spin states correspond to internal states of the ion. In tight linear traps, one can realize spin chains with interactions decaying as (distance) <span class="math inline">\(^{-3}\)</span>, i.e. as in the case of dipole-dipole interactions. Such spin chains may serve as quantum neural network models and may be used for adiabatic quantum information processing (Pons et al., 2007; Braungardt et al., 2007). More interestingly, ions can be employed as quantum simulators, in both one and two dimensions, the ions forming self-assembled Coulomb crystals (Porras and Cirac, 2006). The first steps towards the experimental realization of these ideas have recently been reported (Friedenauer et al., 2008). Alternatively to spins, one could look at phonons in ion self-assembled crystals; these are also predicted to exhibit interesting collective behavior, from Bose condensation to strongly correlated states (Porras and Cirac, <span class="math inline">\(2004 b\)</span>; Deng et al., 2008 ). Trapped ions may also be used to simulate mesoscopic spinboson models (Porras et al., 2008). Combined with optical traps or ion microtrap arrays, these methods can be used to simulate a whole variety of spin models with tunable interactions in a wide range of spatial dimensions and geometries (Schmied et al., 2008 ). Finally, they are promising candidates for the realization of manybody interactions (Bermudez et al., 2009). All these theoretical proposals and the spectacular progress of the experimental trapped-ion community pushes trapped-ions physics towards more widespread use of cold atoms to mimic condensed-matter physics and to areas beyond.</p>
+<h2 id="cold-atoms-and-the-challenges-of-condensed-matter-physics">1.3. Cold atoms and the challenges of condensed matter physics</h2>
+<p>The physics of cold atoms has frontiers with several other areas, such as condensed-matter physics and quantum field theory. In particular, many important challenges of the latter two disciplines can be addressed with cold atoms:</p>
+<h4 id="one-dimensional-1d-systems.">One-dimensional (1D) systems.</h4>
+<p>The role of quantum fluctuations and correlations is particularly important in one dimension. The theory of 1D systems is well developed due to the existence of exact methods such as the Bethe ansatz and quantum inverse scattering theory (see Essler et al. (2005)), powerful approximate approaches such as bosonization or conformal field theory (see Giamarchi (2004)), and efficient computational methods such as the density matrix renormalization group (DMRG) technique (see Schollwöck (2005)). There are, however, many open experimental challenges that have so far not been directly and clearly realized in condensed matter, and which can be addressed with cold atoms-for a review see Cazalilla (2004). Examples include atomic Fermi or Bose analogs of spin-charge separation or, more generally, observations of microscopic properties of Luttinger liquids (Recati et al. 2003; Paredes and Cirac, 2003; Kollath et al., 2005). Experimental observations of the <span class="math inline">\(1 D\)</span> gas in the deep Tonks-Girardeau regime by Paredes et al. (2004) (see also Moritz et al. (2003), Kinoshita et al. (2004), Laburthe Tolra et al. (2004), and Stöferle et al. (2004a)) were the first steps in this direction. The achievement in 2008 of the Tonks regime by employing dissipative processes (two-body losses) is perhaps the first experimental example of how to control a system by making use of its coupling to the environment (Dürr et al., 2008,2009 ; García-Ripoll et al., 2009 ; Syassen et al., 2008 ). See also the recent progress towards the deep Tonks-Girardeau regime in Haller et al. <span class="math inline">\((2010)\)</span>.</p>
+<h4 id="spin-boson-model">Spin-boson model</h4>
+<p>A two-level system coupled to a bosonic reservoir is a paradigmatic model, both in quantum dissipation theory in quantum optics and in quantum phase transitions in condensed matter, where it is termed the 'spin-boson model'- for a review see Leggett et al. <span class="math inline">\((1987) .\)</span> It has also been proposed (Recati et al., 2005 ) that an atomic quantum dot, i.e. a single atom in a tight optical trap coupled to a superfluid reservoir via laser transitions, may realize this model. In particular, atomic quantum dots embedded in a 1D Luttinger liquid of cold bosonic atoms accomplishes a spinboson model with Ohmic coupling, which exhibits a dissipative phase transition and allows direct measurement of atomic Luttinger parameters.</p>
+<h4 id="two-dimensional-2d-systems.">Two-dimensional (2D) systems.</h4>
+<p>According to the celebrated Mermin-WagnerHohenberg theorem, <span class="math inline">\(2 D\)</span> systems with continuous symmetry do not exhibit long-range order at temperatures <span class="math inline">\(T&gt;0.2 D\)</span> systems may, however, undergo a KosterlitzThouless-Berezinskii transition (KTB) to a state in which the correlations' decay is algebraic rather than exponential. Although KTB transition has been observed in liquid helium (Bishop and Reppy 1978,1980 ), its microscopic nature (binding of vortex pairs) has never been seen. A recent experiment (Hadzibabic et al. <span class="math inline">\(, 2006,2008\)</span>; Hadzibabic and Dalibard, 2010; Hung et al., 2011) makes an important step in this direction.</p>
+<h4 id="kondo-effect-and-kondo-physics.">Kondo effect and Kondo physics.</h4>
+<p>The Kondo effect is one of the paradigmatic examples of strongly correlated behavior in electronic systems. Electrical resistance diverges as</p>
+<p>。。。待续</p>
+<h2 id="plan-of-the-book">1.4. Plan of the book</h2>
+<p>The aim of this book is to give an overview of the different domains covered by the physics of ultracold atoms in optical lattices. It reviews the possibilities that quantum gases in optical lattices offer with regard to exploration of an extensive range of many-body phenomena at the quantum level. The book places special emphasis on current challenges and open problems in condensed-matter and high-energy physics and quantum information that might be addressed with ultracold gases. It presents, in addition, the achievements so far. We stress here that this book does not contain a systematic course in quantum many-body systems or quantum-field theory. For such a purpose we refer the reader to the excellent books of Pitaevskii and Stringari (2003) and Pethick and Smith (2008) on Bose-Einstein condensation in the weakly interacting regime, and also to the books of Fetter and Walecka (2003) and X. G. Wen (2004) for many-body and quantum-field theory. This book offers only an introduction to this vast subject, focusing particularly on what can be studied with ultracold atoms in optical lattices.</p>
+<p>The first part of the book (Chapters <span class="math inline">\(1-6\)</span> ) aims to give a comprehensible introduction to ultracold atoms in optical lattices and to the condensed-matter physics that can be addressed with ultracold atoms, ions, or molecules. The intention of this part is to introduce the reader to the state of the art of working with ultracold gases in optical lattices, together with the fundamental formalism associated with it. We start in Chapter 2 with a very general consideration of classical and quantum phase transitions in statistical and condensed-matter physics, and also look at the phenomenon of condensation. We draw particular attention here to low-dimensional systems. Chapter 3 deals with basic concepts on periodic systems, introduces the physics of ultracold atomic gases in optical potentials in the weakly interacting regime, and ends up with the transition to the strongly correlated regime. Chapter 4 explains the sense in which ultracold atom can mimic condensed matter; we introduce here the concept of quantum simulators and list the condensed-matter systems of interest that may be addressed with ultracold atoms in optical lattices. In Chapters 5 and 6 we present the methodologies and formalisms to deal on one hand with bosonic ultracold lattice gases, and on the other with fermions and with fermion-boson mixtures in the strongly correlated regime.</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Cold-Atom/">Cold Atom</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Cold-Atom/%E7%BF%9F%E8%8D%9F/">翟荟</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Cold-Atom/">Cold Atom</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/19/CMP_05_MF04_KITP/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">KITP演讲笔记1-相位诱导Majorana设备</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/18/Cold_05_Simulating_quantum02/">
+                        <span class="hidden-mobile">量模2 凝聚态的统计物理</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "量模1 光晶格中冷原子的量子多体模拟&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

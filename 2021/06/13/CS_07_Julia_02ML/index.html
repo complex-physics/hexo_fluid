@@ -140,7 +140,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/CS_07_Julia_02.jpg') no-repeat center center;
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/CS_07_Julia_02ML.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -164,7 +164,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      903 字
+      962 字
     </span>
   
 
@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      13
        分钟
     </span>
   
@@ -275,6 +275,16 @@
 <h4 id="github">GitHub</h4>
 <p>从GitHub复制一个项目过来</p>
 <pre><code class="hljs c">git clone https:<span class="hljs-comment">//github.com/qiskit-community/qiskit-textbook.git</span></code></pre>
+<p>从谷歌云盘里读取数据</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> google.colab <span class="hljs-keyword">import</span> drive
+drive.mount(<span class="hljs-string">'/content/drive'</span>)</code></pre>
+<p>输入一段很长的验证码，授权给colab读取云盘的权限</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> os
+path = <span class="hljs-string">"/content/drive/MyDrive/Colab Notebooks"</span>
+
+os.chdir(path)
+os.listdir(path)</code></pre>
+<p>定义路径<code>path</code></p>
 <h2 id="手写辨识">手写辨识</h2>
 <p>参考</p>
 <ul>
