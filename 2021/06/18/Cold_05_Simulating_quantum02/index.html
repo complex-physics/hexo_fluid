@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>量模2 凝聚态的统计物理 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/Cold_05_Simulating_quantum01.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-18 14:05">
+      June 18, 2021 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>[TOC]</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li>《Ultracold Atoms in Optical Lattices Simulating quantum many-body systems》 by Maciej Lewenstein, Anna Sanpera, Veronica Ahufinger (2012)</li>
+</ul>
+<h4 id="大目录">大目录</h4>
+<p>1 Introduction 2 Statistical physics of condensed matter: basic concepts 3 Ultracold gases in optical lattices: basic concepts 4 Quantum simulators of condensed matter 5 Bose–Hubbard models: methods of treatment 6 Fermi and Fermi–Bose Hubbard models: methods of treatment 7 Ultracold spinor atomic gases 8 Ultracold dipolar gases 9 Disordered ultracold atomic gases 10 Frustrated ultracold atom systems 11 Ultracold atomic gases in ‘artificial’ gauge fields 12 Many-body physics from a quantum information perspective 13 Quantum information with lattice gases 14 Detection of quantum systems realized with ultracold atoms 15 Perspectives: beyond standard optical lattices</p>
+<p>This chapter has a general introductory character, and presents, with some details, foundations of the subjects discussed in the later parts of the book. In particular we ask the question: which are the interesting phenomena that one can mimic with ultracold atoms? Here the basic concepts of condensed matter physics are sketched: classical phase transitions, quantum phase transitions, low-dimensional (1D and 2D) systems and their peculiarities. Most of the ideas are illustrated with the help of spin models, or quantum Bose gases. This chapter is mostly directed to AMO readers, and provides a reminder and a background in condensed matter and statistical physics.</p>
+<h2 id="classical-phase-transitions">2.1. Classical phase transitions</h2>
+<p>Before specifying the systems that we are going to mimic with ultracold atoms let us turn first to basic phenomena. Obviously, one of the most fascinating subjects is the investigation of the various quantum phases and phase transitions in the systems of interest. Before we discuss quantum phase transitions, we will take the reader on a 'crash-course' in classical phase transitions. Deeper understanding can be gained from many textbooks (for example Amit (2005), Binney et al. (1992), Lavis et al. (1999), Lavis and Bell (1999), and Mussardo (2010)). We concentrate here on second order (continuous) phase transitions and illustrate the theory with the paradigmatic example of the ferromagnetic phase transition in classical spin systems and classical <span class="math inline">\(\phi^{4}\)</span> field theory.</p>
+<p>In the 'standard' scenario of Ginsburg and Landau, classical systems order at low temperature and the order is manifested by a non-zero expectation value of the so-called order parameter. Temperature is, in this context, a control parameter. Order parameter vanishes (continuously) at and above the critical temperature. In this sense classical phase transitions are driven by thermal fluctuations. They occur, strictly speaking, when the number of constituents of the system, <span class="math inline">\(N\)</span>, and its volume, <span class="math inline">\(V\)</span>, tend to infinity, <span class="math inline">\(N \rightarrow \infty\)</span>, <span class="math inline">\(V \rightarrow \infty\)</span>, but <span class="math inline">\(N / V\)</span> remains finite (thermodynamic limit). Phase transitions manifest themselves as non-analytic singularities of the free energy of the systems.</p>
+<h3 id="quad-ferromagnetic-transition-in-classical-spin-systems">2.1.1 <span class="math inline">\(\quad\)</span> Ferromagnetic transition in classical spin systems</h3>
+<p>Let us illustrate these points using ferromagnetic spin models with nearest neighbors couplings, <span class="math inline">\(J \geq 0\)</span>, for which the energy is given by <span class="math display">\[
+H=-J \sum_{&lt;i, j&gt;} s_{i} s_{j}
+\]</span> with <span class="math inline">\(s_{i}=\pm 1\)</span> in the Ising case (with discrete <span class="math inline">\(Z_{2}\)</span> symmetry), and <span class="math display">\[
+H=-J \sum_{&lt;i, j&gt;} s _{i} s _{j}
+\]</span> with <span class="math inline">\(\left| s _{i}\right|=1\)</span> for the <span class="math inline">\(X Y\)</span> (the spins <span class="math inline">\(s _{i}\)</span> lie in the <span class="math inline">\(X Y\)</span> plane, and have <span class="math inline">\(U(1)\)</span> symmetry), or Heisenberg (the spins have full rotational <span class="math inline">\(S U(2)\)</span> symmetry) models, respectively. The symbol <span class="math inline">\(&lt;., .&gt;\)</span> indicates here that the sum in the Hamiltonian is restricted to nearest neighbors only.</p>
+<p>The thermal state is described by the canonical ensemble and the Boltzmann-Gibbs distribution <span class="math inline">\(P(s)=\exp (-\beta H(s)) / Z\)</span>, with <span class="math inline">\(Z\)</span> being the partition function <span class="math inline">\(\beta=1 / k_{ B } T, k_{ B }\)</span> denoting the Boltzmann constant, and <span class="math inline">\(T\)</span> the temperature. The order parameter is the magnetization <span class="math inline">\(m=\left\langle s_{i}\right\rangle\left( m =\left\langle s _{i}\right\rangle\right)\)</span>. Denoting <span class="math inline">\(\beta J=\kappa\)</span>, we have that for <span class="math inline">\(\kappa&lt;\kappa_{c}\)</span> the system is in a paramagnetic state, which respects the symmetry of the Hamiltonian. For lower temperatures, i.e. for <span class="math inline">\(\kappa&gt;\kappa_{c}\)</span>, the symmetry is spontaneously broken in the infinite system (thermodynamic) limit, and the system enters a ferromagnetic state. Mathematically, this is achieved either using a 'Bogoliubov' trick, i.e. adding an infinitesimal symmetry-breaking magnetic field <span class="math inline">\(h\)</span> to the Hamiltonian, or by considering fixed boundary conditions of the bulk of the system with fully polarized spins, and going with the size of the bulk to infinity. The latter method is preferred by mathematical physicists.</p>
+<p>In Figure <span class="math inline">\(2.1\)</span> we show the schematic phase diagram for a slightly more complex model: the <span class="math inline">\(d\)</span> -dimensional Ising model in the transverse field. We do this in order to compare it with the quantum results of the next section. The Hamiltonian of this model is <span class="math display">\[
+H=-J \sum_{&lt;i, j&gt;} s_{i}^{z} s_{j}^{z}-\tilde{h} \sum_{i} s_{i}^{x}
+\]</span> with <span class="math inline">\(\left(s_{i}^{z}\right)^{2}+\left(s_{i}^{x}\right)^{2}=1\)</span>. This model has also two phases for <span class="math inline">\(d \geq 2\)</span> : a magnetized ferromagnetic phase in which both <span class="math inline">\(m_{z}=\left\langle s_{i}^{z}\right\rangle \neq 0\)</span> and <span class="math inline">\(m_{x}=\left\langle s_{i}^{x}\right\rangle \neq 0\)</span>, and a magnetized paramagnetic one with <span class="math inline">\(m_{z}=0\)</span>, whereas <span class="math inline">\(m_{x} \neq 0\)</span>. The transition is of second order. In one dimension the ferromagnetic region shrinks to the case <span class="math inline">\(T=0\)</span>, achieved when <span class="math inline">\(\kappa \rightarrow \infty, h \rightarrow \infty\)</span>, and <span class="math inline">\(h / \kappa=\)</span> constant; the transition remains continuous there. Figure <span class="math inline">\(2.1\)</span> was obtained using the mean-field theory, i.e. an approximation consisting of replacing <span class="math inline">\(\beta H \rightarrow \beta H_{M F}=\)</span> <span class="math inline">\(-2 d \kappa \sum_{i} s_{i}^{z} m_{z}-h \sum_{i} s_{i}^{x}\)</span>, and calculating self-consistently <span class="math inline">\(m_{z}=\left\langle s_{i}^{z}\right\rangle_{M F}\)</span> and <span class="math inline">\(m_{x}=\left\langle s_{i}^{x}\right\rangle_{M F}\)</span> with <span class="math inline">\(h=\beta \tilde{h}\)</span>. Within the mean-field approximation the magnetized ferromagnetic phase occurs for <span class="math display">\[
+2 d \kappa \geq h I_{0}(h) / I_{1}(h)
+\]</span></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Cold-Atom/">Cold Atom</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Cold-Atom/%E7%BF%9F%E8%8D%9F/">翟荟</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Cold-Atom/">Cold Atom</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/18/Cold_05_Simulating_quantum01/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">量模1 光晶格中冷原子的量子多体模拟</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/14/CS_02_python_03SSS2/">
+                        <span class="hidden-mobile">松山湖笔记2-张量网络</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "量模2 凝聚态的统计物理&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

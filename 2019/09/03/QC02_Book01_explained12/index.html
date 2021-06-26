@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>Explained 12-量子纠错 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/img/bit_qubit.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-09-03 15:12">
+      September 3, 2019 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      86
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="前言">前言</h3>
+<ol type="1">
+<li><p>量子比特 Qubit</p></li>
+<li><p>量子门 Quantum gate</p></li>
+<li><p>量子电路 Quantum circuit</p></li>
+</ol>
+<p>[TOC]</p>
+<p>In the treatment of quantum theory we've used so far we have been looking at closed systems. These are quantum systems that do not interact with the outside world. That is, an idealized model. In reality, quantum systems interact with the outside environment. The problem if that interactions with the environment can introduce noise and cause errors. To deal with this and construct, for example, real quantum computers and communications systems, we are going to need some kind of error correction.</p>
+<p>Before we get there, we are going to have to develop a mathematical formalism to describe quantum systems that interact with the environment. We refer to systems of this type as open systems. Open quantum systems are important for the following reason: in an open quantum system, a pure state can evolve into a mixed state. The downside of this is that we need pure states to do quantum computation, and hence this type of evolution into mixed states is undesirable. In this chapter we will describe some of the formalism used to describe open quantum systems and then discuss error correction techniques.</p>
+<h2 id="单比特错误">单比特错误</h2>
+<p>At the most basic level, it can be said that the power of quantum information processing comes from the fact that quantum states can exists in superpositions. To review, this means that while a qubit could be in the state <span class="math inline">\(|0\rangle\)</span> or the state <span class="math inline">\(|1\rangle\)</span>, it can also be found in the state <span class="math display">\[
+|\psi\rangle=\alpha|0\rangle+\beta|1\rangle
+\]</span> where <span class="math inline">\(\alpha, \beta\)</span> are complex constants that satisfy <span class="math inline">\(|\alpha|^{2}+|\beta|^{2}=1\)</span>. We have seen throughout the book that the ability to work with superposition states (12.1) is what gives quantum computers their power-quantum algorithms often begin by using Hadamard gates to create superposition states to basically perform multiple evaluations simultaneously. Unfortunately, when a quantum system interacts with the environment (we often say the system is coupled to the environment), superposition can be lost. We call this process - whereby a pure state is turned into a mixed state via interactions with the environment- decoherence and refer to states like (12.1) where superposition is maintained as coherent states. The idea behind coherence is that the amplitudes in (12.1) can interfere. To see this, we apply a Hadamard gate to the qubit. Recall that <span class="math display">\[
+\begin{aligned}
+H|\psi\rangle &amp;=\alpha H|0\rangle+\beta H|1\rangle \\
+&amp;=\alpha\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)+\beta\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\\
+&amp;=\left(\frac{\alpha+\beta}{\sqrt{2}}\right)|0\rangle+\left(\frac{\alpha-\beta}{\sqrt{2}}\right)|1\rangle
+\end{aligned}
+\]</span> Now, if the qubit is in the pure state <span class="math display">\[
+|\psi\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}}
+\]</span> then <span class="math display">\[
+H|\psi\rangle=|0\rangle
+\]</span> The amplitudes have interfered to take <span class="math inline">\(|\psi\rangle \rightarrow|0\rangle .\)</span> Similarly you can show that if <span class="math display">\[
+|\psi\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}
+\]</span> then application of a Hadamard gate will cause the amplitudes to interfere and take <span class="math inline">\(|\psi\rangle \rightarrow|1\rangle .\)</span> What happens in the case of mixed states? If a state is mixed (an incoherent mixture; see Chapter 5), the amplitudes cannot interfere. This is easy to see by considering the completely mixed state <span class="math display">\[
+\rho=\frac{1}{2}(|0\rangle\langle 0|+| 1\rangle\langle 1|)=\frac{1}{2} I
+\]</span> Since <span class="math inline">\(H^{2}=I\)</span>, we have <span class="math display">\[
+H \rho H=\frac{1}{2} H I H=\frac{1}{2} H^{2}=\frac{1}{2} I .
+\]</span> The amplitudes did not interfere in this case.</p>
+<p>It turns out that we can describe the interaction of a single qubit with the environment and hence single-qubit errors with the familiar operators <span class="math inline">\(I, X, Y, Z\)</span>. The identity operator, of course, represents no error at all. We can summarize the effect of noise on a single qubit by saying that quantum noise acts on qubits via the application of one of the operators <span class="math inline">\(I, X, Y, Z\)</span>. Which operator is applied depends on the state of the environment.</p>
+<p>In the case of a classical bit, which can be 0 or 1 , engineers are concerned with bit flip errors. The physical details aren't important for us, but we can imagine some stray electromagnetic field causing a bit to change from 1 to 0, for example. A similar type of error can affect qubits, where we have <span class="math inline">\(|0\rangle \rightarrow|1\rangle\)</span> and <span class="math inline">\(|1\rangle \rightarrow|0\rangle\)</span>. This type of error is described by the <span class="math inline">\(X\)</span> operator, which can be written as <span class="math display">\[
+X=|0\rangle\langle 1|+| 1\rangle\langle 0|
+\]</span> We have already seen several times throughout the book that the application of (12.4) to (12.1) takes the qubit to the state <span class="math display">\[
+|\psi\rangle \rightarrow \alpha|1\rangle+\beta|0\rangle
+\]</span> In quantum systems, bit flip errors are not the only problem that we can encounter. We can also have phase flip errors. Let <span class="math inline">\(x \in\{0,1\}\)</span>. Then a phase flip error is one that transforms a state <span class="math inline">\(|x\rangle\)</span> as <span class="math display">\[
+|x\rangle \rightarrow(-1)^{x}|x\rangle
+\]</span> Looking at (12.6), we readily see that a phase flip error is described by the <span class="math inline">\(Z\)</span> Pauli operator. We recall that Zacts on a qubit in the following way: <span class="math display">\[
+Z|\psi\rangle=\alpha|0\rangle-\beta|1\rangle
+\]</span> The <span class="math inline">\(Y\)</span> operators is related to a phase flip followed by a bit flip. In particular, we have <span class="math inline">\(-i Y=-|0\rangle\langle 1|+| 1\rangle\langle 0|\)</span>, which acts on a qubit (12.1) as <span class="math display">\[
+-i Y|\psi\rangle=\alpha|1\rangle-\beta|0\rangle
+\]</span> As mentioned above, (12.8) can be decomposed into a sequence of two errors - a phase flip (as described by <span class="math inline">\(Z\)</span> ) followed by a bit flip (as described by <span class="math inline">\(X\)</span> ). It's easy to verify that <span class="math display">\[
+-i Y=X Z
+\]</span> Later we will see how quantum error-correcting codes work on bit flip and phase flip errors. Now let's see how we can describe the evolution of a quantum system.</p>
+<p>QUANTUM OPERATIONS AND KRAUSS OPERATORS We now turn to a method of describing the dynamical evolution of a quantum system that is quite general and lends itself to a description of the interaction between a system of interest (the principal system) and the external environment. Suppose that the principal system has a density operator <span class="math inline">\(\rho\)</span>, and let <span class="math inline">\(\Phi(\rho)\)</span> be a mapping that describes the evolution of the system. This mapping acts on density operators <span class="math inline">\(\rho\)</span>, transforming them to new density operators <span class="math inline">\(\rho^{\prime}\)</span> : <span class="math display">\[
+\rho^{\prime}=\Phi(\rho)
+\]</span> We call the mapping <span class="math inline">\(\Phi(\rho)\)</span> a quantum operation. We are already familiar with two quantum operations-unitary (time) evolution of a closed system where <span class="math display">\[
+\Phi(\rho)=U \rho U^{\dagger}
+\]</span> and measurement <span class="math display">\[
+\Phi(\rho)=M_{m} \rho M_{m}^{\dagger}
+\]</span> Now let's imagine a more general case where we have a set of operators <span class="math inline">\(A_{k}\)</span> that aren't necessarily unitary. In this case we write a general quantum operation <span class="math inline">\(\Phi(\rho)\)</span> as <span class="math display">\[
+\Phi(\rho)=\sum_{k=1}^{n} A_{k} \rho A_{k}^{\dagger}
+\]</span> We say that (12.13) is the operator-sum representation of <span class="math inline">\(\Phi(\rho)\)</span>. The <span class="math inline">\(A_{k}\)</span>, which are known as operation elements, can satisfy a completeness relation <span class="math display">\[
+\sum_{k=1}^{n} A_{k} A_{k}^{\dagger}=I
+\]</span> When <span class="math inline">\(\sum_{k=1}^{n} A_{k} A_{k}^{\dagger}=I\)</span>, we say that the operation elements are trace-preserving. Later we will see that we can also have non-trace-preserving operation elements, in which case <span class="math inline">\(\sum_{k=1}^{n} A_{k} A_{k}^{\dagger}&lt;I .\)</span> When <span class="math inline">\(\rho\)</span> is a density matrix and the operation elements are trace-preserving, then <span class="math inline">\(\Phi(\rho)\)</span> is also a density matrix, meaning <span class="math inline">\((12.10)\)</span> is satisfied.</p>
+<p>The first item of business in deriving the operator sum representation of some quantum operation is to calculate the <span class="math inline">\(A_{k}\)</span>. In the following we will denote the density operator of the principal system by <span class="math inline">\(\rho\)</span> and the density operator of the environment by <span class="math inline">\(\sigma\)</span>. Quantum computation (and closed system dynamics) evolves by unitary operations - let's say some unitary operation <span class="math inline">\(U\)</span>. What we are imagining now is the interaction of the principal system with the environment, during which the operation <span class="math inline">\(U\)</span> is applied. After the interaction and application of <span class="math inline">\(U\)</span>, we are interested in knowing the state of the principal system alone. We can do this by tracing out over the environment. Hence <span class="math display">\[
+\Phi(\rho)=\operatorname{Tr}_{E}\left(U(\rho \otimes \sigma) U^{\dagger}\right)
+\]</span> We can calculate (12.15) in the following way: First we denote the basis states of the environment by <span class="math inline">\(\left|e_{k}\right\rangle\)</span> and assume that the environment is in the state <span class="math inline">\(\sigma=\left|e_{0}\right\rangle\left\langle e_{0}\right|\)</span>. This assumption is justified because the environment can be "widened" until we find it in a pure state. Continuing, we find that (12.15) becomes <span class="math display">\[
+\begin{aligned}
+\Phi(\rho) &amp;=\operatorname{Tr}_{E}\left(U(\rho \otimes \sigma) U^{\dagger}\right)=\sum_{k}\left\langle e_{k}\left|\left(U \rho \otimes \sigma U^{\dagger}\right)\right| e_{k}\right\rangle \\
+&amp;=\sum_{k}\left\langle e_{k}\left|\left(U \rho \otimes\left|e_{0}\right\rangle\left\langle e_{0}\right| U^{\dagger}\right)\right| e_{k}\right\rangle=\sum_{k}\left\langle e_{k}|U| e_{0}\right\rangle \rho\left\langle e_{0}\left|U^{\dagger}\right| e_{k}\right\rangle
+\end{aligned}
+\]</span> Comparison with (12.13) tells us that the operation elements <span class="math inline">\(A_{k}\)</span> are given by <span class="math display">\[
+A_{k}=\left\langle e_{k}|U| e_{0}\right\rangle
+\]</span> The operation elements <span class="math inline">\(A_{k}\)</span> are also known as Kraus operators. Note that the Kraus operators act on the principal system.</p>
+<h4 id="例子">例子</h4>
+<p>Suppose that the principal system and the environment are given by single qubits. The state of the principal system is <span class="math inline">\(|\psi\rangle=\alpha|0\rangle+\beta|1\rangle\)</span> and the environment is in the state <span class="math inline">\(|0\rangle\)</span>. A unitary operation that describes measurement of principal system and discards the result is given by <span class="math display">\[
+U=P_{0} \otimes I+P_{1} \otimes X
+\]</span> Here <span class="math inline">\(P_{0}=|0\rangle\langle 0|\)</span> and <span class="math inline">\(P_{1}=|1\rangle\langle 1|\)</span> are the usual projection operators. Find the Kraus operators and write down the operator-sum representation as a matrix.</p>
+<p>解答</p>
+<p>Since the environment is a single qubit, the basis for the environment is the computational basis. For clarity, we will denote the basis states for the environment by <span class="math inline">\(\left\{\left|0_{E}\right\rangle,\left|1_{E}\right\rangle\right\}\)</span>. The Kraus operators are then found by calculating <span class="math inline">\(A_{0}=\left\langle 0_{E}|U| 0_{E}\right\rangle\)</span> and <span class="math inline">\(A_{1}=\left\langle 1_{E}|U| 0_{E}\right\rangle .\)</span> In the first case we have <span class="math display">\[
+\begin{aligned}
+A_{0} &amp;=\left\langle 0_{E}|U| 0_{E}\right\rangle\\
+&amp;=\left\langle 0_{E}\left|P_{0} \otimes I+P_{1} \otimes X\right| 0_{E}\right\rangle \\
+&amp;=\left\langle 0_{E}\left|P_{0} \otimes I\right| 0_{E}\right\rangle+\left\langle 0_{E}\left|P_{1} \otimes X\right| 0_{E}\right\rangle \\
+&amp;=P_{0}\left\langle 0_{E} \mid 0_{E}\right\rangle+P_{1}\left\langle 0_{E} \mid 1_{E}\right\rangle\\
+&amp;=P_{0}
+\end{aligned}
+\]</span> Notice that when doing calculations with terms like <span class="math inline">\(A \otimes B\)</span>, the operator <span class="math inline">\(A\)</span> acts on states of the principal system while <span class="math inline">\(B\)</span> acts on states of the environment. Hence we just let <span class="math inline">\(A\)</span> pass through and only consider the action of <span class="math inline">\(B\)</span> when deriving the Kraus operator. Continuing, we have <span class="math display">\[
+\begin{aligned}
+A_{1} &amp;=\left\langle 1_{E}|U| 0_{E}\right\rangle\\
+&amp;=\left\langle 1_{E}\left|P_{0} \otimes I+P_{1} \otimes X\right| 0_{E}\right\rangle \\
+&amp;=\left\langle 1_{E}\left|P_{0} \otimes I\right| 0_{E}\right\rangle+\left\langle 1_{E}\left|P_{1} \otimes X\right| 0_{E}\right\rangle \\
+&amp;=P_{0}\left\langle 1_{E} \mid 0_{E}\right\rangle+P_{1}\left\langle 1_{E} \mid 1_{E}\right\rangle\\
+&amp;=P_{1}
+\end{aligned}
+\]</span> Since <span class="math inline">\(P_{j}=P_{j}^{\dagger}\)</span>, the operator-sum representation of this quantum operation is <span class="math display">\[
+\Phi(\rho)=P_{0} \rho P_{0}+P_{1} \rho P_{1}=|0\rangle\langle 0|\rho| 0\rangle\langle 0|+| 1\rangle\langle 1|\rho| 1\rangle\langle 1|
+\]</span> If <span class="math inline">\(|\psi\rangle=\alpha|0\rangle+\beta|1\rangle\)</span>, the density operator for the system is <span class="math display">\[
+\begin{aligned}
+\rho &amp;=|\psi\rangle \langle\psi  |\\
+&amp;=(\alpha|0\rangle+\beta|1\rangle)\left(\alpha^{*}\langle 0|+\beta^{*}\langle 1|\right)\\
+&amp;=|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle  0|+| \beta\right|^{2} \mid 1 \rangle\langle 1|
+\end{aligned}
+\]</span> Hence <span class="math display">\[
+\begin{aligned}
+\rho|0\rangle &amp;=\left(|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle 0|+| \beta\right|^{2} \mid 1 \rangle\langle 1|\right)|0\rangle \\
+&amp;=|\alpha|^{2}|0\rangle+\alpha^{*} \beta|1\rangle
+\end{aligned}
+\]</span> So we have <span class="math display">\[
+\begin{aligned}
+P_{0} \rho P_{0} &amp;=|0\rangle\langle 0|\rho| 0\rangle\langle 0|\\
+&amp;=| 0\rangle \langle0  |\left(|\alpha|^{2}|0\rangle+\alpha^{*} \beta|1\rangle\right)\langle 0| \\
+&amp;=|\alpha|^{2}|0\rangle\langle 0|  
+|1\rangle\langle 1|\rho| 1\rangle\langle 1| \\
+&amp;=|1\rangle\left\langle1 \left|\left(\alpha \beta^{*}|0\rangle+|\beta|^{2}|1\rangle\right)\langle 1|\right.\right.\\
+&amp;=|\beta|^{2}|1\rangle\langle 1|
+\end{aligned}
+\]</span> The operator-sum representation is then <span class="math display">\[
+\Phi(\rho)=|\alpha|^{2}|0\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1|
+\]</span> Since <span class="math display">\[
+|0\rangle \langle 0 |=\left(\begin{array}{l}
+1 \\
+0
+\end{array}\right)\left(\begin{array}{ll}
+1 &amp; 0
+\end{array}\right)=\left(\begin{array}{ll}
+1 &amp; 0 \\
+0 &amp; 0
+\end{array}\right) 
+\]</span> <span class="math display">\[
+| 1 \rangle\langle 1|=\left(\begin{array}{l}
+0 \\
+1
+\end{array}\right)\left(\begin{array}{ll}
+0 &amp; 1
+\end{array}\right)=\left(\begin{array}{ll}
+0 &amp; 0 \\
+0 &amp; 1
+\end{array}\right)
+\]</span></p>
+<p>the matrix representation is <span class="math display">\[
+\Phi(\rho)=\left(\begin{array}{cc}
+|\alpha|^{2} &amp; 0 \\
+0 &amp; |\beta|^{2}
+\end{array}\right)
+\]</span> Hence this quantum operation describes the evolution of the system to <span class="math display">\[
+\rho=\left(\begin{array}{cc}
+|\alpha|^{2} &amp; \alpha \beta^{*} \\
+\alpha^{*} \beta &amp; |\beta|^{2}
+\end{array}\right) \rightarrow \rho^{\prime}=\left(\begin{array}{cc}
+|\alpha|^{2} &amp; 0 \\
+0 &amp; |\beta|^{2}
+\end{array}\right)
+\]</span> We can also consider more complicated interactions with the environment that are undesirable. Suppose that the environment is itself in a superposition state <span class="math inline">\(\left|\phi_{E}\right\rangle .\)</span> In that case the operation elements are given by <span class="math display">\[
+A_{k}=\left\langle e_{k}|U| \phi_{E}\right\rangle
+\]</span> We illustrate this with two examples.</p>
+<h4 id="例子-1">例子</h4>
+<p>A qubit in the state <span class="math inline">\(|\psi\rangle=\alpha|0\rangle+\beta|1\rangle\)</span> interacts with an environment which is in the state <span class="math display">\[
+\left|\phi_{E}\right\rangle=\frac{\left|0_{E}\right\rangle+\left|1_{E}\right\rangle}{\sqrt{2}}
+\]</span> The unitary operator that describes the coupling of the qubit to the environment is given by <span class="math inline">\(U=e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\)</span>, where <span class="math inline">\(Z_{P}\)</span> is the Pauli <span class="math inline">\(Z\)</span> operator acting on the principal system and <span class="math inline">\(Z_{E}\)</span> is the Pauli <span class="math inline">\(Z\)</span> operator acting on the environment. Find the density operator of the principal system after the interaction. 解答 First we know that the density operator of the principal system starts off as <span class="math display">\[
+\rho=|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1|
+\]</span> To do this calculation, let's review how to find <span class="math inline">\(e^{-i A}|a\rangle\)</span> where <span class="math inline">\(|a\rangle\)</span> is an eigenvector of <span class="math inline">\(A\)</span>. If the eigenvectors of <span class="math inline">\(A\)</span> have eigenvalues given by <span class="math inline">\(A|a\rangle=a|a\rangle\)</span>, then <span class="math display">\[
+e^{-i A}|a\rangle=e^{-i a}|a\rangle
+\]</span> In the case of the Pauli <span class="math inline">\(Z\)</span> operator, <span class="math inline">\(Z|0\rangle=+|0\rangle\)</span> and <span class="math inline">\(Z|1\rangle=-|1\rangle .\)</span> So <span class="math display">\[
+e^{-i \theta Z}|0\rangle=e^{-i \theta}|0\rangle, \quad e^{-i \theta Z}|1\rangle=e^{i \theta}|1\rangle
+\]</span> The Kraus operators in this case are given by <span class="math display">\[
+A_{0}=\left\langle 0_{E}|U| \phi_{E}\right\rangle, \quad A_{1}=\left\langle 1_{E}|U| \phi_{E}\right\rangle
+\]</span> Now <span class="math display">\[
+\begin{array}{l}
+U\left|0_{E}\right\rangle=e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|0_{E}\right\rangle=e^{-i \theta Z_{p} / 2}\left|0_{E}\right\rangle \\
+U\left|1_{E}\right\rangle=e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|1_{E}\right\rangle=e^{i \theta Z_{p} / 2}\left|1_{E}\right\rangle
+\end{array}
+\]</span> Therefore <span class="math display">\[
+\begin{aligned}
+A_{0} &amp;=\left\langle 0_{E}|U| \phi_{E}\right\rangle\\
+&amp;=\left\langle 0_{E}\right| U\left(\frac{\left|0_{E}\right\rangle+\left|1_{E}\right\rangle}{\sqrt{2}}\right)\\
+&amp;=\left\langle 0_{E}\right|\left(\frac{e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|0_{E}\right\rangle+e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2|1 E\rangle}}{\sqrt{2}}\right) \\
+&amp;=\left\langle 0_{E}\right|\left(\frac{e^{-i \theta Z_{P} / 2}\left|0_{E}\right\rangle+e^{i \theta Z_{P} / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right)\\
+&amp;=\frac{1}{\sqrt{2}} e^{-i \theta Z_{P} / 2}
+\end{aligned}
+\]</span> and <span class="math display">\[
+\begin{aligned}
+A_{1} &amp;=\left\langle 1_{E}|U| \phi_{E}\right\rangle\\
+&amp;=\left\langle 1_{E}\right| U\left(\frac{\left|0_{E}\right\rangle+\left|1_{E}\right\rangle}{\sqrt{2}}\right)\\
+&amp;=\left\langle 1_{E}\right|\left(\frac{e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|0_{E}\right\rangle+e^{-i \theta\left(Z_{P} \otimes Z_{E}\right) / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right) \\
+&amp;=\left\langle 1_{E}\right|\left(\frac{e^{-i \theta Z_{P} / 2}\left|0_{E}\right\rangle+e^{i \theta Z_{P} / 2}\left|1_{E}\right\rangle}{\sqrt{2}}\right)\\
+&amp;=\frac{1}{\sqrt{2}} e^{i \theta Z_{P} / 2}
+\end{aligned}
+\]</span> The operator-sum representation is <span class="math display">\[
+\Phi(\rho)=A_{0} \rho A_{0}^{\dagger}+A_{1} \rho A_{1}^{\dagger}
+\]</span> The first term is given by <span class="math display">\[
+\begin{aligned}
+A_{0} \rho A_{0}^{\dagger}=&amp; \frac{1}{\sqrt{2}} e^{-i \theta Z_{p} / 2}|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1| \frac{1}{\sqrt{2}} e^{i \theta Z_{p} / 2} \\
+=&amp; \frac{1}{2}\left(e^{-i \theta Z_{p} / 2}|\alpha|^{2}|0\rangle\left\langle 0\left|e^{i \theta Z_{p} / 2}+e^{-i \theta Z_{p} / 2} \alpha \beta^{*}\right| 0\right\rangle\langle 1| e^{i \theta Z_{p} / 2}\right.\\
+&amp;\left.+e^{-i \theta Z_{p} / 2} \alpha^{*} \beta|1\rangle\left\langle\left. 0\left|e^{i \theta Z_{p} / 2}+e^{-i \theta Z_{p} / 2}\right| \beta\right|^{2} \mid 1\right\rangle\langle 1| e^{i \theta Z_{p} / 2}\right) \\
+=&amp; \frac{1}{2}\left(e^{-i \theta / 2}|\alpha|^{2}|0\rangle\left\langle 0\left|e^{i \theta / 2}+e^{-i \theta / 2} \alpha \beta^{*}\right| 0\right\rangle\langle 1| e^{-i \theta / 2}\right.\\
+&amp;\left.+e^{i \theta / 2} \alpha^{*} \beta|1\rangle\left\langle\left. 0\left|e^{i \theta / 2}+e^{i \theta / 2}\right| \beta\right|^{2} \mid 1\right\rangle\langle 1| e^{-i \theta / 2}\right) \\
+=&amp; \frac{1}{2}\left(|\alpha|^{2}|0\rangle\left\langle 0\left|+e^{-i \theta} \alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+e^{i \theta} \alpha^{*} \beta\right| 1\right\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1|\right)
+\end{aligned}
+\]</span> And the other term is <span class="math display">\[
+\begin{aligned}
+A_{1} \rho A_{1}^{\dagger}=&amp; \frac{1}{\sqrt{2}} e^{i \theta Z_{p} / 2}|\alpha|^{2}|0\rangle\left\langle 0\left|+\alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\alpha^{*} \beta\right| 1\right\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1| \frac{1}{\sqrt{2}} e^{-i \theta Z_{p} / 2} \\
+=&amp; \frac{1}{2}\left(e^{i \theta Z_{p} / 2}|\alpha|^{2}|0\rangle\left\langle 0\left|e^{-i \theta Z_{p} / 2}+e^{i \theta Z_{p} / 2} \alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|e^{-i \theta Z_{p} / 2}+e^{i \theta Z_{p} / 2} \alpha^{*} \beta\right| 1\right\rangle\right.\\
+&amp;\left.\left\langle\left. 0\left|e^{-i \theta Z_{p} / 2}+e^{i \theta Z_{p} / 2}\right| \beta\right|^{2} \mid 1\right\rangle\langle 1| e^{-i \theta Z_{p} / 2}\right) \\
+=&amp; \frac{1}{2}\left(e^{i \theta / 2}|\alpha|^{2}|0\rangle\left\langle 0\left|e^{-i \theta / 2}+e^{i \theta / 2} \alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|e^{i \theta / 2}+e^{-i \theta / 2} \alpha^{*} \beta\right| 1\right\rangle\right.\\
+&amp;\left.\left\langle\left. 0\left|e^{-i \theta / 2}+e^{-i \theta / 2}\right| \beta\right|^{2} \mid 1\right\rangle\langle 1| e^{i \theta / 2}\right) \\
+=&amp; \frac{1}{2}\left(|\alpha|^{2}|0\rangle\left\langle 0\left|+e^{i \theta} \alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+e^{-i \theta} \alpha^{*} \beta\right| 1\right\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1|\right)
+\end{aligned}
+\]</span> Adding these two terms together, we see that <span class="math display">\[
+\rho^{\prime}=\Phi(\rho)=\left(|\alpha|^{2}|0\rangle\left\langle 0\left|+\cos \theta \alpha \beta^{*}\right| 0\right\rangle\left\langle 1\left|+\cos \theta \alpha^{*} \beta\right| 1\right\rangle\left\langle\left. 0|+| \beta\right|^{2} \mid 1\right\rangle\langle 1|\right)
+\]</span></p>
+<h4 id="例子-2">例子</h4>
+<p>Suppose <span class="math inline">\(U=C_{X}\)</span>, the controlled NOT operation. Find the Krauss operators and an expression for <span class="math inline">\(\Phi(\rho)\)</span> if the environment is in the state <span class="math inline">\(\left|\phi_{E}\right\rangle=\sqrt{1-p}|0\rangle+\sqrt{p}|1\rangle\)</span>.</p>
+<p>解答</p>
+<p>Recall that the controlled NOT gate acts on two qubits. If the control qubit is <span class="math inline">\(|0\rangle\)</span>, then nothing happens to the target qubit. On the other hand, if the control qubit is <span class="math inline">\(|1\rangle\)</span>, then the target qubit is flipped. We can write down an expression that will implement this operation in the following way: If we write the composite state of the principal system and environment in the form <span class="math inline">\(\left|\phi_{E}\right\rangle\left|\psi_{P}\right\rangle\)</span>, an operator <span class="math inline">\(A \otimes B\)</span> is one where <span class="math inline">\(A\)</span> acts on the environment and <span class="math inline">\(B\)</span> acts on the principal system. In the first case, to do nothing to the target qubit, we apply the identity operator. To pick out the case when the first qubit is <span class="math inline">\(|0\rangle\)</span>, we use the projection operator onto this state as applied to the first qubit. That is, <span class="math display">\[
+|0\rangle\langle 0| \otimes I=P_{0} \otimes I
+\]</span> will leave the second qubit alone if the first qubit is <span class="math inline">\(|0\rangle .\)</span> In the second case, we can pick out when the first qubit is <span class="math inline">\(|1\rangle\)</span> by again using a projection operator. This time to flip the bit, we apply the <span class="math inline">\(X\)</span> Pauli operator to the second qubit. The following will do the job <span class="math display">\[
+|1\rangle\langle 1| \otimes X=P_{1} \otimes X
+\]</span> The controlled NOT gate is implemented with the sum of these two operators: <span class="math display">\[
+C_{X}=P_{0} \otimes I+P_{1} \otimes X
+\]</span> Remember, we just pass through operators that act on the principal system, The action of <span class="math inline">\(C_{X}\)</span> on <span class="math inline">\(\left|\phi_{E}\right\rangle=\sqrt{1-p}|0\rangle+\sqrt{p}|1\rangle\)</span> then is <span class="math display">\[
+\begin{aligned}
+C_{X}\left|\phi_{E}\right\rangle &amp;=\left(P_{0} \otimes I+P_{1} \otimes X\right)(\sqrt{1-p}|0\rangle+\sqrt{p}|1\rangle) \\
+&amp;=(\sqrt{1-p}|0\rangle\langle 0 \mid 0\rangle I+\sqrt{p}|1\rangle\langle 1 \mid 1\rangle X)\\
+&amp;=\sqrt{1-p}|0\rangle I+\sqrt{p}|1\rangle X
+\end{aligned}
+\]</span> Hence the Kraus operators are <span class="math display">\[
+\begin{align}
+A_{0}&amp;= \langle 0_{ E }  | C_{X} (\sqrt{1-p} |0_{E} \rangle+\sqrt{p} |1_{E} \rangle )
+\\&amp;= \langle 0_{ E }  |(\sqrt{1-p}|0\rangle I+\sqrt{p}|1\rangle X)\\&amp;=\sqrt{1-p} I \\
+\end{align}
+\]</span> <span class="math display">\[
+\begin{align}
+A_{1}&amp;=\left\langle1 _ { E } \left| C_{X}\left(\sqrt{1-p}\left|0_{E}\right\rangle+\sqrt{p}\left|1_{E}\right\rangle\right)\right.\right.
+\\&amp;=  \langle1 _ { E }  |(\sqrt{1-p}|0\rangle I+\sqrt{p}|1\rangle X)\\&amp;=\sqrt{p} X 
+\end{align}
+\]</span></p>
+<p>Then the operator sum representation is <span class="math display">\[
+\Phi(\rho)=A_{0} \rho A_{0}^{\dagger}+A_{1} \rho A_{1}^{\dagger}=(1-p) \rho+p X \rho X
+\]</span> If this operation represents noise in the system, it tells us the probability that nothing happens to the state of the principal system is <span class="math inline">\(1-p\)</span>, while the probability of a bit flip error is <span class="math inline">\(p\)</span>.</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Quantum-Computation/">Quantum Computation</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Quantum-Computation/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E5%9F%BA%E7%A1%80/">量子计算基础</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Quantum-Computation/">Quantum Computation</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/04/A10_Te02_technique/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">技术宅</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/03/QC02_Book01_explained09/">
+                        <span class="hidden-mobile">Explained09-量子算法</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Explained 12-量子纠错&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

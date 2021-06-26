@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>Explained09-量子算法 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/img/bit_qubit.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-09-03 15:09">
+      September 3, 2019 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      9.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      183
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="前言">前言</h3>
+<p>参考文献 第09章</p>
+<p>本章主要包含</p>
+<ol type="1">
+<li>Hadamard Gates</li>
+<li>The Phase Gate</li>
+<li>Matrix Representation of Serial and Parallel Operations</li>
+<li>Quantum Interference</li>
+<li>Quantum Parallelism and Function Evaluation</li>
+<li>Deutsch-Jozsa Algorithm</li>
+<li>Quantum Fourier Transform</li>
+<li>Phase Estimation</li>
+<li>Shor's Algorithm</li>
+<li>Quantum Searching and Grover's Algorithm</li>
+</ol>
+<p>其中</p>
+<ol type="1">
+<li>Deutsch-Jozsa Algorithm</li>
+<li>Quantum Fourier Transform</li>
+<li>Phase Estimation</li>
+</ol>
+<p>是常见的基础模块</p>
+<ol type="1">
+<li>Shor's Algorithm</li>
+<li>Grover's Algorithm</li>
+</ol>
+<p>是最出名的量子算法</p>
+<p>[TOC]</p>
+<h2 id="before-algorithms">Before Algorithms</h2>
+<h3 id="hadamard-gates">Hadamard Gates</h3>
+<p>An important step in quantum algorithms is to use Hadamard gates to create superposition states. <span class="math display">\[
+H|0\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}}
+\\
+ H|1\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}
+\]</span></p>
+<h4 id="on-arbitrary-qubit">On arbitrary qubit</h4>
+<p>a Hadamard gates applied to an arbitrary qubit $ | =|0+|1.$ We have <span class="math display">\[
+\begin{aligned}
+H|\psi\rangle &amp;=\alpha H|0\rangle+\beta H|1\rangle\\
+&amp;=\alpha\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)+\beta\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;=\left(\frac{\alpha+\beta}{\sqrt{2}}\right)|0\rangle+\left(\frac{\alpha-\beta}{\sqrt{2}}\right)|1\rangle
+\end{aligned}
+\]</span></p>
+<h4 id="twice-back-original">twice back original</h4>
+<p>If we apply a Hadamard gate twice, we get the original state back: <span class="math display">\[
+\begin{aligned}
+&amp;\quad H\left[\left(\frac{\alpha+\beta}{\sqrt{2}}\right)|0\rangle+\left(\frac{\alpha-\beta}{\sqrt{2}}\right)|1\rangle\right] \\&amp;=\left(\frac{\alpha+\beta}{\sqrt{2}}\right) H|0\rangle+\left(\frac{\alpha-\beta}{\sqrt{2}}\right) H|1\rangle \\
+&amp;=\left(\frac{\alpha+\beta}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)+\left(\frac{\alpha-\beta}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;=\left(\frac{\alpha+\alpha+\beta-\beta}{2}\right)|0\rangle+\left(\frac{\alpha-\alpha+\beta+\beta}{2}\right)|1\rangle \\
+&amp;=\alpha|0\rangle+\beta|1\rangle=|\psi\rangle
+\end{aligned}
+\]</span> <img src="C:\Users\JPZhuang\AppData\Roaming\Typora\typora-user-images\image-20200512193644394.png" srcset="/img/loading.gif" alt="image-20200512193644394" style="zoom: 50%;" /></p>
+<h4 id="two-in-parallel">two in parallel</h4>
+<p>Apply two Hadamard gates in parallel to <span class="math display">\[|1\rangle|1\rangle\]</span> <span class="math display">\[
+\begin{aligned}
+(H \otimes H)|1\rangle|1\rangle &amp;=(H|1\rangle)(H|1\rangle)\\
+&amp;=\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;=\frac{1}{2}(|00\rangle-|01\rangle-|10\rangle+|11\rangle)
+\end{aligned}
+\]</span> Apply to the product state <span class="math display">\[|0\rangle|0\rangle\]</span> <span class="math display">\[
+\begin{aligned}
+(H \otimes H)|0\rangle|0\rangle &amp;=(H|0\rangle)(H|0\rangle)\\
+&amp;=\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right) \\
+&amp;=\frac{1}{2}(|00\rangle+|01\rangle+|10\rangle+|11\rangle)
+\end{aligned}
+\]</span> applying <span class="math inline">\(H \otimes H\)</span> to the product state <span class="math inline">\(|0\rangle|1\rangle\)</span> <span class="math display">\[
+\begin{aligned}
+(H \otimes H)|0\rangle|1\rangle &amp;=\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;=\frac{1}{2}(|00\rangle-|01\rangle+|10\rangle-|11\rangle)
+\end{aligned}
+\]</span></p>
+<h4 id="three-in-parallel">three in parallel</h4>
+<p>Apply three Hadamard gates <span class="math display">\[
+\begin{aligned}
+&amp;(H \otimes H \otimes H)|0\rangle|0\rangle|0\rangle
+\\=&amp;(H|0\rangle)(H|0\rangle)(H|0\rangle) \\
+=&amp;\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right) \\
+=&amp; \frac{1}{\sqrt{2^{3}}}(|000\rangle+|001\rangle+|010\rangle+|100\rangle+|101\rangle\\
+&amp;+|110\rangle+|111\rangle)
+\end{aligned}
+\]</span></p>
+<h4 id="general-notation">General &amp; notation</h4>
+<p>When <span class="math inline">\(n\)</span> Hadamard gates act in parallel on <span class="math inline">\(n\)</span> qubits, this is called a <strong>Hadamard transform</strong>. A shorthand <strong>notation</strong> that is sometimes used is to write <span class="math inline">\(H^{\otimes n} .\)</span></p>
+<ul>
+<li>the operation of two Hadamard gates can be denoted by <span class="math inline">\(H^{\otimes 2} .\)</span></li>
+<li><span class="math inline">\(H^{\otimes 3}|0\rangle|0\rangle|0\rangle\)</span> operation of three Hadamard gates</li>
+</ul>
+<p>We can write a sum over states like <span class="math inline">\(\frac{1}{2}(|00\rangle+|01\rangle+|10\rangle+|11\rangle\)</span> ) compactly in thefollowing way:</p>
+<ul>
+<li>We let <span class="math inline">\(|x\rangle\)</span> denote a general state where <span class="math inline">\(x \in\{0,1\}^{2} ;\)</span> that is, <span class="math inline">\(|x\rangle\)</span> is one of <span class="math inline">\(|00\rangle,|01\rangle,|10\rangle,|11\rangle .\)</span></li>
+<li>If we write <span class="math inline">\(x \in\{0,1\}^{3},\)</span> then we mean that <span class="math inline">\(|x\rangle\)</span> is one of the three qubit states <span class="math inline">\(|000\rangle,|001\rangle,|010\rangle,|100\rangle,|101\rangle,|110\rangle,|111\rangle .\)</span></li>
+<li>By summing over the variable <span class="math inline">\(|x\rangle,\)</span> we can write the states compactly.</li>
+</ul>
+<p><span class="math display">\[
+(H \otimes H)|0\rangle|0\rangle=H^{\otimes 2}|0\rangle^{\otimes 2}=\frac{1}{\sqrt{2^{2}}} \sum_{x \in[0,1]^{2}}|x\rangle
+\]</span></p>
+<p>In general, the application of <span class="math inline">\(H^{\otimes n}\)</span> to a product state with <span class="math inline">\(n\)</span> copies of <span class="math display">\[|0\rangle\]</span> is x <span class="math display">\[
+H^{\otimes n}\left(|0\rangle^{\otimes n}\right)=\frac{1}{\sqrt{2^{n}}} \sum_{x \in\{0,1\}^{n}}|x\rangle
+\]</span></p>
+<h4 id="notation-example">notation example</h4>
+<p><span class="math display">\[
+(H \otimes H)|0\rangle|0\rangle=\frac{1}{\sqrt{2^{2}}} \sum_{x \in\{0,1\}^{2}}|x\rangle
+\\
+(H \otimes H)|0\rangle|1\rangle=\frac{1}{2} \sum_{x \in\{0,1\}}(-1)^{x}|x\rangle
+\\
+(H \otimes H)|1\rangle|1\rangle =\frac{1}{2} \sum_{x \in\{0,1\}^{2}}(-1)^{x_{0} \oplus x_{1}}|x\rangle
+\]</span></p>
+<h4 id="example-arbitrary-qubit">example arbitrary qubit</h4>
+<p>What is the result of apply the Hadamard transform to the state <span class="math display">\[
+|\psi\rangle=\frac{|0\rangle+(-1)^{x}|1\rangle}{\sqrt{2}}
+\]</span> where <span class="math inline">\(x \in\{0,1\}\)</span></p>
+<hr />
+<p><strong>Solution</strong></p>
+<p>since <span class="math display">\[
+\begin{aligned}
+H  | \psi\rangle &amp;=\alpha H|0\rangle+\beta H|1\rangle \\
+&amp;=\alpha\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)+\beta\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;=\left(\frac{\alpha+\beta}{\sqrt{2}}\right)|0\rangle+\left(\frac{\alpha-\beta}{\sqrt{2}}\right)|1\rangle
+\end{aligned}
+\]</span> The result is <span class="math display">\[
+H|\psi\rangle=\left(\frac{1+(-1)^{x}}{2}\right)|0\rangle+\left(\frac{1-(-1)^{x}}{2}\right)|1\rangle
+\]</span> If <span class="math inline">\(x=0,\)</span> this tells us that <span class="math display">\[
+H\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)=|0\rangle
+\]</span> On the other hand, if <span class="math inline">\(x=1,\)</span> then <span class="math display">\[
+H\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)=|1\rangle
+\]</span></p>
+<h3 id="the-phase-gate">The Phase Gate</h3>
+<p>Another useful gate that can be applied in the development of quantum algorithms is a variation of the phase gate we met in the last chapter, called the discrete phase gate. We denote the discrete phase gate by <span class="math inline">\(R_{k},\)</span> where <span class="math display">\[
+R_{k}=\left(\begin{array}{cc}
+1 &amp; 0 \\
+0 &amp; e^{\left(2 \pi i / 2^{k}\right)}
+\end{array}\right)
+\]</span></p>
+<h3 id="matrix-representation-of-serial-and-parallel-operations">Matrix Representation of Serial and Parallel Operations</h3>
+<p>When looking at quantum circuit diagrams or thinking about quantum algorithms, it is sometimes helpful to break down the problem in terms of matrices. There are two basic rules that can be followed. The first is that if a set of operations is performed in series, then this is represented by a matrix product. We represent a set of operations performed in series (i.e., in time) by starting with the first operation on the left followed by subsequent operations moving to the right. This is illustrated in Figure <span class="math inline">\(9.3,\)</span> where we first perform a phase gate with angle <span class="math inline">\(\theta,\)</span> followed by a Hadamard gate, which is then followed by the application of a <span class="math inline">\(Z\)</span> gate.</p>
+<p>The matrix representation of this sequence of operations is written down by multiplying the matrices in reverse order. Hence the operation shown in Figure 9.3 is written as <span class="math display">\[
+Z H P(\theta)
+\]</span> <img src="C:\Users\JPZhuang\AppData\Roaming\Typora\typora-user-images\image-20200512203558716.png" srcset="/img/loading.gif" alt="image-20200512203558716" style="zoom:50%;" /></p>
+<p>Explicitly we have <span class="math display">\[
+\left(\begin{array}{rr}
+1 &amp; 0 \\
+0 &amp; -1
+\end{array}\right) \frac{1}{\sqrt{2}}\left(\begin{array}{rr}
+1 &amp; 1 \\
+1 &amp; -1
+\end{array}\right)\left(\begin{array}{cc}
+1 &amp; 0 \\
+0 &amp; e^{i \theta}
+\end{array}\right)=\frac{1}{\sqrt{2}}\left(\begin{array}{rr}
+1 &amp; e^{i \theta} \\
+-1 &amp; e^{i \theta}
+\end{array}\right)
+\]</span> When quantum operations are performed in parallel (i.e., at the same time) we compute the tensor product, which we already know how to do. So the matrix representation of <span class="math inline">\(H \otimes H\)</span> is <span class="math display">\[
+\begin{aligned}
+H \otimes H &amp;=\frac{1}{\sqrt{2}}\left(\begin{array}{rr}
+H &amp; H \\
+H &amp; -H
+\end{array}\right)\\
+&amp;=\frac{1}{2}\left(\begin{array}{rrrr}
+1 &amp; 1 &amp; 1 &amp; 1 \\
+1 &amp; -1 &amp; 1 &amp; -1 \\
+1 &amp; 1 &amp; -1 &amp; -1 \\
+1 &amp; -1 &amp; -1 &amp; 1
+\end{array}\right)
+\end{aligned}
+\]</span> As we will see when we start developing some quantum algorithms, interference and parallelism play a fundamental role. Before actually describing an algorithm we first describe quantum interference.</p>
+<h3 id="quantum-interference">Quantum interference</h3>
+<p>The application of a Hadamard gate to an arbitrary qubit is an example of quantum interference. Let's recall what happens when we calculate <span class="math inline">\(H|\psi\rangle\)</span> for <span class="math inline">\(|\psi\rangle=\alpha|0\rangle+\)</span> <span class="math inline">\(\beta|1\rangle .\)</span> We get <span class="math display">\[
+H|\psi\rangle=\left(\frac{\alpha+\beta}{\sqrt{2}}\right)|0\rangle+\left(\frac{\alpha-\beta}{\sqrt{2}}\right)|1\rangle
+\]</span> Notice that the probability to obtain <span class="math inline">\(|0\rangle\)</span> upon measurement has been changed as <span class="math display">\[
+\alpha \rightarrow \frac{\alpha+\beta}{\sqrt{2}}
+\]</span> while the probability to find <span class="math inline">\(|1\rangle\)</span> has been changed as <span class="math display">\[
+\beta \rightarrow \frac{\alpha-\beta}{\sqrt{2}}
+\]</span> Specifically, looking at the state, we write <span class="math display">\[
+|\psi\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}}
+\]</span></p>
+<h2 id="deutschs-algorithm">1. Deutsch’s algorithm</h2>
+<p>Considering a very simple function, one that accepts a single bit as input and produces a single bit as output. That is, <span class="math inline">\(x \in\{0,1\}\)</span>. There are only a small number of functions that can act on the set <span class="math inline">\(x \in\{0,1\}\)</span> and give a single bit as output.</p>
+<ul>
+<li>the identity function</li>
+</ul>
+<p><span class="math display">\[
+f(x)=\left\{\begin{array}{ll}
+0 &amp; \text { if } x=0 \\
+1 &amp; \text { if } x=1
+\end{array}\right.
+\]</span></p>
+<ul>
+<li><p>the constant functions <span class="math display">\[
+f(x)=0, \quad f(x)=1
+\]</span></p></li>
+<li><p>bit flip function</p></li>
+</ul>
+<p><span class="math display">\[
+f(x)=\left\{\begin{array}{ll}
+1 &amp; \text { if } x=0 \\
+0 &amp; \text { if } x=1
+\end{array}\right.
+\]</span></p>
+<p>The identity and bit flip functions are called balanced because the outputs are opposite for half the inputs. So a function on a single bit can be</p>
+<ol type="1">
+<li>constant</li>
+<li>balanced</li>
+</ol>
+<h3 id="deutschs-algorithm-1">1.1 Deutsch’s algorithm</h3>
+<h4 id="unitary-operation">unitary operation</h4>
+<p>The first step in developing this algorithm is to imagine a unitary operation denoted by <span class="math inline">\(U_{f}\)</span> that acts on two qubits. It leaves the first qubit alone and produces the exclusive or (denoted by <span class="math inline">\(\oplus)\)</span> of the second qubit with the function <span class="math inline">\(f\)</span> evaluated with the first qubit as argument. That is, <span class="math display">\[
+U_{f}|x, y\rangle=|x, y \otimes f(x)\rangle
+\]</span> (note that <span class="math inline">\(x, y \in\{0,1\}\)</span> ). Now, since <span class="math inline">\(|x\rangle\)</span> is a qubit, it can be in a superposition state. Let's specifically start with an initial state <span class="math inline">\(|0\rangle\)</span> and apply a Hadamard gate, as shown in Figure</p>
+<p><img src="C:\Users\JPZhuang\AppData\Roaming\Typora\typora-user-images\image-20200513083111541.png" srcset="/img/loading.gif" alt="image-20200513083111541" style="zoom:50%;" /></p>
+<p>Using algebra, we write the action of the circuit shown in Figure as <span class="math display">\[
+\begin{aligned}
+U_{f}\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|0\rangle
+&amp;=\frac{1}{\sqrt{2}}\left(U_{f}|00\rangle+U_{f}|10\rangle\right)
+\\&amp;=\frac{|0,0 \oplus f(0)\rangle+|1,0 \oplus f(1)\rangle}{\sqrt{2}}
+\\&amp;=\frac{|00\rangle+|11\rangle}{\sqrt{2}}
+\end{aligned}
+\]</span> Where we suppose that <span class="math inline">\(f(x)\)</span> is the identity function. Recall that <span class="math inline">\(0 \oplus 0=1 \oplus 1=0,\)</span><span class="math inline">\(0 \oplus 1=1 \oplus 0=1,\)</span> so more generally the output of this circuit is <span class="math display">\[
+U_{f}\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|0\rangle=\frac{|0, f(0)\rangle+|1, f(1)\rangle}{\sqrt{2}}
+\]</span></p>
+<h4 id="algorithm-steps">algorithm steps</h4>
+<p>Deutsch's algorithm takes what we have done so far to exploit the fact that the system is in a superposition state <span class="math inline">\(\sum|x\rangle|f(x)\rangle\)</span> to obtain information about a <strong>global property</strong> of the function-whether or not it is constant <span class="math inline">\(f(0)=f(1)\)</span> or balanced <span class="math inline">\(f(0) \neq f(1) .\)</span> It does this by computing <span class="math display">\[
+\left|\psi_{\text {out}}\right\rangle=(H \otimes I) U_{f}(H \otimes H)|0\rangle|1\rangle
+\]</span> In words Deutsch's algorithm is implemented by the following steps:</p>
+<ol type="1">
+<li>Apply Hadamard gates to the input state <span class="math display">\[|0\rangle|1\rangle\]</span> to produce a product state of two superpositions.</li>
+<li>Apply <span class="math inline">\(U_{f}\)</span> to that product state.</li>
+<li>Apply a Hadamard gate to the first qubit leaving the second qubit alone.</li>
+</ol>
+<h4 id="first-step-superposition">first step: superposition</h4>
+<p>We already know what the result of the first step. We calculated it <span class="math display">\[
+\begin{aligned}
+(H \otimes H)|0\rangle|1\rangle &amp;=\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;=\frac{1}{2}(|00\rangle-|01\rangle+|10\rangle-|11\rangle)
+\end{aligned}
+\]</span> By doing this, we provide a superposition state as input that will contain all possible values of the combination <span class="math inline">\((x, f(x))\)</span> once weapply <span class="math inline">\(U_{f}\)</span>. Because it's a single state, we have these listed simultaneously.</p>
+<p>Now let's apply <span class="math inline">\(U_{f}\)</span> to each term of <span class="math inline">\((H \otimes H)|0\rangle|1\rangle\)</span> For the first term we have <span class="math display">\[
+\begin{aligned}
+U_{f}|00\rangle&amp;=|0,0 \oplus f(0)\rangle
+\\&amp;=(1-f(0))| 00\rangle+f(0)|01\rangle
+\end{aligned}
+\]</span> This result takes into <strong>account the possibilities</strong> <span class="math inline">\(0 \oplus f(0)=0\)</span> and <span class="math inline">\(0 \oplus f(0)=1 .\)</span> To see how this works, note that</p>
+<ol type="1">
+<li><p>if <span class="math inline">\(f(0)=0,\)</span> then <span class="math inline">\(0 \oplus f(0)=0 \oplus 0=0\)</span> and <span class="math display">\[
+\begin{aligned}
+|0,0 \oplus f(0)\rangle&amp;=(1-f(0))|00\rangle+f(0)|01\rangle
+\\&amp;=|00\rangle+(0)|01\rangle
+\\&amp;=|00\rangle
+\end{aligned}
+\]</span></p></li>
+<li><p>if <span class="math inline">\(f(0)=1,\)</span> then <span class="math inline">\(0 \oplus f(0)=0 \oplus 1=1\)</span> and <span class="math display">\[
+\begin{aligned}
+|0,0 \oplus f(0)\rangle&amp;=(1-f(0))|00\rangle+f(0)|01\rangle
+\\&amp;=(0)|00\rangle+(1)|01\rangle
+\\&amp;=|01\rangle
+\end{aligned}
+\]</span></p></li>
+</ol>
+<h4 id="other-terms">other terms</h4>
+<p>Similar logic applied to the other terms gives <span class="math display">\[
+\begin{align} 
+U_{f}|01\rangle=|0,1 \oplus f(0)\rangle=f(0)|00\rangle+(1-f(0))|01\rangle \\
+U_{f}|10\rangle=|0,1 \oplus f(0)\rangle=(1-f(1))|00\rangle+f(1)|01\rangle \\
+U_{f}|11\rangle=|0,1 \oplus f(1)\rangle=f(1)|10\rangle+(1-f(1))|11\rangle
+ \end{align}
+\]</span> Hence <span class="math display">\[
+\begin{aligned}
+\left|\psi^{\prime}\right\rangle=&amp; U_{f}(H \otimes H)|0\rangle|1\rangle \\
+=&amp;(1-f(0))|00\rangle+f(0)|01\rangle+f(0)|00\rangle+(1-f(0))|01\rangle \\
+&amp;+(1-f(1))|00\rangle+f(1)|01\rangle+f(1)|10\rangle+(1-f(1))|11\rangle
+\end{aligned}
+\]</span></p>
+<h4 id="output">output</h4>
+<p>To get the final output state of Deutsch's algorithm, we apply <span class="math inline">\(H \otimes I\)</span> to <span class="math inline">\(\left|\psi^{\prime}\right\rangle\)</span> The Hadamard gate is applied to the first qubit, and the second qubit is left alone. Let's look a the first couple of terms explicitly: <span class="math display">\[
+\begin{array}{l}
+(H \otimes I)[(1-f(0))|00\rangle+f(0)|01\rangle] \\
+\quad=(1-f(0))(H|0\rangle) \otimes|0\rangle+f(0)(H|0\rangle) \otimes|1\rangle \\
+\quad=(1-f(0))\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right) \otimes|0\rangle+f(0)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right) \otimes|1\rangle \\
+\quad=(1-f |(0))\left(\frac{|00\rangle+|10\rangle}{\sqrt{2}}\right)+f(0)\left(\frac{|01\rangle+|11\rangle}{\sqrt{2}}\right)
+\end{array}
+\]</span> Applying <span class="math inline">\(H \otimes I\)</span> to all the terms and doing some algebra gives the final output state of Deutsch's algorithm as <span class="math display">\[
+\left|\psi_{o u t}\right\rangle=(1-f(0)-f(1))|0\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)+(f(1)-f(0))|1\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)
+\]</span> Use the output to find the function is constant or balanced</p>
+<ol type="1">
+<li>Now suppose that the function is constant so that <span class="math inline">\(f(0)=f(1) .\)</span> Then we obtain the final output state</li>
+</ol>
+<p><span class="math display">\[
+\left|\psi_{\text {out}}\right\rangle=-|0\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \quad(f(0)=f(1))
+\]</span></p>
+<ol start="2" type="1">
+<li>On the other hand, if <span class="math inline">\(f(0) \neq f(1),\)</span> then <span class="math inline">\(f(0)=0, f(1)=1,\)</span> or <span class="math inline">\(f(0)=1, f(1)=0,\)</span> and the final output state is</li>
+</ol>
+<p><span class="math display">\[
+\left|\psi_{\text {out}}\right\rangle=\pm|1\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \quad(f(0) \neq f(1))
+\]</span></p>
+<p>In this algorithm, single-qubit interference is applied to the first qubit allowing us to distinguish between the <strong>two cases</strong> of the output of the function</p>
+<h3 id="deutsch-jozsa-algorithm">1.2 Deutsch-Jozsa algorithm</h3>
+<p>The Deutsch -Jozsa algorithm is a generalization of Deutsch's algorithm. Again, this algorithm allows us to determine whether a function <span class="math inline">\(f(x)\)</span> is constant or balanced, but this time the function has multiple input values.</p>
+<ul>
+<li>If <span class="math inline">\(f(x)\)</span> is constant, then the output is the same for all input values <span class="math inline">\(x\)</span>.</li>
+<li>If the function is balanced, then <span class="math inline">\(f(x)=0\)</span> for half of the inputs and <span class="math inline">\(f(x)=1\)</span> for the other half of the inputs, and vice versa.</li>
+</ul>
+<p><span class="math display">\[
+\left|\psi_{\text {out}}\right\rangle=(H^{\otimes n} \otimes I) U_{f}(H^{\otimes n} \otimes H)|0\rangle^{\otimes n}|1\rangle
+\]</span></p>
+<h4 id="initial-hadamard-gates">initial : Hadamard gates</h4>
+<p>We start with an initial state that includes <span class="math inline">\(n\)</span> qubits in the state <span class="math inline">\(|0 \rangle\)</span> and a singlequbit in the state <span class="math inline">\(|1\rangle .\)</span> Hadamard gates are applied to all qubits. The circuit is illustrated in Figure</p>
+<p><img src="C:\Users\JPZhuang\AppData\Roaming\Typora\typora-user-images\image-20200513095343202.png" srcset="/img/loading.gif" alt="image-20200513095343202" style="zoom:50%;" /></p>
+<p>We start off by calculating <span class="math display">\[
+\begin{aligned}
+\left|\psi^{\prime}\right\rangle=&amp;\left(H^{\otimes n}\right)\left(|0\rangle^{\otimes n}\right) \otimes(H|1\rangle) \\
+=&amp;\frac{1}{\sqrt{2^{n}}} \sum_{x \in\{0,1\}^{n}}|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)
+\end{aligned}
+\]</span></p>
+<h4 id="next-u_f-gate">Next: <span class="math inline">\(U_{f}\)</span> gate</h4>
+<p>we apply <span class="math inline">\(U_{f}\)</span> gate, that is, <span class="math inline">\(U_{f}|x, y\rangle=|x, y \otimes f(x)\rangle,\)</span> to evaluate the function. The first <span class="math inline">\(n\)</span> qubits are the values of <span class="math inline">\(x\)</span> and the last qubit plays the role of <span class="math inline">\(y\)</span> as shown in the figure. The output state of the <span class="math inline">\(U_{f}\)</span> gate is <span class="math display">\[
+\left|\psi^{\prime \prime}\right\rangle=\frac{1}{\sqrt{2^{n}}} \sum_{x}(-1)^{f(x)}|x\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)
+\]</span></p>
+<h4 id="hadamard-gate">Hadamard gate</h4>
+<p>Applying a Hadamard gate to an <span class="math inline">\(n\)</span> qubit state <span class="math inline">\(|x\rangle\)</span> gives <span class="math display">\[
+H^{\otimes n}|x\rangle=\frac{1}{\sqrt{2^{n}}} \sum_{y}(-1)^{x \cdot y}|y\rangle
+\]</span></p>
+<p>So the final output state is <span class="math display">\[
+\left|\psi_{\text {out}}\right\rangle=\frac{1}{2^{n}} \sum_{y} \sum_{x}(-1)^{x \cdot y+f(x)}|y\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)
+\]</span> Now we measure the <span class="math inline">\(n\)</span> inputs. It might not be immediately obvious looking, but there are two possible measurement results on <span class="math inline">\(|y\rangle\)</span> (which is the state of <span class="math inline">\(n\)</span> inputs at this stage) that are of interest. The possible results are as follows:</p>
+<ul>
+<li><p>Measurement of the first <span class="math inline">\(n\)</span> input qubits in <span class="math inline">\(\left|\psi_{\text {out }}\right\rangle\)</span> returns all 0 's. In this case <span class="math inline">\(f(x)\)</span> is constant</p></li>
+<li><p>Otherwise, if at least one of the qubits in <span class="math inline">\(|y\rangle\)</span> is found to be a 1 on measurement, <span class="math inline">\(f(x)\)</span> is balanced.</p></li>
+</ul>
+<p><span class="math display">\[
+\left|\psi_{\text {out}}\right\rangle=(H^{\otimes n} \otimes I) U_{f}(H^{\otimes n} \otimes H)|0\rangle^{\otimes n}|1\rangle
+\]</span></p>
+<h3 id="example">Example</h3>
+<h4 id="example-1">Example 1</h4>
+<p>Consider a function with two inputs such that <span class="math inline">\(f(x)=1 .\)</span> Explicitly show that the DeutschJozsa algorithm works in this case by generating the vector <span class="math inline">\(|y\rangle=|00\rangle\)</span> as the final output.</p>
+<hr />
+<p><strong>Solution</strong> The initial input state will be <span class="math inline">\(\left|\psi_{i n}\right\rangle=|0\rangle|0\rangle|1\rangle .\)</span> Applying Hadamard gates to this state gives <span class="math display">\[
+\left|\psi^{\prime}\right\rangle=\frac{1}{2 \sqrt{2}}(|000\rangle-|001\rangle+|010\rangle-|011\rangle+|100\rangle-|101\rangle+|110\rangle-|111\rangle)
+\]</span> Next we apply <span class="math inline">\(U_{f}\)</span> to the system, obtaining <span class="math display">\[
+\left|\psi^{\prime \prime}\right\rangle=\frac{1}{2 \sqrt{2}}(|001\rangle-|000\rangle+|011\rangle-|010\rangle+|101\rangle-|100\rangle+|111\rangle-|110\rangle)
+\]</span> The final step is to apply <span class="math inline">\(H^{\otimes 2}\)</span> to the first two qubits. This gives <span class="math display">\[
+\begin{aligned}
+\left|\psi_{\text {out}}\right\rangle=&amp; \frac{1}{2 \sqrt{2}}\left[\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|1\rangle-\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|0\rangle\right.\\
+&amp;+\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)|1\rangle-\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)|0\rangle
+\\&amp;+\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|1\rangle-\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|0\rangle \\&amp;+\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)|1\rangle-\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)|0\rangle
+\end{aligned}
+\]</span> Expanding out all the terms gives <span class="math display">\[
+\begin{aligned}
+\left|\psi_{\text {out}}\right\rangle= \frac{1}{4 \sqrt{2}}&amp;[(|00\rangle+|01\rangle+|10\rangle+|11\rangle)|1\rangle-(|00\rangle+|01\rangle+|10\rangle+|11\rangle)|0\rangle\\
+&amp;+(|00\rangle-|01\rangle+|10\rangle-|11\rangle)|1\rangle-(|00\rangle-|01\rangle+|10\rangle-|11\rangle)|0\rangle \\
+&amp;+(|00\rangle+|01\rangle-|10\rangle-|11\rangle)|1\rangle-(|00\rangle+|01\rangle-|10\rangle-|11\rangle)|0\rangle \\
+&amp;+(|00\rangle-|01\rangle-|10\rangle+|11\rangle)|1\rangle-(|00\rangle-|01\rangle-|10\rangle+|11\rangle)|0\rangle]
+\end{aligned}
+\]</span> Now we want to factor these terms to put them in the form with the third qubit as <span class="math inline">\((|0\rangle-|1\rangle / \sqrt{2})\)</span> We get <span class="math display">\[
+\begin{aligned}
+\left|\psi_{\text {out}}\right\rangle=&amp; \frac{1}{4}\left[-(|00\rangle+|01\rangle+|10\rangle+|11\rangle)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\right.\\
+&amp;-(|00\rangle-|01\rangle+|10\rangle-|11\rangle)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;-(|00\rangle+|01\rangle-|10\rangle-|11\rangle)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;\left.-(|00\rangle-|01\rangle-|10\rangle+|11\rangle)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\right]
+\end{aligned}
+\]</span> Hence <span class="math display">\[
+\left|\psi_{\text {out}}\right\rangle=-|00\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)
+\]</span> Measurement on the first two qubits gives <span class="math inline">\(00,\)</span> confirming that this is a constant function.</p>
+<h4 id="example-2-balanced">Example 2: balanced</h4>
+<p>Suppose that <span class="math inline">\(f(00)=f(01)=0,\)</span>$ f(10)=f(11)=1 .$ Apply the Deutsch-Josza algorithm and show that at least one of the first two qubits ends up as a 1</p>
+<hr />
+<p>Solution The input state is again <span class="math inline">\(\left|\psi_{\text {in}}\right\rangle=|0\rangle|0\rangle|1\rangle,\)</span> and the application of the Hadamard gates gives <span class="math display">\[
+\left|\psi^{\prime}\right\rangle=\frac{1}{2 \sqrt{2}}(|000\rangle-|001\rangle+|010\rangle-|011\rangle+|100\rangle-|101\rangle+|110\rangle-|111\rangle)
+\]</span> We apply <span class="math inline">\(U_{f}\)</span> to the system, obtaining <span class="math display">\[
+\left|\psi^{\prime \prime}\right\rangle=\frac{1}{2 \sqrt{2}}(|000\rangle-|001\rangle+|010\rangle+|011\rangle+|101\rangle-|100\rangle+|111\rangle-|110\rangle)
+\]</span> Applying Hadamard gates to the first two inputs gives <span class="math display">\[
+\begin{aligned}
+\left|\psi_{\text {out}}\right\rangle=&amp; \frac{1}{4}\left[\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|0\rangle-\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|1\rangle\right.\\
+&amp;+\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)|0\rangle+\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)|1\rangle \\
+&amp;+\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|1\rangle-\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)|0\rangle \\
+&amp;+\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)|1\rangle-\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)|0\rangle
+\end{aligned}
+\]</span> Again, we expand this result to obtain <span class="math display">\[
+\begin{aligned}
+\left|\psi_{\text {out}}\right\rangle=&amp; \frac{1}{4 \sqrt{2}}[(|00\rangle+|01\rangle-|10\rangle-|11\rangle)|1\rangle+(|00\rangle+|01\rangle+|10\rangle+|11\rangle)|0\rangle\\
+&amp;-(|00\rangle+|01\rangle+|10\rangle+|11\rangle)|1\rangle+(|00\rangle-|01\rangle+|10\rangle-|11\rangle)|0\rangle \\
+&amp;+(|00\rangle-|01\rangle+|10\rangle-|11\rangle)|1\rangle-(|00\rangle+|01\rangle-|10\rangle-|11\rangle)|0\rangle \\
+&amp;+(|00\rangle-|01\rangle-|10\rangle+|11\rangle)|1\rangle-(|00\rangle-|01\rangle-|10\rangle+|11\rangle)|0\rangle]
+\end{aligned}
+\]</span> We rearrange as follows: <span class="math display">\[
+\begin{aligned}
+\left|\psi_{\text {out}}\right\rangle=&amp; \frac{1}{4}\left[(|00\rangle+|01\rangle+|10\rangle+|11\rangle)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)\right.\\
+&amp;+(|00\rangle-|01\rangle+|10\rangle-|11\rangle)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;-(|00\rangle+|01\rangle-|10\rangle-|11\rangle)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right) \\
+&amp;-(|00\rangle-|01\rangle-|10\rangle+|11\rangle)\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)
+\end{aligned}
+\]</span> So we find that <span class="math display">\[
+\left|\psi_{\text {out}}\right\rangle=|10\rangle\left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right)
+\]</span> Measurement on the first two qubits returns 10, since at least one qubit was 1. This shows that the function is balanced.</p>
+<h2 id="quantum-fourier-transform">2. Quantum Fourier Transform</h2>
+<p>A quantum computer can be used to compute a quantum analog of the Fourier transform. First let's get some preliminaries down. Consider two states of <span class="math inline">\(d=n\)</span> qubits <span class="math display">\[
+\begin{array}{l}
+|x\rangle=\left|x_{n-1} x_{n-2} \ldots x_{0}\right\rangle \\
+|y\rangle=\left|y_{n-1} y_{n-2} \ldots y_{0}\right\rangle
+\end{array}
+\]</span> where each <span class="math inline">\(x_{i}, y_{i} \in\{0,1\}\)</span>. Then <span class="math display">\[
+x \cdot y=x_{0} y_{0}+x_{1} y_{1}+\cdots+x_{n-1} y_{n-1}
+\]</span> The quantum Fourier transform <strong>maps</strong></p>
+<ul>
+<li>the state <span class="math inline">\(|\psi\rangle=\left|x_{n-1} x_{n-2} \cdots x_{0}\right\rangle\)</span></li>
+<li>into the state</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{c}
+\frac{1}{2^{n / 2}}\left(|0\rangle+e^{2 \pi i\left[0 . x_{n-1}\right]}|1\rangle\right) \otimes\left(|0\rangle+e^{2 \pi i\left[0 . x_{n-2} x_{n-1}\right]}|1\rangle\right) \\
+\otimes \cdots \otimes\left(|0\rangle+e^{2 \pi i\left[0 . x_{0} \ldots x_{n-2} x_{n-1}\right]}|1\rangle\right)
+\end{array}
+\]</span></p>
+<p>where we have introduced the notation <span class="math display">\[
+\begin{aligned}
+\frac{x_{0}}{2} &amp; \rightarrow 0 . x_{0} \\
+\frac{x_{0}}{2^{2}}+\frac{x_{1}}{2} &amp; \rightarrow 0 . x_{0} x_{1} \\
+\frac{x_{0}}{2^{3}}+\frac{x_{1}}{2^{2}}+\frac{x_{2}}{2} &amp; \rightarrow 0 . x_{0} x_{1} x_{2}
+\end{aligned}
+\]</span> and so on, to represent a binary fraction. Notice that we have two things going on here-superposition states and the introduction of phases. The first fact tells us that we will need to build a circuit with Hadamard gates to introduce superposition states. As for the phases, let's recall the discrete phase gate <span class="math inline">\((9.12)\)</span>. The matrix representation of this gate in the computational basis is <span class="math display">\[
+R_{k}=\left(\begin{array}{cc}
+1 &amp; 0 \\
+0 &amp; e^{\left(2 \pi i / 2^{k}\right)}
+\end{array}\right)
+\]</span> So we see that <span class="math display">\[
+R_{k}|0\rangle=|0\rangle, R_{k}|1\rangle=e^{\left(2 \pi i / 2^{k}\right)}|1\rangle
+\]</span> The quantum Fourier transform is implemented using Hadamard gates and controlled discrete phase gates. Let's denote the quantum Fourier transform operator by <span class="math inline">\(U_{F}\)</span>. It acts on an arbitrary state <span class="math inline">\(|x\rangle\)</span> as</p>
+<p>The quantum Fourier transform is implemented using Hadamard gates and controlled discrete phase gates. Let's denote the quantum Fourier transform operator by <span class="math inline">\(U_{F} .\)</span> It acts on an arbitrary state <span class="math inline">\(|x\rangle\)</span> as <span class="math display">\[
+\begin{aligned}
+U_{F}|x\rangle &amp;=\frac{1}{\sqrt{2^{n}}} \sum_{y=0}^{2^{n}-1} e^{2 \pi i x y / 2^{n}}|y\rangle \\
+&amp;=\frac{1}{\sqrt{2^{n}}} \sum_{y=0}^{2^{n}-1} e^{2 \pi i\left(y_{0}\left(0 . x_{0} x_{1} \ldots x_{n-1}\right)+y_{1}\left(0 . x_{0} x_{1} \ldots x_{n-2}\right)+\cdots+y_{n-1}\left(0 . x_{0}\right)\right)}|y\rangle
+\end{aligned}
+\]</span> We use the property <span class="math inline">\(e^{a+b}=e^{a e^{b}}\)</span> and <span class="math inline">\(|y\rangle=\left|y_{0}\right\rangle \otimes\left|y_{1}\right\rangle \otimes \cdots \otimes\left|y_{n-1}\right\rangle\)</span> to write this as a tensor product state: <span class="math display">\[
+U_{F}|x\rangle=\frac{1}{\sqrt{2^{n}}} \sum_{y=0}^{2^{n}-1} e^{2 \pi i y_{0}\left(0 . x_{0} x_{1} \ldots x_{n-1}\right)}\left|y_{0}\right\rangle \otimes \cdots \otimes e^{2 \pi i y_{n-1}\left(0 . x_{0}\right)}\left|y_{n-1}\right\rangle
+\]</span> Each <span class="math inline">\(y_{i} \in\{0,1\} .\)</span> If <span class="math inline">\(y_{i}=0\)</span>, then <span class="math inline">\(e^{2 \pi i y_{i}\left(x_{0} x_{1} \ldots x_{j}\right)}=e^{0}=1 .\)</span> If <span class="math inline">\(y_{i}=1\)</span>, then the termsis left with <span class="math inline">\(e^{2 \pi i\left(x x_{0} x_{1} \ldots x_{j}\right)}\)</span>. This is how we get the form (9.30).</p>
+<p>The discussion so far has been pretty abstract. Next we will show how to compute the discrete quantum Fourier transform for a three-qubit state <span class="math inline">\(|x\rangle=\left|x_{2} X_{1} X_{0}\right\rangle\)</span>. The circuit used to do this is shown in Figure <span class="math inline">\(9.6\)</span>.</p>
+<p>The first step is to apply the Hadamard gate to <span class="math inline">\(\left|x_{2}\right\rangle\)</span>. Note that <span class="math inline">\(-1=e^{i \pi}\)</span>, so the state on the top line in Figure <span class="math inline">\(9.6\)</span> becomes <span class="math display">\[
+H\left|x_{2}\right\rangle=\frac{1}{\sqrt{2}} \sum_{y}(-1)^{x_{2} y}|y\rangle=\frac{1}{\sqrt{2}} \sum_{y} e^{2 \pi i x_{2} y / 2}|y\rangle=\frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{2}\right)}|1\rangle\right)
+\]</span> We proceed to act on this state with the controlled <span class="math inline">\(R_{2}\)</span> gate. The control bit for this gate is the state <span class="math inline">\(\left|x_{1}\right\rangle\)</span>, which is <span class="math inline">\(|0\rangle\)</span> or <span class="math inline">\(|1\rangle\)</span>. Since <span class="math inline">\(1=e^{0}=e^{2 \pi i 0}\)</span>, and <span class="math inline">\(\left|X_{1}\right\rangle\)</span> is either <span class="math inline">\(|0\rangle\)</span> or <span class="math inline">\(|1\rangle\)</span>, we can write the action of the <span class="math inline">\(R_{2}\)</span> gate on the basis state <span class="math inline">\(|1\rangle\)</span> as <span class="math inline">\(R_{2}|1\rangle=e^{i \pi x_{1} / 2}|1\rangle=e^{2 \pi i x_{1} / 4}|1\rangle .\)</span> So the state of the entire system at this point is <span class="math display">\[
+I \otimes R_{2}\left|x_{1}\right\rangle \otimes \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{2}\right)}|1\rangle\right)=\left|x_{1}\right\rangle \otimes \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{2} x_{1}\right)}|1\rangle\right)
+\]</span> Now we apply the controlled <span class="math inline">\(R_{3}\)</span> gate to this state with the control bit being <span class="math inline">\(\left|x_{0}\right\rangle\)</span>. This acts in the same manner transforming the system into the state <span class="math display">\[
+\left|x_{0}\right\rangle \otimes\left|x_{1}\right\rangle \otimes \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{2} x_{1} x_{0}\right)}|1\rangle\right)
+\]</span> Next <span class="math inline">\(\left|x_{1}\right\rangle\)</span> goes through the Hadamard gate and the controlled <span class="math inline">\(R_{2}\)</span> gate, transforming it as <span class="math display">\[
+\left|x_{1}\right\rangle \rightarrow \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(x_{1} x_{0}\right)}|1\rangle\right)
+\]</span> The state of the system becomes <span class="math display">\[
+\left|x_{0}\right\rangle \otimes \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{1} x_{0}\right)}|1\rangle\right) \otimes \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{2} x_{1} x_{0}\right)}|1\rangle\right)
+\]</span> The last step is to act on <span class="math inline">\(\left|x_{0}\right\rangle\)</span> with the final Hadamard gate. This takes <span class="math display">\[
+\left|x_{0}\right\rangle \rightarrow \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{0}\right)}|1\rangle\right)
+\]</span> The final state of the system is <span class="math display">\[
+\frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{0}\right)}|1\rangle\right) \otimes \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{1} x_{0}\right)}|1\rangle\right) \otimes \frac{1}{\sqrt{2}}\left(|0\rangle+e^{2 \pi i\left(0 . x_{2} x_{1} x_{0}\right)}|1\rangle\right)
+\]</span> ## PHASE ESTIMATION</p>
+<p>The quantum Fourier transform is closely related to a problem called phase estimation. Let <span class="math inline">\(U\)</span> be a unitary operator on a <span class="math inline">\(d=2^{n}\)</span> Hilbert space, and let <span class="math inline">\(\left|\phi_{1}\right\rangle,\left|\phi_{2}\right\rangle, \ldots\)</span>, <span class="math inline">\(\left|\phi_{d}\right\rangle\)</span> be the eigenvectors of <span class="math inline">\(U\)</span>, which form an orthonormal basis for the space. The eigenvalues of unitary operators are phases. Hence the eigenvalues of each <span class="math inline">\(\left|\phi_{n}\right\rangle\)</span> will be given by <span class="math display">\[
+U\left|\phi_{n}\right\rangle=e^{2 \pi i \theta_{n}}\left|\phi_{n}\right\rangle
+\]</span> Notice that if we act on a given eigenvector say <span class="math inline">\(j\)</span> times, we have <span class="math display">\[
+U^{j}\left|\phi_{n}\right\rangle=U^{j-1}\left(e^{2 \pi i \theta_{n}}\left|\phi_{n}\right\rangle\right)=\left(e^{2 \pi i \theta_{n}}\right)^{j}\left|\phi_{n}\right\rangle=e^{2 \pi i \theta_{n} j}\left|\phi_{n}\right\rangle
+\]</span> The problem of quantum phase estimation is the following: Given a unitary operator <span class="math inline">\(U\)</span> and an input eigenvector <span class="math inline">\(|\phi\rangle\)</span> of <span class="math inline">\(U\)</span>, estimate the angle <span class="math inline">\(\theta\)</span> in the associated eigenvalue that will have a form given by (9.35). We suppose that we want to know the phase angle <span class="math inline">\(\theta\)</span> to <span class="math inline">\(m\)</span> bits of accuracy. To begin, the algorithm with the initial state given by <span class="math display">\[
+\left|\psi_{i n}\right\rangle=|0\rangle^{\otimes m}|\phi\rangle
+\]</span> Here we know the eigenvector of the given unitary operator, <span class="math inline">\(|\phi\rangle\)</span> to <span class="math inline">\(n\)</span> bits, meaning it is an <span class="math inline">\(n\)</span> qubit state <span class="math inline">\(|\phi\rangle=\left|\phi_{n-1}, \phi_{n-2}, \ldots, \phi_{1}, \phi_{0}\right\rangle .\)</span> Following a procedure you're familiar with already, the first step is to apply Hadamard gates to the <span class="math inline">\(|0\rangle\)</span> inputs to generate superposition states. Acting with <span class="math inline">\(m\)</span> Hadamard gates on <span class="math inline">\((9.37)\)</span> gives <span class="math display">\[
+\left|\psi^{\prime}\right\rangle=H^{\otimes m}\left|\psi_{i n}\right\rangle=\left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right)^{\otimes m}|\phi\rangle=\frac{1}{2^{m / 2}} \sum_{x=0}^{2^{m}-1}|x\rangle|\phi\rangle
+\]</span> Now apply the unitary operator to the state in the following way: <span class="math display">\[
+\left|\psi^{\prime \prime}\right\rangle=\frac{1}{2^{m / 2}} \sum_{x=0}^{2^{m}-1}|x\rangle\left(U^{x}|\phi\rangle\right)=\frac{1}{2^{m / 2}} \sum_{x=0}^{2^{m}-1}|x\rangle\left(e^{2 \pi i \theta x}|\phi\rangle\right)
+\]</span> Because <span class="math inline">\(e^{2 \pi i \theta x}\)</span> is just a number, we can move it wherever we like. Notice that the state in <span class="math inline">\((9.39)\)</span> is a product state, with each term multiplied by <span class="math inline">\(|\phi\rangle .\)</span> So we can pull it out of the sum and write <span class="math display">\[
+\left|\psi^{\prime \prime}\right\rangle=\frac{1}{2^{m / 2}} \sum_{x=0}^{2^{m}-1} e^{2 \pi i \theta x}|x\rangle|\phi\rangle=\left(\frac{1}{2^{m / 2}} \sum_{x=0}^{2^{m}-1} e^{2 \pi i \theta x}|x\rangle\right)|\phi\rangle
+\]</span> We are after an estimate of <span class="math inline">\(\theta\)</span>, so we can throw out the last <span class="math inline">\(n\)</span> qubits (i.e., throw out <span class="math inline">\(|\phi\rangle)\)</span>. This leaves the state <span class="math display">\[
+\left|\psi_{\text {out }}\right\rangle=\frac{1}{2^{m / 2}} \sum_{x=0}^{2^{m}-1} e^{2 \pi i \theta x}|x\rangle
+\]</span> The algorithm we have described to this point is sometimes called a phase kickback circuit. This is illustrated in Figure <span class="math inline">\(9.7 .\)</span></p>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210611183726400.png" srcset="/img/loading.gif" style="zoom:67%;" /></p>
+<blockquote>
+<p>Fiqure <span class="math inline">\(9.7\)</span> An illustration of a circuit to implement steps (9.37) through (9.41)</p>
+</blockquote>
+<p>To get an estimate of <span class="math inline">\(\theta\)</span>, we can use the quantum Fourier transform <span class="math inline">\(U_{F}\)</span>. Specifically, we apply the inverse quantum Fourier transform, which is given by <span class="math inline">\(U_{F}^{\dagger}\)</span>, to the state <span class="math inline">\((9.41)\)</span>. The result is <span class="math display">\[
+U_{F}{ }^{\dagger}\left|\psi_{\text {out }}\right\rangle=\frac{1}{2^{m}} \sum_{x=0}^{2^{m}-1} \sum_{y=0}^{2^{m}-1} e^{\left(-2 \pi i x y / 2^{m}\right) / 2^{m}+2 \pi i \theta x}|y\rangle=\frac{1}{2^{m}} \sum_{x, y=0}^{2^{m}-1} e^{2 \pi i x\left(\theta-y / 2^{m}\right)}|y\rangle
+\]</span> The probability of finding the system in the state <span class="math inline">\(|y\rangle\)</span> is <span class="math display">\[
+\operatorname{Pr}(y)=\left|\frac{1}{2^{m}} \sum_{x=0}^{2^{m}-1} e^{2 \pi i x\left(\theta-y / 2^{m}\right)}\right|^{2}=\frac{1}{2^{2 m}}\left|\sum_{x=0}^{2^{m}-1} e^{2 \pi i x\left(\theta-y / 2^{m}\right)}\right|^{2}
+\]</span> We can evaluate this term by considering a geometric series. If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math display">\[
+\sum_{n=0}^{\infty} a r^{n}=\frac{a}{1-r}
+\]</span> When the sum is finite, we have <span class="math display">\[
+\sum_{n=0}^{m-1} a r^{n}=a \frac{r^{m}-1}{r-1}
+\]</span> Looking at (9.43), we let <span class="math inline">\(a=1\)</span> and <span class="math inline">\(r=e^{2 \pi i x\left(\theta-y / 2^{m}\right)}\)</span>. From (9.45) the probability of finding the system in the state <span class="math inline">\(|y\rangle\)</span> is <span class="math display">\[
+\operatorname{Pr}(y)=\frac{1}{2^{2 m}}\left|\frac{r^{2 m}-1}{r-1}\right|^{2}
+\]</span> We wish to estimate a lower bound on this probability. Doing so involves looking at the terms in <span class="math inline">\((9.46)\)</span> in the complex plane. If you haven't had complex variables, you may wish to skip this section, which will seem obscure to many readers.</p>
+<p>Suppose that we have an <span class="math inline">\(m\)</span> bit approximation of <span class="math inline">\(\theta\)</span> given by <span class="math inline">\(0 . \theta_{m-1} \theta_{m-2} \ldots \theta_{0}\)</span> that differs from <span class="math inline">\(\theta\)</span> by some error <span class="math inline">\(\varepsilon\)</span> such that <span class="math inline">\(0&lt;|\varepsilon| \leq 2^{m+1}\)</span>. Then we can take <span class="math inline">\(r=e^{2 \pi i \varepsilon}\)</span> and estimate a lower bound on obtaining an accurate <span class="math inline">\(m\)</span> bit precision estimate of <span class="math inline">\(\theta\)</span>. To do this, we examine the complex plane and consider that <span class="math inline">\(\left|r^{2 m}-1\right|\)</span> is the chord length from 1 to <span class="math inline">\(r^{2 m}\)</span>. We drawing a unit circle in the complex plane. As illustrated in Figure <span class="math inline">\(9.8\)</span>, the arc length from 1 to <span class="math inline">\(r^{2 m}\)</span> is given by <span class="math inline">\(2 \pi|\varepsilon| 2^{m}\)</span>.</p>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210611183828458.png" srcset="/img/loading.gif" style="zoom:67%;" /></p>
+<blockquote>
+<p>Figure <span class="math inline">\(9.8\)</span> Estimating a bound on the probability (9.46) by looking at the complex plane.</p>
+</blockquote>
+<p>In Figure <span class="math inline">\(9.8\)</span> the ratio of the arc length to the chord length cannot exceed <span class="math inline">\(\pi / 2\)</span>. Hence we obtain the bound <span class="math display">\[
+\frac{2 \pi|\varepsilon| 2^{m}}{\left|r^{2 m}-1\right|} \leq \frac{\pi}{2}, \quad \Rightarrow\left|r^{2 m}-1\right| \geq 4|\varepsilon| 2^{m}
+\]</span> Now we need a bound on the denominator in (9.46). A similar procedure for considering the chord length from 1 to <span class="math inline">\(r\)</span> gives the bound <span class="math display">\[
+\frac{2 \pi|\varepsilon|}{|r-1|} \geq 1, \quad \Rightarrow \frac{1}{|r-1|} \geq \frac{1}{2 \pi|\varepsilon|}
+\]</span> Hence <span class="math display">\[
+\left.\operatorname{Pr}(y)=\frac{1}{2^{2 m}}\left|\frac{r^{2 m}-1}{r-1}\right|^{2} \geq \frac{1}{2^{2 m}} \frac{|4| \varepsilon\left|2^{m}\right|^{2}}{|2 \pi| \varepsilon||^{2}}=\frac{1}{2^{2 m}} \frac{16|\varepsilon|^{2} 2^{2 m}}{4 \pi^{2}|\varepsilon|^{2}}=\frac{4}{\pi^{2}}\right\rangle 0.4
+\]</span> The bottom line of this calculation is that the probability is greater than <span class="math inline">\(0.4\)</span>. that a measurement of <span class="math inline">\(\theta\)</span> to <span class="math inline">\(m\)</span> bits of precision is obtained with every single bit correct.</p>
+<h2 id="shors-algorithm">SHOR'S ALGORITHM</h2>
+<p>Shor's algorithm was fundamental in demonstrating the power and importance of quantum computation. This is an algorithm that can be used to factor prime numbers - meaning that it can be used to break encryption codes if a practical quantum computer is ever built. Needless to say, this algorithm got the attention of a lot of people</p>
+<p>The first thing we need to know in order to do Shor's algorithm is order finding. Let <span class="math inline">\(x\)</span> and <span class="math inline">\(N\)</span> be positive integers with no common factors such that <span class="math inline">\(x&lt;N\)</span>. The order of <span class="math inline">\(x\)</span> is the smallest positive integer <span class="math inline">\(r\)</span> such that <span class="math display">\[
+x^{r}=1 \bmod N
+\]</span> Let's explain what <span class="math inline">\(\bmod N\)</span> means by way of an example. First of all, <span class="math inline">\(x\)</span> and <span class="math inline">\(N\)</span> can't have any common factors because their greatest common divisor is 1 . Suppose that we let <span class="math inline">\(x=5\)</span> and <span class="math inline">\(N=44\)</span>. To find <span class="math inline">\(x^{r}=a \bmod N\)</span>, we compute <span class="math inline">\(x^{r}\)</span> and subtract <span class="math inline">\(N\)</span> until we get the last integer greater than 0 . The first two cases are less than <span class="math inline">\(N=44\)</span>, so we don't do anything: <span class="math display">\[
+5^{1}=5, \quad 5^{2}=25
+\]</span> Now since <span class="math inline">\(5^{3}=125\)</span>, we note that <span class="math inline">\((44)(2)=88\)</span> and <span class="math inline">\(125-88=37\)</span>. Hence <span class="math display">\[
+5^{3}=37(\bmod 44)
+\]</span> Next <span class="math inline">\(5^{4}=625\)</span>. We have <span class="math inline">\((14)(44)=616\)</span>, and so <span class="math display">\[
+5^{4}=9(\bmod 44)
+\]</span> Finally <span class="math inline">\(5^{5}=3125 .\)</span> It turns out that <span class="math inline">\(71 \times 44=3124\)</span>, which is 1 less than <span class="math inline">\(5^{5}=3125\)</span>. This is where we stop. Hence <span class="math display">\[
+5^{5}=1(\bmod 44)
+\]</span> The order of 5 is 5 in this case. As you can see, plugging away like this, finding the powers <span class="math inline">\(x^{r}=1(\bmod N)\)</span> can be very time-consuming. With large numbers it will swamp the best computers available, the time required is exponential in <span class="math inline">\(\log N\)</span>. This problem can be solved far more efficiently by using a quantum algorithm based on phase estimation. To solve the problem of order finding, we consider the unitary operator <span class="math display">\[
+U_{x}|y\rangle=\left\{\begin{array}{ll}
+|x y \bmod N\rangle &amp; 0 \leq y \leq N-1 \\
+|y\rangle &amp; N \leq y \leq 2^{L}-1
+\end{array}\right.
+\]</span> where <span class="math inline">\(L=\lceil\log N\rceil\)</span>. The eigenstates of <span class="math inline">\(U_{x}\)</span> are given by <span class="math display">\[
+\left|u_{t}\right\rangle=\frac{1}{\sqrt{r}} \sum_{k=0}^{r-1} \exp \left(-\frac{2 \pi i k t}{r}\right)\left|x^{k} \bmod N\right\rangle
+\]</span> The eigenvalues are given by <span class="math display">\[
+U_{x}\left|u_{t}\right\rangle=e^{2 \pi i(t / r)}\left|u_{t}\right\rangle
+\]</span> Notice that we can apply the phase estimation algorithm to these states to estimate the phase <span class="math inline">\(t / r\)</span>, and hence to find an estimate of the order. The order-finding algorithm begins by considering a superposition of these eigenstates. It turns out that the eigen states sum to <span class="math inline">\(|1\rangle\)</span>, since <span class="math inline">\(\sum_{k=0}^{r-1} \exp (-(2 \pi i k t) / r)=r \delta_{k, 0}\)</span> <span class="math display">\[
+\frac{1}{\sqrt{r}} \sum_{t=0}^{r-1}\left|u_{t}\right\rangle=\frac{1}{\sqrt{r}} \sum_{t=0}^{r-1} \frac{1}{\sqrt{r}} \sum_{k=0}^{r-1} \exp \left(-\frac{2 \pi i k t}{r}\right)\left|x^{k} \bmod N\right\rangle=|1\rangle
+\]</span> So we begin order finding with the input state <span class="math display">\[
+\left|\psi_{i n}\right\rangle=|1\rangle=\frac{1}{\sqrt{r}} \sum_{t=0}^{r-1}\left|u_{t}\right\rangle
+\]</span> We can calculate the quantity <span class="math inline">\(x^{k} \bmod N\)</span> using quantum parallelism. The period <span class="math inline">\(r / t\)</span>, which gives us the order <span class="math inline">\(r\)</span>, is found by the phase estimation procedure. So if we start with <span class="math inline">\(|0\rangle^{\otimes n}|1\rangle\)</span>, then we have <span class="math display">\[
+\frac{1}{\sqrt{r}} \sum_{t=0}^{r-1}\left(\frac{1}{\sqrt{2}^{s}} \sum_{k=0}^{2^{s}-1} \exp \left(-\frac{2 \pi i k t}{r}\right)|k\rangle\right)\left|u_{t}\right\rangle=\frac{1}{\sqrt{r}} \sum_{t=0}^{r-1}|t / r\rangle\left|u_{t}\right\rangle
+\]</span> where we have defined <span class="math display">\[
+|t / r\rangle=\frac{1}{\sqrt{2^{s}}} \sum_{k=0}^{2^{s}-1} \exp \left(-\frac{2 \pi i k t}{r}\right)|k\rangle
+\]</span> Measurement gives an estimate of a random <span class="math inline">\(t / r\)</span> for <span class="math inline">\(0 \leq t \leq r-1\)</span>. To obtain the exact value, continued fractions are applied.</p>
+<p>The order-finding algorithm is the only quantum part of Shor's algorithm-the rest of it involves classical calculations. A simple way to state Shor's algorithm is that we use order finding to find the factors of some odd integer <span class="math inline">\(N\)</span>. This can be summarized as a "Repeat... until" procedure (which I borrow from the lecture notes of John Watrous of University of Waterloo):</p>
+<h2 id="grovers-algorithm">Grover's algorithm</h2>
+<p>Grover's algorithm can be described as a quantum database-searching algorithm. The presentation given here is simplistic and is not something that has much real world utility. Grover's algorithm once again, demonstrates the power of a quantum computer in that the algorithm significantly reduces the number of operations necessary to solve the problem as compared to a classical computer.</p>
+<p>Once again, we have a function <span class="math inline">\(f(x)\)</span> on bits with <span class="math inline">\(n\)</span> inputs and <span class="math inline">\(x \in\{0,1\}^{n}\)</span>. The output of the function is a single bit, so we can have <span class="math inline">\(f(x)=0\)</span> or <span class="math inline">\(f(x)=1\)</span>. The task at hand, which is solved by Grover's algorithm, is the following. There is a single <span class="math inline">\(x\)</span> such that <span class="math inline">\(f(x)=1\)</span>, and we want to find out what <span class="math inline">\(x\)</span> that is. Note that it may be the case that <span class="math inline">\(f(x) \equiv 0\)</span> identically, in which case no such <span class="math inline">\(x\)</span> exists.</p>
+<p>To solve this problem classically, we can generate input strings <span class="math inline">\(x\)</span> and simply test the function to find out if <span class="math inline">\(f(x)=1\)</span>. It turns out that doing this will require <span class="math inline">\(2^{n}-1\)</span> tries to solve the problem. In contrast, Grover's algorithm solves the problem with on order of <span class="math inline">\(\sqrt{2^{n}}\)</span> tries. Now suppose that the bit string is small, just 5 bits. The classical algorithm would require <span class="math inline">\(2^{5}-1=31\)</span> attempts to find the correct <span class="math inline">\(x\)</span>, while Grover's algorithm would require <span class="math inline">\(\sqrt{2^{5}} \approx 6\)</span> attempts. We have a significant improvement on a small bit string. As you might imagine, as the bit strings get larger and larger, the improvement offered by Grover's algorithm becomes very significant.</p>
+<p>Let's denote the input we seek by <span class="math inline">\(\left|x^{\prime}\right\rangle .\)</span> In other words, <span class="math inline">\(f\left(x^{\prime}\right)=1\)</span>, but <span class="math inline">\(f(x)=0\)</span> for all other <span class="math inline">\(|x\rangle .\)</span> So the task at hand, using Grover's algorithm, is to find <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span>. The basic idea is we are going to create an input superposition state and rotate it into <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span> using the Grover operator <span class="math inline">\(G\)</span>.</p>
+<p>Following the usual procedure, we start with an initial <span class="math inline">\(n\)</span> bit input state <span class="math inline">\(|0\rangle^{\otimes n}\)</span> and apply <span class="math inline">\(H^{\otimes n}\)</span> to this state to generate superposition states. We define the state <span class="math inline">\(|\psi\rangle\)</span> to be a superposition of all possible states <span class="math inline">\(|x\rangle\)</span>, meaning <span class="math display">\[
+|\psi\rangle=\frac{1}{\sqrt{2^{n}}} \sum_{x \in\{0,1\}^{n}}|x\rangle
+\]</span> This superposition includes the state <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span> so that <span class="math display">\[
+\left\langle x^{\prime} \mid \psi\right\rangle=\frac{1}{\sqrt{2^{n}}} \sum_{x \in\{0,1\}^{n}}\left\langle x^{\prime} \mid x\right\rangle=\frac{1}{\sqrt{2^{n}}}
+\]</span> By excluding <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span> from <span class="math inline">\((9.57)\)</span>, we can construct an othonormal basis set consisting of <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span> and <span class="math display">\[
+\left|\psi^{\prime}\right\rangle=\frac{1}{\sqrt{2^{n}-1}} \sum_{x \in\{0,1\}^{n}, x \neq x^{\prime}}|x\rangle
+\]</span> Now we define two operators. The first is <span class="math display">\[
+U_{f}=\sum_{x \in\{0,1\}^{n}}(-1)^{f(x)}|x\rangle\left\langle x\left|=\sum_{x \in\{0,1\}^{n}}(-1)^{\delta_{x, x^{\prime}}}\right| x\right\rangle\langle x|
+\]</span> where <span class="math display">\[
+\delta_{x, x^{\prime}}=\left\{\begin{array}{ll}
+1 &amp; x=x^{\prime} \\
+0 &amp; \text { otherwise }
+\end{array}\right.
+\]</span> is the Kronecker delta function. Next, using <span class="math inline">\((9.57)\)</span>, we define <span class="math display">\[
+W=2|\psi\rangle\langle\psi|-I
+\]</span> If we split <span class="math inline">\(|\psi\rangle\)</span> into two parts <span class="math inline">\(-\)</span> the piece containing <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span> and the rest as defined by (9.59) - we have <span class="math display">\[
+|\psi\rangle=\sqrt{\frac{2^{n}-1}{2^{n}}}\left|\psi^{\prime}\right\rangle+\frac{1}{\sqrt{2^{n}}}\left|x^{\prime}\right\rangle
+\]</span> Hence <span class="math display">\[
+\left\langle\psi \mid \psi^{\prime}\right\rangle=\sqrt{\frac{2^{n}-1}{2^{n}}}
+\]</span> Inverting (9.63) so that <span class="math inline">\(\left|x^{\prime}\right\rangle=\sqrt{2^{n}}|\psi\rangle-\sqrt{2^{n}-1}\left|\psi^{\prime}\right\rangle\)</span>, we see that <span class="math display">\[
+\begin{aligned}
+W\left|x^{\prime}\right\rangle &amp;=(2|\psi\rangle\langle\psi|-I)\left(\sqrt{2^{n}}|\psi\rangle-\sqrt{2^{n}-1}\left|\psi^{\prime}\right\rangle\right) \\
+&amp;=2 \sqrt{2^{n}}|\psi\rangle\langle\psi \mid \psi\rangle-\sqrt{2^{n}}|\psi\rangle-2 \sqrt{2^{n}-1}|\psi\rangle\left\langle\psi \mid \psi^{\prime}\right\rangle+\sqrt{2^{n}-1}\left|\psi^{\prime}\right\rangle \\
+&amp; \\
+&amp;=2 \sqrt{2^{n}}|\psi\rangle-\sqrt{2^{n}}|\psi\rangle-2 \sqrt{2^{n}-1} \sqrt{\frac{2^{n}-1}{2^{n}}}|\psi\rangle+\sqrt{2^{n}-1}\left|\psi^{\prime}\right\rangle
+\end{aligned}
+\]</span> Using <span class="math inline">\((9.63)\)</span> to substitute for <span class="math inline">\(|\psi\rangle\)</span> allows us to write <span class="math display">\[
+W\left|x^{\prime}\right\rangle=\frac{2 \sqrt{2^{n}-1}}{2^{n}}\left|\psi^{\prime}\right\rangle+\left(\frac{2}{2^{n}}-1\right)\left|x^{\prime}\right\rangle
+\]</span> We also find that <span class="math display">\[
+W\left|\psi^{\prime}\right\rangle=-\left(\frac{2}{2^{n}}-1\right)\left|\psi^{\prime}\right\rangle+\frac{2 \sqrt{2^{n}-1}}{2^{n}}\left|x^{\prime}\right\rangle
+\]</span> Then, if we define the angle <span class="math inline">\(\theta\)</span> as <span class="math display">\[
+\sin \theta=\frac{2 \sqrt{2^{n}-1}}{2^{n}}
+\]</span> Notice that <span class="math inline">\((9.66)\)</span> and <span class="math inline">\((9.67)\)</span> are a rotation, that is, <span class="math display">\[
+\begin{array}{l}
+W\left|x^{\prime}\right\rangle=-\cos \theta\left|x^{\prime}\right\rangle+\sin \theta\left|\psi^{\prime}\right\rangle \\
+W\left|\psi^{\prime}\right\rangle=\sin \theta\left|x^{\prime}\right\rangle+\cos \theta\left|\psi^{\prime}\right\rangle
+\end{array}
+\]</span> If we apply the operator <span class="math inline">\(G=W U_{f}\)</span>, which is known as the Grover operator, we obtain the more familiar form of a rotation, namely <span class="math display">\[
+\begin{array}{l}
+G\left|x^{\prime}\right\rangle=\cos \theta\left|x^{\prime}\right\rangle-\sin \theta\left|\psi^{\prime}\right\rangle \\
+G\left|\psi^{\prime}\right\rangle=\sin \theta\left|x^{\prime}\right\rangle+\cos \theta\left|\psi^{\prime}\right\rangle
+\end{array}
+\]</span> The basic idea is that the Grover operator rotates the state <span class="math inline">\(\left|\psi^{\prime}\right\rangle\)</span> into the state we are looking for, <span class="math inline">\(\left|x^{\prime}\right\rangle .\)</span> It does so only a tiny bit at a time, so we have to apply it multiple times, say, <span class="math inline">\(m\)</span> times. In that case <span class="math inline">\((9.71)\)</span> and <span class="math inline">\((9.72)\)</span> become <span class="math display">\[
+\begin{array}{r}
+G^{m}\left|x^{\prime}\right\rangle=\cos m \theta\left|x^{\prime}\right\rangle-\sin m \theta\left|\psi^{\prime}\right\rangle \\
+G^{m}\left|\psi^{\prime}\right\rangle=\sin m \theta\left|x^{\prime}\right\rangle+\cos m \theta\left|\psi^{\prime}\right\rangle
+\end{array}
+\]</span> If we see that <span class="math inline">\(m \theta=\pi / 2\)</span>, then <span class="math inline">\((9.74)\)</span> tells us that the application of <span class="math inline">\(G^{m}\)</span> to <span class="math inline">\(\left|\psi^{\prime}\right\rangle\)</span> turns it into <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span>, since <span class="math inline">\(\sin \pi / 2=1, \cos \pi / 2=0\)</span>. Hence <span class="math inline">\(G^{m}\left|\psi^{\prime}\right\rangle=\left|x^{\prime}\right\rangle \quad(m \theta=\pi / 2)\)</span>.</p>
+<p>From our definition of <span class="math inline">\(\theta(9.68)\)</span>, the condition that must be met is <span class="math display">\[
+\sin \theta=\frac{2 \sqrt{2^{n}-1}}{2^{n}}
+\]</span> Using the small angle approximation, (i.e., <span class="math inline">\(\sin \theta \approx \theta\)</span> ) reduces this to <span class="math display">\[
+\theta \approx \frac{2 \sqrt{2^{n}-1}}{2^{n}}
+\]</span> Using our observation that <span class="math inline">\(m \theta=\pi / 2\)</span> will swap the state into the one we want, we know that the condition that must be met in order to find <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span> is <span class="math display">\[
+\begin{array}{l}
+m \theta=m \frac{2 \sqrt{2^{n}-1}}{2^{n}}=\frac{\pi}{2} \\
+\Rightarrow m=\frac{\pi}{4} \frac{2^{n}}{\sqrt{2^{n}-1}} \approx \frac{\pi}{4} \sqrt{2^{n}}
+\end{array}
+\]</span> Therefore on the order of <span class="math inline">\(\sqrt{2^{n}}\)</span> rotations <span class="math inline">\(-\)</span> or applications of the Grover operator <span class="math inline">\(G-\)</span> are necessary to find the state <span class="math inline">\(\left|x^{\prime}\right\rangle\)</span>.</p>
+<h2 id="appendix">Appendix</h2>
+<ul>
+<li><p>$0 0=1 1=0 $ 相同为零</p></li>
+<li><p>$0 1=1 0=1 $ 不同为一</p></li>
+</ul>
+<h3 id="hadamard-gates-1">Hadamard Gates</h3>
+<p>single gate <span class="math display">\[
+H|0\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}}\\ H|1\rangle=\frac{|0\rangle-|1\rangle}{\sqrt{2}}
+\]</span> two gate <span class="math display">\[
+(H \otimes H)|0\rangle|0\rangle=\frac{1}{\sqrt{2^{2}}} \sum_{x \in\{0,1\}^{2}}|x\rangle\\(H \otimes H)|0\rangle|1\rangle=\frac{1}{2} \sum_{x \in\{0,1\}}(-1)^{x}|x\rangle\\(H \otimes H)|1\rangle|1\rangle =\frac{1}{2} \sum_{x \in\{0,1\}^{2}}(-1)^{x_{0} \oplus x_{1}}|x\rangle
+\]</span> explicitly <span class="math display">\[
+\begin{aligned}
+(H \otimes H)|0\rangle|0\rangle &amp;=\frac{1}{2}(|00\rangle+|01\rangle+|10\rangle+|11\rangle)
+\\
+(H \otimes H)|0\rangle|1\rangle &amp;=\frac{1}{2}(|00\rangle-|01\rangle+|10\rangle-|11\rangle)
+\\
+(H \otimes H)|1\rangle|1\rangle&amp;=\frac{1}{2}(|00\rangle-|01\rangle-|10\rangle+|11\rangle)\end{aligned}
+\]</span></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Quantum-Computation/">Quantum Computation</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Quantum-Computation/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E5%9F%BA%E7%A1%80/">量子计算基础</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Quantum-Computation/">Quantum Computation</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/03/QC02_Book01_explained12/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Explained 12-量子纠错</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/03/QC02_Book01_explained03/">
+                        <span class="hidden-mobile">Explained-从量子比特到量子线路</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Explained09-量子算法&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

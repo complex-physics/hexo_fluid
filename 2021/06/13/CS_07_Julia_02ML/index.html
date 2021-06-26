@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>在colab上用Julia跑手写数字模型 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/CS_07_Julia_02ML.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-13 13:23">
+      June 13, 2021 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      962 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>[TOC]</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><a href="https://discourse.juliacn.com/t/topic/159" target="_blank" rel="noopener">Julia 语言入门指引</a></li>
+<li><a href="https://github.com/QuantumBFS/SSSS" target="_blank" rel="noopener">松山湖春季学校GitHub</a> Julia应用</li>
+<li><a href="https://juliaphysics.github.io/latest/tutorials/" target="_blank" rel="noopener">JuliaPhysics</a></li>
+</ol>
+<h2 id="运行平台">运行平台</h2>
+<p>如果不想在本地运行，免费的云端计算平台</p>
+<ol type="1">
+<li>Colab</li>
+<li><a href="https://nextjournal.com/" target="_blank" rel="noopener">Nextjournal</a> 多语言运行</li>
+<li><a href="https://www.jiqizhixin.com/articles/2020-11-05-7" target="_blank" rel="noopener">Jakub</a></li>
+</ol>
+<h3 id="colab">Colab</h3>
+<p>如何在 Colab 上运行 Julia</p>
+<p>参考</p>
+<ul>
+<li><a href="https://discourse.juliacn.com/t/topic/3239" target="_blank" rel="noopener">使用google colab实现Julia GPU加速</a></li>
+</ul>
+<p>步骤</p>
+<ol type="1">
+<li>在本地创建 test.txt 文件(名称自选，不一定test)，写入以下内容</li>
+</ol>
+<pre><code class="hljs python">&#123;
+  <span class="hljs-string">"nbformat"</span>: <span class="hljs-number">4</span>,
+  <span class="hljs-string">"nbformat_minor"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-string">"metadata"</span>: &#123;
+    <span class="hljs-string">"colab"</span>: &#123;
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"Julia on Colab.ipynb"</span>,
+      <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.3.2"</span>,
+      <span class="hljs-string">"provenance"</span>: []
+    &#125;,
+    <span class="hljs-string">"kernelspec"</span>: &#123;
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"julia-1.4"</span>,
+      <span class="hljs-string">"display_name"</span>: <span class="hljs-string">"Julia 1.4"</span>
+    &#125;,
+    <span class="hljs-string">"accelerator"</span>: <span class="hljs-string">"GPU"</span>
+  &#125;,
+  <span class="hljs-string">"cells"</span>: [
+    &#123;
+      <span class="hljs-string">"metadata"</span>: &#123;
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"oMSuTc3pDlHv"</span>,
+        <span class="hljs-string">"colab_type"</span>: <span class="hljs-string">"code"</span>,
+        <span class="hljs-string">"colab"</span>: &#123;&#125;
+      &#125;,
+      <span class="hljs-string">"cell_type"</span>: <span class="hljs-string">"code"</span>,
+      <span class="hljs-string">"source"</span>: [
+        <span class="hljs-string">""</span>
+      ],
+      <span class="hljs-string">"execution_count"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-string">"outputs"</span>: []
+    &#125;
+  ]
+&#125;</code></pre>
+<ol start="2" type="1">
+<li>把test.txt文件后缀改为 .ipynb</li>
+<li>打开google colab 上传 test.ipynb</li>
+<li>安装julia，现在的google colab已经预安装好了CUDA 10.1，因此直接安装julia就可以了。在一个代码行中输入以下命令。</li>
+</ol>
+<pre><code class="hljs python">!curl -sSL <span class="hljs-string">"https://julialang-s3.julialang.org/bin/linux/x64/1.4/julia-1.4.0-linux-x86_64.tar.gz"</span> -o julia.tar.gz
+!tar -xzf julia.tar.gz -C /usr --strip-components <span class="hljs-number">1</span>
+!rm -rf julia.tar.gz*
+!julia -e <span class="hljs-string">'using Pkg; pkg" up; add IJulia ;  precompile"'</span></code></pre>
+<ol start="5" type="1">
+<li>刷新页面(或者重启内核)，就可以正常使用julia和GPU了</li>
+</ol>
+<h4 id="github">GitHub</h4>
+<p>从GitHub复制一个项目过来</p>
+<pre><code class="hljs c">git clone https:<span class="hljs-comment">//github.com/qiskit-community/qiskit-textbook.git</span></code></pre>
+<p>从谷歌云盘里读取数据</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> google.colab <span class="hljs-keyword">import</span> drive
+drive.mount(<span class="hljs-string">'/content/drive'</span>)</code></pre>
+<p>输入一段很长的验证码，授权给colab读取云盘的权限</p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> os
+path = <span class="hljs-string">"/content/drive/MyDrive/Colab Notebooks"</span>
+
+os.chdir(path)
+os.listdir(path)</code></pre>
+<p>定义路径<code>path</code></p>
+<h2 id="手写辨识">手写辨识</h2>
+<p>参考</p>
+<ul>
+<li>Julia编程实践 <code>julia-hands-on</code> 罗秀哲 University of Waterloo 来源：松山湖会议第三天</li>
+</ul>
+<h3 id="准备">1准备</h3>
+<p><em>Flux</em> is a <em>Julia</em> library for machine learning</p>
+<p>安装 <em>Flux</em> 包</p>
+<pre><code class="hljs julia"><span class="hljs-keyword">using</span> Pkg
+Pkg.add(<span class="hljs-string">"Flux"</span>)</code></pre>
+<p>呼叫 <em>Flux</em> 包和数据集</p>
+<pre><code class="hljs Julia"><span class="hljs-keyword">using</span> Flux, Flux.Data.MNIST
+
+imgs = MNIST.images();</code></pre>
+<p>查看其中一个图片</p>
+<pre><code class="hljs julia">imgs[<span class="hljs-number">1</span>]</code></pre>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210613223732226.png" srcset="/img/loading.gif" style="zoom:50%;" /></p>
+<p>然后我们将图片转换成一个向量，然后再组装成大的batch</p>
+<pre><code class="hljs julia">X = hcat(float.(reshape.(imgs, :))...)</code></pre>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210613235359570.png" srcset="/img/loading.gif" style="zoom: 67%;" /></p>
+<p>标识</p>
+<pre><code class="hljs Julia">labels = MNIST.labels()</code></pre>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210613235531236.png" srcset="/img/loading.gif" style="zoom:50%;" /></p>
+<p>接下来我们需要把label编程onehot向量，方便和我们一会儿神经网络的输出做比较</p>
+<blockquote>
+<p>什么是把label编程onehot向量？<a href="https://blog.csdn.net/taotiezhengfeng/article/details/73692239" target="_blank" rel="noopener">参考</a></p>
+<ol type="1">
+<li>假如我们研究的对象有三个特征属性
+<ul>
+<li>性别：["male"，"female"]</li>
+<li>地区：["Europe"，"US"，"Asia"]</li>
+<li>浏览器：["Firefox"，"Chrome"，"Safari"，"Internet Explorer"]</li>
+</ul></li>
+<li>例如一个各体的特征是 ["male"，"US"，"Internet Explorer"]</li>
+<li>需要将这个分类值的特征数字化，最直接的方法，我们可以采用序列化的方式：[0,1,3]但是这样的特征处理并不能直接放入机器学习算法中。</li>
+<li>我们可以采用One-Hot编码的方式对上述的样本
+<ul>
+<li>“male”则对应着[1，0]，</li>
+<li>同理“US”对应着[0，1，0]，</li>
+<li>“Internet Explorer”对应着[0,0,0,1]。</li>
+<li>则完整的特征数字化的结果为：[1,0,0,1,0,0,0,0,1]。</li>
+</ul></li>
+</ol>
+</blockquote>
+<pre><code class="hljs julia"><span class="hljs-keyword">using</span> Flux: onehotbatch, onecold, crossentropy, throttle
+
+Y = onehotbatch(labels, <span class="hljs-number">0</span>:<span class="hljs-number">9</span>)</code></pre>
+<figure>
+<img src="http://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210614000716049.png" srcset="/img/loading.gif" alt="" /><figcaption>image-20210614000716049</figcaption>
+</figure>
+<h3 id="网络结构">2 网络结构</h3>
+<p>用一个非常简单的两层神经网络来作为我们的模型</p>
+<ul>
+<li>2层神经网络</li>
+<li>输入层是 $2828 $ 的图像大小拉平</li>
+<li>第一层的非线性 <code>relu</code></li>
+<li>第二层输入是前一个层的输出 32，非线性 <code>softmax</code></li>
+<li>第二层输出是分类的类型0-9的10个数字</li>
+</ul>
+<pre><code class="hljs julia">m = Chain(
+  Dense(<span class="hljs-number">28</span>^<span class="hljs-number">2</span>, <span class="hljs-number">32</span>, relu),
+  Dense(<span class="hljs-number">32</span>, <span class="hljs-number">10</span>),
+  softmax)</code></pre>
+<p>用 交叉熵（cross entropy） 来定义损失函数（loss function）</p>
+<pre><code class="hljs julia">loss(x, y) = crossentropy(m(x), y)</code></pre>
+<h3 id="训练">3 训练</h3>
+<p>直接用整个训练数据来训练，然后使用ADAM优化器。</p>
+<pre><code class="hljs julia">dataset = Iterators.repeated((X, Y), <span class="hljs-number">200</span>)
+evalcb = () -&gt; <span class="hljs-meta">@show</span>(loss(X, Y))
+opt = ADAM()</code></pre>
+<pre><code class="hljs julia">Flux.train!(loss, params(m), dataset, opt, cb = throttle(evalcb, <span class="hljs-number">10</span>))</code></pre>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210614002453435.png" srcset="/img/loading.gif" style="zoom:50%;" /></p>
+<p>把loss的过程画成图</p>
+<h3 id="结果">4 结果</h3>
+<p>定义模型最后训练出来的精度，也就是看看模型预测结果的准确性</p>
+<pre><code class="hljs julia"><span class="hljs-keyword">using</span> Statistics
+accuracy(x, y) = mean(onecold(m(x)) .== onecold(y))
+<span class="hljs-comment">#=</span>
+<span class="hljs-comment">训练集精度</span>
+<span class="hljs-comment">=#</span>
+accuracy(X, Y)
+<span class="hljs-comment">#=</span>
+<span class="hljs-comment">测试集精度</span>
+<span class="hljs-comment">=#</span>
+tX = hcat(float.(reshape.(MNIST.images(:test), :))...)
+tY = onehotbatch(MNIST.labels(:test), <span class="hljs-number">0</span>:<span class="hljs-number">9</span>)
+accuracy(tX, tY)</code></pre>
+<ul>
+<li><p>在训练集上，精度是 0.90146</p></li>
+<li><p>在测试集上，精度是 0.9052</p></li>
+</ul>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Computational/">Computational</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Numerical/">Numerical</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Code/">Code</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Julia/">Julia</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/14/CS_02_python_03SSS1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">松山湖笔记1-深度学习</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/13/CS_07_Julia_02ML_ising/">
+                        <span class="hidden-mobile">第一次在本地跑Julia</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "在colab上用Julia跑手写数字模型&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

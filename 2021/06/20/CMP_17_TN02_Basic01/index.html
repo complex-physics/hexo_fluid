@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>TN笔记1-张量网络基础 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/CMP_17_TN02_Basic01.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-20 13:01">
+      June 20, 2021 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>[TOC]</p>
+<h4 id="reference">Reference:</h4>
+<ol type="1">
+<li>《张量网络算法基础》冉仕举</li>
+<li><a href="https://www.bilibili.com/video/BV17z411i7yM/" target="_blank" rel="noopener">视频</a></li>
+<li><a href="https://github.com/ranshiju/TN_tutorial" target="_blank" rel="noopener">代码</a></li>
+</ol>
+<h2 id="量子多体和张量的介绍">1 量子多体和张量的介绍</h2>
+<h3 id="量子多体的近似">量子多体的近似</h3>
+<p>求解量子多体问题的两个近似思路：</p>
+<ul>
+<li><p>第一性原理方法近似</p></li>
+<li><p>量子格点模型的近似</p></li>
+</ul>
+<p>两种近似的优缺点对比</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>第一性原理方法近似</td>
+<td>可以处理实际，复杂的系统</td>
+<td>近似比较大，忽略多提作用</td>
+</tr>
+<tr class="even">
+<td>量子格点模型的近似</td>
+<td>考虑相互作用和强关联</td>
+<td>实际材料应用较少</td>
+</tr>
+</tbody>
+</table>
+<p>两种近似的具体</p>
+<ol type="1">
+<li>第一性原理方法近似</li>
+</ol>
+<ul>
+<li>平均场近似</li>
+<li>单粒子近似</li>
+<li>周期势能</li>
+</ul>
+<ol start="2" type="1">
+<li>量子格点模型的近似</li>
+</ol>
+<ul>
+<li>空间离散化</li>
+<li>仅考虑电子贡献</li>
+<li>仅考虑自选贡献</li>
+</ul>
+<h3 id="量子网络机器学习">量子网络机器学习</h3>
+<p>多体空间中 用到 Tensor Network 的机器学习</p>
+<h3 id="什么是张量">什么是张量</h3>
+<table>
+<thead>
+<tr class="header">
+<th>张量阶数</th>
+<th>名称</th>
+<th>符号</th>
+<th>物理量例子</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>标量</td>
+<td><span class="math inline">\(c\)</span></td>
+<td>温度，身高</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>向量</td>
+<td><span class="math inline">\(v_{a}\)</span></td>
+<td>速度，力</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>矩阵</td>
+<td><span class="math inline">\(m_{a b}\)</span></td>
+<td>黑白照片</td>
+</tr>
+<tr class="even">
+<td>N</td>
+<td>张量</td>
+<td><span class="math inline">\(T_{s_{1} s_{2} \ldots s_{N}}\)</span></td>
+<td>彩色照片</td>
+</tr>
+</tbody>
+</table>
+<h3 id="张量的基本运算">张量的基本运算</h3>
+<ul>
+<li><p>向量内积 <span class="math inline">\(C=\sum_{a} x_{a} y_{a}\)</span></p></li>
+<li><p>向量乘矩阵 <span class="math inline">\(v_{b}=\sum_{a} x_{a} M_{a b}=x M\)</span></p></li>
+<li><p>矩阵乘矩阵 <span class="math inline">\(M_{a c}=\sum_{b} A_{a b} B_{b c}=A B\)</span></p></li>
+<li><p>三阶张量缩并 <span class="math inline">\(T_{a c d e}=\sum_{b} A_{a b c} B_{b d e}\)</span></p></li>
+</ul>
+<p>张量的图形表示</p>
+<h2 id="线性代数及多基础-线性代数及多基础-线性代数及多基础">2 线性代数及多基础 线性代数及多基础 线性代数及多基础</h2>
+<h3 id="本征值分解eigenvalue-decomposition">本征值分解（eigenvalue decomposition）</h3>
+<p>给定 <span class="math inline">\(D \times D\)</span> 的厄密矩阵 <span class="math inline">\(M\)</span>，<span class="math inline">\(M\)</span> 的本征向量并列构成 变换矩阵 <span class="math inline">\(U\)</span>，把矩阵 <span class="math inline">\(M\)</span> 分解为 <span class="math display">\[
+M=U \Gamma U^{\dagger}
+\]</span> 其中</p>
+<ul>
+<li><span class="math inline">\(\Gamma\)</span> 为对角矩阵，称为本征谱</li>
+<li>不是所有矩阵都可以本征值分解，但是厄密矩阵 <span class="math inline">\(M=M^{\dagger}\)</span> 一定存在本征值分解</li>
+<li>变换矩阵满足正交归一性 <span class="math inline">\(U U^{+}=I\)</span></li>
+</ul>
+<h4 id="最大本征值问题">最大本征值问题</h4>
+<blockquote>
+<p>给定矩阵<span class="math inline">\(M\)</span>，求解归一化向量<span class="math inline">\(v\)</span>，使得函数 <span class="math display">\[
+f =\left| v ^{ T } Mv \right|
+\]</span> 的值极大化</p>
+</blockquote>
+<p>两个相关论断：</p>
+<ul>
+<li><p>该最优化问题的解：<span class="math inline">\(f\)</span> 的极大值是为 𝑀的 （绝对值）最大本征态，应𝑓值为最大本征 值</p></li>
+<li><p>最大本征值问题的贯级数求解法</p></li>
+</ul>
+<p>考虑实对称矩阵 <span class="math inline">\(M\)</span>， 设 <span class="math inline">\(\Gamma_{0}\)</span> 和 <span class="math inline">\(u^{(0)}\)</span> 为其绝对值最大的唯一本征值及本征 向量，则 <span class="math display">\[
+\lim _{K \rightarrow \infty} M^{K}=\Gamma_{0}^{K} u^{(0)} u^{(0) T}
+\]</span></p>
+<h3 id="奇异值分解与最优低秩近似问题">奇异值分解与最优低秩近似问题</h3>
+<blockquote>
+<p>奇异值分解（singular value decomposition）：</p>
+<p>给定<span class="math inline">\(D \times D^{\prime}\)</span> 的矩阵 <span class="math inline">\(M,\)</span> 有 <span class="math display">\[
+M=U \Lambda V^{\dagger}
+\]</span> 其中</p>
+<ul>
+<li><span class="math inline">\(U\)</span> 与 <span class="math inline">\(V\)</span> 每一列分别被称为 <span class="math inline">\(M\)</span> 的左、右奇异向量, 且满足 正交归一性<span class="math inline">\(U U^{\dagger}=I\)</span> , $ V V^{}=I ; $</li>
+<li>$ $ 为非负定实对角矩阵，称为奇异谱, 其元素称为奇异值，按非升序排列。</li>
+</ul>
+</blockquote>
+<p>定义</p>
+<ul>
+<li>秩：矩阵的非零奇异值个数。</li>
+</ul>
+<h4 id="矩阵的低秩近似问题">矩阵的低秩近似问题</h4>
+<p>给定 <span class="math inline">\(D \times D^{\prime}\)</span> 的矩阵 <span class="math inline">\(M\)</span>，设其秩为<span class="math inline">\(R\)</span>， 求解秩为<span class="math inline">\(R^{\prime}\)</span>的 矩阵<span class="math inline">\(M^{\prime}\)</span>, 有 <span class="math inline">\(R&gt;R^{\prime}&gt;0,\)</span> 且极小化二矩阵间的范数 <span class="math display">\[
+\varepsilon=|| M-M^{\prime}||=\sqrt{\sum_{i j}\left(M_{i j}-M_{i j}^{\prime}\right)^{2}} \sim\left\|\Lambda_{R^{\prime}: R-1}\right\|
+\]</span> 低秩近似问题的最优解为 <span class="math display">\[
+M^{\prime}=U\left[:, 0: R^{\prime}\right] \Lambda\left[0: R^{\prime}, 0: R^{\prime}\right] V\left[:, 0: R^{\prime}\right]^{\dagger}
+\]</span></p>
+<h4 id="例子-基于奇异值分解低秩近似的图形压缩">例子: 基于奇异值分解低秩近似的图形压缩</h4>
+<div data-align="center">
+<p><img src="http://jptanjing.oss-cn-beijing.aliyuncs.com/img/image20200826164550401.png" srcset="/img/loading.gif" style="zoom: 60%;" /></p>
+</div>
+<h3 id="多线性代数中的张量单秩分解">多线性代数中的张量单秩分解</h3>
+<blockquote>
+<p>问题：</p>
+<p>矩阵（二阶张量）存在本征值分解、奇异值分解等，对于更高 阶的张量，是否存在类似的分解？</p>
+</blockquote>
+<p>考虑矩阵<span class="math inline">\(M\)</span>（简要起见设<span class="math inline">\(M\)</span>为实矩阵）的奇异值分解，记第n个左、右 奇异向量分别为u <span class="math inline">\(^{(n)}\)</span> 和 <span class="math inline">\(v^{(n)},\)</span> 有等式： <span class="math display">\[
+\sum_{a} u_{a}^{(n)} M_{a b}=\Lambda^{(n)} v_{b}^{(n)}
+\\
+\sum_{b} M_{a b} v_{b}^{(n)}=\Lambda^{(n)} u_{a}^{(n)}
+\]</span> 其中</p>
+<ul>
+<li><span class="math inline">\(\Lambda^{(n)}\)</span> 为第n个奇异值, 且有 <span class="math inline">\(\Lambda^{(n)}=\sum_{a b} u_{a}^{(n)} M_{a b} v_{b}^{(n)}\)</span></li>
+<li>用图形表示等式</li>
+</ul>
+<div data-align="center">
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image20200826172623867.png" srcset="/img/loading.gif" style="zoom: 80%;" /></p>
+</div>
+<h4 id="迭代算法计算最大奇异值及向量">迭代算法：计算最大奇异值及向量</h4>
+<ol type="1">
+<li>随机初始化归一向量<span class="math inline">\(u\)</span>和<span class="math inline">\(v\)</span>;</li>
+<li>利用式子 <span class="math inline">\(\sum_{a} u_{a} M_{a b}=\Lambda v_{b}\)</span>，计算<span class="math inline">\(u\)</span>和M的收缩并归一化，更新<span class="math inline">\(v\)</span>, 归一化因子记为 <span class="math inline">\(\Lambda\)</span>;</li>
+<li>利用式子 <span class="math inline">\(\sum_{b} M_{a b} v_{b}=\Lambda u_{a}\)</span>，计算v和M的收缩并归一 化，更新<span class="math inline">\(u\)</span>, 归一化因子记为 <span class="math inline">\(\Lambda\)</span>;</li>
+<li>如果<span class="math inline">\(u\)</span>和<span class="math inline">\(v\)</span>（以及 <span class="math inline">\(\Lambda\)</span> ) 收剑, 则返回<span class="math inline">\(u\)</span>、<span class="math inline">\(v\)</span>和 <span class="math inline">\(\Lambda\)</span>; 否则，返回执行步骤（2） ;</li>
+</ol>
+<h4 id="高阶张量的单秩分解">高阶张量的单秩分解</h4>
+<p>自然地将上述自洽方程组推广到高阶张量的单秩分解（rank-1分解; 以三阶张量T为例） <span class="math inline">\(T=\Lambda u \otimes v \otimes w, \quad\)</span> 满足如下自洽方程组： <span class="math display">\[
+\begin{array}{l}
+\sum_{a b} T_{a b c} u_{a} v_{b}=\Lambda w_{c} \\
+\sum_{a c} T_{a b c} u_{a} w_{c}=\Lambda v_{b} \\
+\sum_{b c} T_{a b c} v_{b} w_{c}=\Lambda u_{a}
+\end{array}
+\]</span> 其中, <span class="math inline">\(u, v, w\)</span> 为归一化向量, 方程组成立时有 <span class="math inline">\(\Lambda=\sum_{a b c} T_{a b c} u_{a} v_{b} w_{c}\)</span> 被称为rank-1分解系数。</p>
+<h4 id="优化问题">优化问题</h4>
+<p>给定张量T，求解张量 <span class="math inline">\(\widetilde{T}=\Lambda \prod_{\otimes n} v^{(n)}\)</span> 使得T和宁之间的范数 <span class="math display">\[
+f=|T-\widetilde{T}|
+\]</span> 极小。</p>
+<p>论断</p>
+<ul>
+<li>rank-1分解得到的向量 <span class="math inline">\(v^{(n)}\)</span> 与系数 <span class="math inline">\(\Lambda\)</span> 构成的不，使范数f极小。</li>
+</ul>
+<h3 id="高阶奇异值分解">高阶奇异值分解</h3>
+<p>在rank-1分解中，我们将最大奇异值及奇异向量的方法推广到了高阶张 量，下面我们考虑将完整的奇异值分解进行推广</p>
+<blockquote>
+<p>高阶奇异值分解（Higher-order singular value decomposition, 简称HOSVD）:</p>
+<p>又称 Tucker分解，其定义如下（以三阶实张量T为例）： <span class="math display">\[
+T_{a b c}=\sum_{i j k} G_{i j k} U_{a i} V_{b j} W_{c k}
+\]</span> 其中，张量 𝐺被称为核张量 被称为核张量（ core tensor）</p>
+</blockquote>
+<p>图形表示</p>
+<div data-align="center">
+<p><img src="http://jptanjing.oss-cn-beijing.aliyuncs.com/img/image20200826175855274.png" srcset="/img/loading.gif" style="zoom: 80%;" /></p>
+</div>
+<h4 id="键约化矩阵">键约化矩阵</h4>
+<p>定义G的<strong>键约化矩阵</strong>（bond reduced matrix），以指标i为例，其键约化矩阵定义为 <span class="math display">\[
+J_{i i^{\prime}}=\sum_{j k} G_{i j k} G_{i^{\prime} j k}
+\]</span> 核张量的任意G的任意键约化矩阵为<strong>非负定对角阵</strong>，且元素按非升序排列 <span class="math inline">\(\left(J_{00} \geq J_{11} \geq \cdots \geq 0\right)\)</span></p>
+<h4 id="hosvd算法">HOSVD算法</h4>
+<p>高阶奇异值分解的HOSVD算法（以三阶实张量T为例）</p>
+<ol type="1">
+<li>计算各个指标的键约化矩阵</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+I_{a a^{\prime}} &amp;=\sum_{j k} T_{a b c} T_{a^{\prime} b c} \\
+J_{b b^{\prime}} &amp;=\sum_{i k} T_{a b c} T_{a b^{\prime} c} \\
+K_{c c^{\prime}} &amp;=\sum_{i j} T_{a b c} T_{a b c^{\prime}}
+\end{aligned}
+\]</span></p>
+<ol start="2" type="1">
+<li>计算每个键约化矩阵的本征值分解:</li>
+</ol>
+<p><span class="math display">\[
+\begin{array}{l}
+I=U \Omega U^{T} \\
+J=V \prod V^{T} \\
+K=W Y W^{T}
+\end{array}
+\]</span></p>
+<ol start="3" type="1">
+<li>计算核张量</li>
+</ol>
+<p><span class="math display">\[
+G_{i j k}=\sum_{a b c} T_{a b c} U_{a i} V_{b j} W_{c k}
+\]</span></p>
+<p>最终得到高阶奇异值分解：<span class="math inline">\(T_{a b c}=\sum_{i j k} G_{i j k} U_{a i} V_{b j} W_{c k}\)</span></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Condensed-matter-Physics/">Condensed matter Physics</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Tensor-Network/">Tensor Network</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/21/Ftmb_16_Nagaosa_01/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Nagaosa笔记1 量子自旋链</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/19/CMP_05_MF04_KITP/">
+                        <span class="hidden-mobile">KITP演讲笔记1-相位诱导Majorana设备</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "TN笔记1-张量网络基础&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

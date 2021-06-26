@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="JPZhuang">
+  <meta name="keywords" content="">
+  <title>Nagaosa笔记1 量子自旋链 - JPZ</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Physics</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://jptanjing.oss-cn-beijing.aliyuncs.com/blog_QuantumAI/Ftmb_15_sunkai_01.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-06-21 14:23">
+      June 21, 2021 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      8.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      175
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>[TOC]</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li>《Quantum Field Theory in Strongly Correlated Electronic Systems》1999 <em>Naoto Nagaosa</em></li>
+</ul>
+<p>Topological insulators Part II: Phase and gauge field</p>
+<p>[TOC]</p>
+<p>Among many-body quantum systems, the one-dimensional occupies a special position. Owing to strong quantum fluctuations, the system is a quantum liquid, and down to zero temperature, no ordered state emerges. In this chapter, the one-dimensional quantum spin system will be discussed, being the introduction to the theory of strongly correlated systems.</p>
+<h2 id="the-s1-2-x-x-z-spin-chain">1.1 The <span class="math inline">\(S=1 / 2 X X Z\)</span> Spin Chain</h2>
+<p>First, we consider the following Hamiltonian: <span class="math display">\[
+H=J_{\perp} \sum_{i}\left(S_{i}^{x} S_{i+1}^{x}+S_{i}^{y} S_{i+1}^{y}\right)+J_{z} \sum_{i} S_{i}^{z} S_{i+1}^{z}
+\]</span> Here, <span class="math inline">\(S _{i}\)</span> is the spin <span class="math inline">\(S=1 / 2\)</span> operator. Expressing the <span class="math inline">\(\uparrow\)</span> spin state as <span class="math inline">\([1,0]^{t}\)</span> and the <span class="math inline">\(\downarrow\)</span> state as <span class="math inline">\([0,1]^{t}\)</span>, and using the Pauli matrices <span class="math inline">\(\sigma=\left(\sigma^{x}, \sigma^{y}, \sigma^{z}\right)\)</span> <span class="math display">\[
+\sigma^{x}=\left[\begin{array}{ll}
+0 &amp; 1 \\
+1 &amp; 0
+\end{array}\right], \quad \sigma^{y}=\left[\begin{array}{cc}
+0 &amp; - i \\
+i &amp; 0
+\end{array}\right], \quad \sigma^{z}=\left[\begin{array}{cc}
+1 &amp; 0 \\
+0 &amp; -1
+\end{array}\right]
+\]</span> the spin operator is given by <span class="math inline">\(S _{i}=(\hbar / 2) \sigma _{i} .\)</span> The spin operator satisfies <span class="math display">\[
+\left[S_{i}^{\alpha}, S_{j}^{\beta}\right]= i \hbar \delta_{i j} \varepsilon_{\alpha \beta \gamma} S_{i}^{\gamma}
+\]</span> <span class="math inline">\(\varepsilon_{\alpha \beta \gamma}\)</span> is the total antisymmetric tensor with <span class="math inline">\(\varepsilon_{x y z}=1 .\)</span> In what follows, we usually set <span class="math inline">\(\hbar=1 . J_{\perp}\)</span> as well as <span class="math inline">\(J_{z}\)</span> are the nearest-neighbour exchange interactions; and for the case <span class="math inline">\(J_{\perp}=J_{z}\)</span>, the Hamiltonian is called the Heisenberg model.</p>
+<p>From the commutation relation (1.1.2), it is clear that the unitary operator <span class="math display">\[
+U_{i}( n , \theta)= e ^{ i \theta n \cdot S_{i}}
+\]</span> rotates the spin. Here, <span class="math inline">\(n\)</span> is the unit vector, and <span class="math inline">\(\theta\)</span> is the rotation angle. For example, the case where <span class="math inline">\(n = e _{z}=(0,0,1)\)</span>, <span class="math display">\[
+U_{i}\left( e _{z}, \theta\right) S_{i}^{\alpha} U_{i}^{\dagger}\left( e _{z}, \theta\right)=\tilde{S}_{i}^{\alpha}(\theta)
+\]</span> leads to <span class="math display">\[
+\begin{array}{c}
+\frac{ d \tilde{S}_{i}^{x}(\theta)}{ d \theta}=U_{i} \cdot i \left[S_{i}^{z}, S_{i}^{x}\right] U_{i}^{\dagger}=-\tilde{S}_{i}^{y}(\theta) \\
+\frac{ d \tilde{S}_{i}^{y}(\theta)}{ d \theta}=\tilde{S}_{i}^{x}(\theta) \\
+\frac{ d \tilde{S}_{i}^{z}(\theta)}{ d \theta}=0
+\end{array}
+\]</span> The solution is then given by <span class="math display">\[
+\begin{array}{c}
+\tilde{S}_{i}^{x}(\theta)=S_{i}^{x} \cos \theta-S_{i}^{y} \sin \theta \\
+\tilde{S}_{i}^{y}(\theta)=S_{i}^{x} \sin \theta+S_{i}^{y} \cos \theta \\
+\tilde{S}_{i}^{z}(\theta)=S_{i}^{z}
+\end{array}
+\]</span> Obviously, this describes a rotation around the <span class="math inline">\(z\)</span> -axis. Next, constructing the unitary operator <span class="math inline">\(T=\prod_{n \text { :odd }} U_{n}\left( e _{z}, \pi\right)\)</span> from <span class="math inline">\(U_{i}\)</span>, because of <span class="math display">\[
+\begin{array}{c}
+T S_{i}^{x} T^{\dagger}=(-1)^{i} S_{i}^{x} \\
+T S_{i}^{y} T^{\dagger}=(-1)^{i} S_{i}^{y} \\
+T S_{i}^{z} T^{\dagger}=S_{i}^{z}
+\end{array}
+\]</span> the transformation <span class="math inline">\(T H T^{\dagger}\)</span> of <span class="math inline">\((1.1 .1)\)</span> interchanges <span class="math inline">\(J_{\perp} \rightarrow-J_{\perp}, J_{z} \rightarrow J_{z} .\)</span> We conclude that the sign of <span class="math inline">\(J_{\perp}\)</span> is not essential.</p>
+<p>On the other hand, the sign of <span class="math inline">\(J_{z}\)</span> plays an essential role for the quantum system. This is owing to the fact that, different from (1.1.7), the commutation relation (1.1.2) of the spin components is changed for <span class="math inline">\(S _{i} \rightarrow- S _{i} .\)</span> First, we construct with <span class="math inline">\(S^{x}\)</span> and <span class="math inline">\(S^{y}\)</span> : <span class="math display">\[
+S^{\pm}=S^{x} \pm i S^{y}
+\]</span> Because of <span class="math display">\[
+S^{+}=\left[\begin{array}{ll}
+0 &amp; 1 \\
+0 &amp; 0
+\end{array}\right], \quad S^{-}=\left[\begin{array}{ll}
+0 &amp; 0 \\
+1 &amp; 0
+\end{array}\right] .
+\]</span> <span class="math inline">\(S^{+}\)</span> is the operator that flips the spin <span class="math inline">\(\uparrow\)</span> state to <span class="math inline">\(\downarrow\)</span>, and <span class="math inline">\(S^{-}\)</span> flips <span class="math inline">\(\downarrow\)</span> to <span class="math inline">\(\uparrow\)</span>. Using these operators, the Hamiltonian (1.1.1) can be re-expressed as <span class="math display">\[
+H=\frac{J_{\perp}}{2} \sum_{i}\left(S_{i}^{+} S_{i+1}^{-}+S_{i}^{-} S_{i+1}^{+}\right)+J_{z} \sum_{i} S_{i}^{z} S_{i+1}^{z}
+\]</span> Now, regarding <span class="math inline">\(S_{i}^{z}\)</span> as a 'coordinate', <span class="math inline">\(S_{i}^{\pm}\)</span> displace this coordinate as if it were the 'momentum'. In this interpretation, the unitary operator <span class="math inline">\(U_{i}(1.1 .3)\)</span> corresponds to the linear transformation operator <span class="math inline">\(U=e^{ i \alpha p}(x\)</span> : coordinate; <span class="math inline">\(p:\)</span> momentum; <span class="math inline">\(\alpha\)</span> : constant). Then, the term proportional to <span class="math inline">\(J_{\perp}\)</span> in (1.1.9) represents the 'kinetic energy' causing the quantum fluctuations of <span class="math inline">\(S_{i}^{z}\)</span>, and the term proportional to <span class="math inline">\(J_{z}\)</span> represents the 'potential energy' that causes the ordering of <span class="math inline">\(S_{i}^{z} .\)</span> The competition between these two tendencies is the physics that is contained in (1.1.1) as well as in (1.1.9).</p>
+<p>We first consider the classical limit <span class="math inline">\(J_{\perp}=0 .\)</span> This is the so-called Isingmodel; and the spins align at zero temperature depending on the sign of <span class="math inline">\(J_{z}\)</span> ferromagnetic ally <span class="math inline">\(\left(J_{z}&lt;0\right)\)</span>, or anti-ferromagnetically <span class="math inline">\(\left(J_{z}&gt;0\right) .\)</span> Notice that the ground state is two-fold degenerate because the Hamiltonian is invariant under the transformation <span class="math inline">\(S_{z}^{i} \rightarrow-S_{z}^{i}\)</span>, performed at all sites <span class="math inline">\(i .\)</span> Calling these two ground states <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> and assuming that the system at the right-hand side is in state <span class="math inline">\(A\)</span>, and at the left-hand side in state <span class="math inline">\(B\)</span>, then somewhere there must exist a boundary between region <span class="math inline">\(A\)</span> and region <span class="math inline">\(B .\)</span> This boundary is called a kink or soliton. Because at finite temperature this excitation occurs with a finite density, the spin correlation function <span class="math inline">\(F(r)=\left\langle S_{i}^{z} S_{i+r}^{z}\right\rangle\)</span> will decay exponentially with a correlation length <span class="math inline">\(\xi\)</span>.</p>
+<p>Let us determine this explicitly. We align <span class="math inline">\(N\)</span> spins from <span class="math inline">\(i=1\)</span> to <span class="math inline">\(i=N\)</span> with free ends. In the thermodynamic limit <span class="math inline">\(N \rightarrow \infty\)</span>, we can ignore the influence of the boundary. We first assume that the spin <span class="math inline">\(S_{1}^{z}\)</span> at the left side is fixed to, say, <span class="math inline">\(1 / 2 .\)</span> Then, instead of <span class="math inline">\(S_{2}^{z}\)</span>, it is possible to consider <span class="math inline">\(L_{12} \equiv S_{1}^{z} S_{2}^{z}\)</span> as variable. In the same manner, instead of <span class="math inline">\(S_{3}^{z}\)</span>, defining <span class="math inline">\(L_{23} \equiv S_{2}^{z} S_{3}^{z}\)</span> and so on, the statistical mechanics can be formulated in terms of <span class="math inline">\(L_{i, i+1}\)</span> instead of <span class="math inline">\(S_{i}^{z}\)</span> The correlation between <span class="math inline">\(S_{i}^{z}\)</span> and <span class="math inline">\(S_{i+1}^{z}\)</span>, being defined on the site, is expressed by <span class="math inline">\(L_{i, i+1}\)</span>, being defined on the link. In the parallel or anti-parallel case, the obtained value is <span class="math inline">\(\pm 1 / 4\)</span>, respectively. Now, we write <span class="math inline">\(L_{i+1 / 2}\)</span> instead of <span class="math inline">\(L_{i, i+1}\)</span>. Then, the Ising model can be expressed as <span class="math display">\[
+H=J_{z} \sum_{i=1}^{N-1} L_{i+1 / 2}
+\]</span> which is the independent sum of the energy at every link. The free energy of every site can be calculated easily: <span class="math display">\[
+\begin{aligned}
+f &amp;=-\frac{1}{\beta} \lim _{N \rightarrow \infty} \frac{1}{N} \ln Z=-\frac{1}{\beta} \ln \sum_{L=\pm 1 / 4} e ^{-\beta J_{z} L} \\
+&amp;=-\frac{1}{\beta} \ln \left(2 \cosh \frac{\beta J_{z}}{4}\right)
+\end{aligned}
+\]</span> Next, based on the above discussion, we calculate <span class="math inline">\(F(r)=\left\langle S_{i}^{z} S_{i+r}^{z}\right\rangle .\)</span> First, we observe that <span class="math inline">\(S_{i}^{z} S_{i+r}^{z}\)</span> is 'non-local' when expressed in terms of <span class="math inline">\(L_{j+1 / 2}\)</span>. That is, <span class="math display">\[
+4 S_{i}^{z} S_{i+r}^{z}=\left(4 L_{i+1 / 2}\right)\left(4 L_{i+3 / 2}\right) \ldots\left(4 L_{i+r-1 / 2}\right)
+\]</span> can be expressed as the product of <span class="math inline">\(r\)</span> terms in <span class="math inline">\(L\)</span> connecting the sites <span class="math inline">\(i\)</span> and <span class="math inline">\(i+r .\)</span> With <span class="math inline">\((1.1 .10)\)</span>, from this fact we obtain <span class="math display">\[
+\begin{aligned}
+4 F(r) &amp;=\prod_{j=1}^{r}\left[\frac{\sum_{L=\pm 1 / 4} 4 L e ^{-\beta J_{z} L}}{\sum_{L=\pm 1 / 4} e ^{-\beta J_{z} L}}\right] \\
+&amp;=\left[\tanh \left(\frac{-\beta J_{z}}{4}\right)\right]^{r} \\
+&amp;=\left(-\operatorname{sgn} J_{z}\right)^{r} \exp \left[r \ln \tanh \left(\frac{\beta\left|J_{z}\right|}{4}\right)\right]
+\end{aligned}
+\]</span> Writing the absolute value of the left-hand side of <span class="math inline">\((1.1 .13)\)</span> as <span class="math inline">\(e ^{-r / \xi}\)</span>, the correlation length <span class="math inline">\(\xi\)</span> is determined to be <span class="math display">\[
+\xi=-\frac{1}{\ln \tanh \left(\frac{\beta\left|J_{z}\right|}{4}\right)}
+\]</span> Furthermore, at low temperature <span class="math inline">\(\beta\left|J_{z}\right| \gg 1\)</span>, in the limit where a small number of kinks are thermally excited, equation (1.1.14) becomes <span class="math display">\[
+\xi^{-1}=2 e ^{-\beta\left|J_{z}\right| / 2}
+\]</span> Recalling that the creation energy for a kink is given by <span class="math inline">\(\Delta E=\left|J_{z}\right| / 2\)</span>, the right-hand side corresponds to the number of kinks, and <span class="math inline">\(\xi\)</span> can be interpreted as the mean distance between two kinks. That is, the long-range order <span class="math inline">\(F(r)=\)</span> <span class="math inline">\(\frac{1}{4}\left(-\operatorname{sgn} J_{z}\right)^{r}\)</span> at <span class="math inline">\(T=0 K\)</span> is destroyed owing to kink excitation. Notice that a kink comes up as a change in sign of <span class="math inline">\(L_{i+1 / 2}\)</span>. The classical statistical mechanics described above almost did not depend on the sign of <span class="math inline">\(J_{z} .\)</span> The only dependence emerges in <span class="math inline">\(\left(-\operatorname{sgn} J_{z}\right)^{r}\)</span> in <span class="math inline">\((1.1 .13)\)</span>, and, indeed, <span class="math inline">\(J_{z}\)</span> changes to <span class="math inline">\(-J_{z}\)</span> when in the Hamiltonian all <span class="math inline">\(S_{i}^{z}\)</span> are altered to <span class="math inline">\(-S_{i}^{z}\)</span>. When proceeding to quantum mechanics, this is no longer correct. This is owing to the following reason. The term proportional to <span class="math inline">\(J_{\perp}\)</span> in <span class="math inline">\((1.1 .9)\)</span> causing the quantum mechanical motion expresses the simultaneous flip of two neighbouring spins. It can be expressed as a product of <span class="math inline">\(S^{+}\)</span> and <span class="math inline">\(S^{-}\)</span>, therefore when one <span class="math inline">\(S^{z}\)</span> is growing, the other must diminish, and the sum <span class="math inline">\(S_{i}^{z}+S_{i+1}^{z}\)</span> is conserved. This simultaneous spin flip is the change between <span class="math inline">\(\left|S_{i}^{z}=1 / 2, S_{i+1}^{z}=-1 / 2\right\rangle\)</span> and <span class="math inline">\(\left|S_{i}^{z}=-1 / 2, S_{i+1}^{z}=1 / 2\right\rangle .\)</span> For parallel spins, this change cannot occur. In a more mathematical language, let us define the total spin operator: <span class="math display">\[
+S_{ tot }=\sum_{i} S _{i}
+\]</span> Then, <span class="math inline">\(S_{ tot }^{2}=S_{ tot } \cdot S _{ tot }\)</span>, and <span class="math inline">\(S_{ tot }^{z}\)</span> commute with the Hamiltonian <span class="math inline">\((1.1 .9):\)</span> <span class="math display">\[
+\left[S_{ tot }^{2}, H\right]=\left[S_{ tot }^{z}, H\right]=0
+\]</span> That is, the quantum system can be decomposed into eigenstates of <span class="math inline">\(S_{\text {tot }}^{2}\)</span> and <span class="math inline">\(S_{\text {tot }}^{z} .\)</span> In the case when <span class="math inline">\(J_{z}&lt;0\)</span> of the ferromagnetic interaction, it is clear that the classical ground states <span class="math inline">\(\left|\left\{S_{i}^{z}=1 / 2\right\}\right\rangle\)</span> and <span class="math inline">\(\left|\left\{S_{i}^{z}=-1 / 2\right\}\right\rangle\)</span> are also the eigenstates of the Hamilton operator <span class="math inline">\(H .\)</span> On the other hand, the classical ground state in the anti-ferromagnetic case (the so-called Néel state) is not an eigenstate of the Hamiltonian. This becomes clear by constructing the staggered magnetization <span class="math display">\[
+S _{\text {staggered }}=\sum_{i}(-1)^{i} S _{i}
+\]</span> The Néel state is an eigenstate of <span class="math inline">\(S_{\text {staggered }}^{z}\)</span>. However, <span class="math inline">\(\left[S_{\text {staggered }}^{z}, H\right]\)</span> is different from zero. That is, for <span class="math inline">\(S_{\text {staggered }}^{z}\)</span> there must exist a zero point quantum fluctuation. The physical picture for this zero point fluctuation is just the resonance between the states <span class="math inline">\(\left|S_{i}^{z}=1 / 2, S_{i+1}^{z}=-1 / 2\right\rangle\)</span> and <span class="math inline">\(\mid S_{i}^{z}=-1 / 2\)</span> <span class="math inline">\(\left.S_{i+1}^{z}=1 / 2\right\rangle\)</span> that has been mentioned before. Considering for simplicity only two spins, <span class="math inline">\(S _{i}\)</span> and <span class="math inline">\(S _{i+1}\)</span>, setting <span class="math inline">\(J_{\perp}&gt;0\)</span>, owing to this resonance the ground state becomes a linear combination of two states <span class="math display">\[
+\mid \text { singlet }\rangle=\frac{1}{\sqrt{2}}\left(\left|\frac{1}{2},-\frac{1}{2}\right\rangle-\left|-\frac{1}{2}, \frac{1}{2}\right\rangle\right) .
+\]</span> This is the spin singlet wave function. That is, the quantum fluctuation of <span class="math inline">\(S_{i}^{z}\)</span> leads to the singlet formation. Equation <span class="math inline">\((1.1 .9)\)</span> can be interpreted as competition between the tendency of <span class="math inline">\(J_{\perp}\)</span> to create singlet states leading to the emergence of a quantum liquid, and the tendency of <span class="math inline">\(J_{z}\)</span> to order the spins.</p>
+<p>Above, considerations concerning the ground state have been done. Next, we consider the first excited state based on the Néel ground state of the classical system. This is the domain wall as shown in Fig. 1.1.</p>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210621151544547.png" srcset="/img/loading.gif" style="zoom:67%;" /></p>
+<p>In what follows, we think about the Ising limit <span class="math inline">\(J_{z} \gg J_{\perp}&gt;0\)</span>, where mixing between states with different numbers of domain walls can be ignored. First, we consider the state containing one domain wall. Calling <span class="math inline">\(\Psi_{n}\)</span> the wave function of the state where a domain wall is present between site <span class="math inline">\(n\)</span> and <span class="math inline">\(n+1\)</span>, we obtain <span class="math display">\[
+\left(H-E_{ Néel }\right) \Psi_{n}=\frac{J_{z}}{2} \Psi_{n}+\frac{J_{\perp}}{2}\left(\Psi_{n+2}+\Psi_{n-2}\right)
+\]</span> Constructing a plane wave state of a domain wall <span class="math display">\[
+\Psi(k)=\frac{1}{\sqrt{N}} \sum_{n} e ^{ i k n} \Psi_{n}
+\]</span> we obtain <span class="math display">\[
+\left(H-E_{\text {Néel }}\right) \Psi(k)=\left(\frac{J_{z}}{2}+J_{\perp} \cos 2 k\right) \Psi(k)
+\]</span> Therefore, the excitation energy is given by <span class="math display">\[
+\varepsilon_{ DW }(k)=\frac{J_{z}}{2}+J_{\perp} \cos 2 k
+\]</span> When one domain wall is present (in general, an odd number), the sign of the staggered magnetization of the configuration at the boundaries <span class="math inline">\(n=-\infty\)</span> and <span class="math inline">\(n=+\infty\)</span> changes. Therefore, no long-range order is present in the Ising model at finite temperature as discussed above. Here, because we consider excited states at zero temperature, we set the staggered magnetization at <span class="math inline">\(n=\pm \infty\)</span> to be equal, corresponding to periodic boundary condition. Then, at least two domain walls have to be created. Calling the momenta <span class="math inline">\(k_{1}\)</span> and <span class="math inline">\(k_{2}\)</span>, respectively, the total momentum <span class="math inline">\(q\)</span> and the excitation energy <span class="math inline">\(\Delta E\)</span> are given by <span class="math display">\[
+\begin{array}{c}
+q=k_{1}+k_{2} \\
+\Delta E=\varepsilon_{ DW }\left(k_{1}\right)+\varepsilon_{ DW }\left(k_{2}\right)
+\end{array}
+\]</span> The possible values for <span class="math inline">\(\Delta E\)</span> for every <span class="math inline">\(q\)</span> are given by the oblique region in Fig. 1.2.</p>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210621151525495.png" srcset="/img/loading.gif" style="zoom:67%;" /></p>
+<p>In particular, the lower boundary is given by <span class="math display">\[
+\Delta E_{ LB }=J_{z}-2 J_{\perp}|\cos q|
+\]</span> We conclude that the excitation spectrum does not consist of isolated spin wave states, but is the continuum, reflecting the fact that the elementary excitations are kinks (domain walls).</p>
+<h2 id="the-jordan-wigner-transformation-and-the-quantum-kink">1.2 The Jordan-Wigner Transformation and the Quantum Kink</h2>
+<p>In the previous section, the one-dimensional Ising model has been discussed as an example to demonstrate the importance of the kink. In this chapter, the quantum mechanics of the kink will be discussed in more detail. Starting with the conclusion, we note that the kink can be described in terms of fermions obtained by the following so-called Jordan- -Wigner transformation <span class="math display">\[
+\begin{array}{c}
+S_{i}^{+}=S_{i}^{x}+ i S_{i}^{y}=f_{i}^{\dagger} K(i)=K(i) f_{i}^{\dagger} \\
+S_{i}^{-}=S_{i}^{x}- i S_{i}^{y}=K(i) f_{i}=f_{i} K(i) \\
+S_{i}^{z}=f_{i}^{\dagger} f_{i}-\frac{1}{2}
+\end{array}
+\]</span> Here, <span class="math inline">\(K(i)\)</span> is a non-local operator, defined by <span class="math display">\[
+K(i)=\exp \left[ i \pi \sum_{j=1}^{i-1} f_{j}^{\dagger} f_{j}\right]=\exp \left[ i \pi \sum_{j=1}^{i-1}\left(S_{j}^{z}+\frac{1}{2}\right)\right]
+\]</span> <span class="math inline">\(K(i)=K(i)^{\dagger}\)</span>, and <span class="math inline">\([K(i), K(j)]=0\)</span>. Furthermore, for <span class="math inline">\(i \leq j, K(i)\)</span> and <span class="math inline">\(S _{j}\)</span> also commute. From (1.2.1) we conclude: <span class="math display">\[
+\begin{aligned}
+f_{i}^{\dagger} &amp;=S_{i}^{+} K(i) \\
+f_{i} &amp;=S_{i}^{-} K(i)
+\end{aligned}
+\]</span> From these equations, the anti-commutation relation of fermions can be deduced.</p>
+<p>We first examine the meaning of <span class="math inline">\(K(i) .\)</span> Using the unitary operator <span class="math inline">\(U_{i}\)</span> introduced in (1.1.3), we can write <span class="math display">\[
+K(i)=\left[\prod_{j=1}^{i-1} U_{j}\left(e_{z}, \pi\right)\right] e ^{\frac{i \pi}{2}(i-1)}
+\]</span> We conclude that <span class="math inline">\(K(i)\)</span> rotates all spins from <span class="math inline">\(j=1\)</span> to <span class="math inline">\(i-1\)</span> by <span class="math inline">\(\pi\)</span> around the <span class="math inline">\(z\)</span> axis; that is, this operator shifts <span class="math inline">\(S^{x}\)</span> and <span class="math inline">\(S^{y}\)</span> to <span class="math inline">\(-S^{x}\)</span> and <span class="math inline">\(-S^{y} . K(i)\)</span> is a non-local spin rotating operator, and therefore creates a kink. Now, for <span class="math inline">\(i&lt;j\)</span> we consider <span class="math display">\[
+f_{i} f_{j}=S_{i}^{-} K(i) S_{j}^{-} K(j) \text { . }
+\]</span> From the above considerations, we obtain <span class="math display">\[
+K^{\dagger}(j) S_{i}^{-} K(j)=-S_{i}^{-}
+\]</span> that is, <span class="math inline">\(K(j)\)</span> and <span class="math inline">\(S_{i}^{-}\)</span> do anti-commute (for <span class="math inline">\(\left.j&gt;i\right) .\)</span> Finally, the right-hand side of <span class="math inline">\((1.2 .5)\)</span> becomes <span class="math display">\[
+\begin{aligned}
+S_{i}^{-} K(i) S_{j}^{-} K(j) &amp;=S_{i}^{-} S_{j}^{-} K(i) K(j)=S_{j}^{-} S_{i}^{-} K(i) K(j) \\
+&amp;=-S_{j}^{-} K(j) S_{i}^{-} K(i)=-f_{j} f_{i}
+\end{aligned}
+\]</span> and therefore <span class="math display">\[
+\left\{f_{i}, f_{j}\right\}_{+}=0
+\]</span> holds. In the same manner, for <span class="math inline">\(i&lt;j\)</span>, because of <span class="math display">\[
+\begin{aligned}
+f_{i} f_{j}^{\dagger}+f_{j}^{\dagger} f_{i} &amp;=S_{i}^{-} K(i) S_{j}^{+} K(j)+S_{j}^{+} K(j) S_{i}^{-} K(i) \\
+&amp;=S_{i}^{-} S_{j}^{+} K(i) K(j)-S_{j}^{+} S_{i}^{-} K(j) K(i) \\
+&amp;=\left[S_{i}^{-}, S_{j}^{+}\right] K(i) K(j)=0
+\end{aligned}
+\]</span> we obtain <span class="math display">\[
+\left\{f_{i}, f_{j}^{+}\right\}=\delta_{i j}
+\]</span> In this manner, the non-local spin rotating operator (in the <span class="math inline">\(x y\)</span> -plane) translates the commutation relation of the spin operators at different sites into the anti-commutation relation of fermion operators. As follows from (1.2.1c), at one site, the two possible states <span class="math inline">\(S_{i}^{z}=\pm 1 / 2\)</span> correspond to fermion number <span class="math inline">\(n_{i}=f_{i}^{\dagger} f_{i}=1,0\)</span>, respectively. We see how the Pauli principle naturally describes the limited possibilities for the allowed spin states. That these fermions correspond to kinks can be seen by considering, for example, the state <span class="math inline">\(|F\rangle\)</span> where all spins are in the state <span class="math inline">\(S_{i}^{x}=+1 / 2\)</span>. Acting with <span class="math inline">\(f_{n}^{\dagger}\)</span>, we obtain the state <span class="math inline">\(f_{n}^{\dagger}|F\rangle\)</span> with $S_{i}^{x}=-(1 i&lt;n), <span class="math display">\[S_{n}^{x}=+\frac{1}{2}, \]</span>S_{i}^{z}=+$ <span class="math inline">\((i&gt;n)\)</span></p>
+<p>The Jordan-Wigner transformation works well because although (1.2.1) is non-local, the Hamiltonian (1.1.1) <span class="math inline">\([(1.1 .9)]\)</span> can be expressed with these fermions in a local manner. First, we consider the term proportional to <span class="math inline">\(J_{\perp}\)</span> : <span class="math display">\[
+\begin{aligned}
+S_{i}^{+} S_{i+1}^{-} &amp;=f_{i}^{+} K(i) K(i+1) f_{i+1} \\
+&amp;=f_{i}^{+} \exp \left[ i \pi f_{i}^{\dagger} f_{i}\right] f_{i+1}=f_{i}^{+} f_{i+1}
+\end{aligned}
+\]</span> Here, we used the fact that in the state multiplied with <span class="math inline">\(\exp \left[ i \pi f_{i}^{\dagger} f_{i}\right]\)</span>, owing to <span class="math inline">\(f_{i}^{\dagger}\)</span>, at the <span class="math inline">\(i\)</span> th site no more fermion can be present. Also, the term proportional to <span class="math inline">\(J_{z}\)</span> can be expressed locally using (1.2.1c), leading finally to <span class="math display">\[
+H=-\frac{J_{\perp}}{2} \sum_{i=1}^{N}\left(f_{i}^{\dagger} f_{i+1}+f_{i+1}^{\dagger} f_{i}\right)+J_{z} \sum_{i=1}^{N}\left(f_{i}^{\dagger} f_{i}-\frac{1}{2}\right)\left(f_{i+1}^{\dagger} f_{i+1}-\frac{1}{2}\right) .
+\]</span> As mentioned in Sect. 1.1, the sign of <span class="math inline">\(J_{\perp}\)</span> can be chosen freely, therefore we can put a minus sign before <span class="math inline">\(J_{\perp}&gt;0\)</span>. We obtained the spinless fermion model with nearest site interaction <span class="math inline">\(J_{z}\)</span>.</p>
+<p>At this point, we discuss the periodic boundary conditions. Considering a ring and setting <span class="math display">\[
+S_{N+1}=S_{1}
+\]</span> the term <span class="math inline">\(i=N\)</span> proportional to <span class="math inline">\(J_{\perp}\)</span> in <span class="math inline">\((1.2 .11)\)</span> becomes <span class="math display">\[
+\frac{J_{\perp}}{2}\left(S_{N}^{+} S_{1}^{-}+S_{N}^{-} S_{1}^{+}\right)
+\]</span> Here, we obtain <span class="math display">\[
+S_{N}^{+} S_{1}^{-}=K(N) f_{N}^{\dagger} f_{1}=-K f_{N}^{\dagger} f_{1}
+\]</span> The factor <span class="math inline">\(K\)</span> can be expressed as <span class="math display">\[
+K=\exp \left[ i \pi \sum_{i=1}^{N} f_{i}^{\dagger} f_{i}\right]=(-1)^{M}
+\]</span> using the total number <span class="math inline">\(M=\sum_{i=1}^{N} f_{i}^{\dagger} f_{i}\)</span> of fermions. The minus sign on the right-hand side of (1.2.14) arises because in <span class="math inline">\(K(N), f_{N}^{\dagger} f_{N}\)</span> is not contained. Defining <span class="math display">\[
+\begin{aligned}
+f_{N+1} &amp;=-f_{1} &amp; &amp;(M: \text { even }) \\
+f_{N+1} &amp;=f_{1} &amp; &amp;(M: \text { odd })
+\end{aligned}
+\]</span> then (1.2.11) is valid as it stands.</p>
+<p>As was mentioned in the previous section, (1.2.11) expresses competition between the formation of a spin singlet state and magnetic ordering, that is, competition between the kinetic energy of the fermions, i.e. itineracy, and the formation of density waves owing to the particle interaction. One remarkable feature of <span class="math inline">\((1.2 .11)\)</span> is that in the case <span class="math inline">\(J_{z}=0\)</span> (XY model); that is, in the quantum limit, the model becomes a free fermion theory that can be solved exactly. This limit is the opposite to the Ising limit that has been mentioned in the previous section. Introducing the Fourier transformations <span class="math display">\[
+\begin{aligned}
+f_{n} &amp;=\frac{1}{\sqrt{N}} \sum_{k} f_{k} e ^{ i k n} \\
+f_{n}^{\dagger} &amp;=\frac{1}{\sqrt{N}} \sum_{k} f_{k}^{\dagger} e ^{- i k n}
+\end{aligned}
+\]</span> we obtain from (1.2.11) <span class="math display">\[
+H_{X Y}=\sum_{k} \varepsilon(k) \cdot f_{k}^{\dagger} f_{k} \quad\left(\varepsilon(k)=-J_{\perp} \cos k\right)
+\]</span> The energy dispersion is shown in Fig. 1.3.</p>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210621151949360.png" srcset="/img/loading.gif" style="zoom:67%;" /></p>
+<blockquote>
+<p>Fig. 1.3. The dispersion <span class="math inline">\(\varepsilon(k)=J_{\perp} \cos k\)</span>. The dotted lines represent the linear approximation of the dispersion relation</p>
+</blockquote>
+<p>Owing to (1.2.1c), the relationship between the fermion number <span class="math inline">\(M\)</span> and <span class="math inline">\(S_{ tot }^{z}\)</span> is <span class="math inline">\(S_{ tot }^{z}=M-N / 2 .\)</span> The Hilbertspace <span class="math inline">\(S_{ tot }^{z}=0\)</span> corresponds to the halffilled case <span class="math inline">\(M=N / 2\)</span>. In this case, the ground state is given by the state where the fermions occupy all states up to the Fermi energy <span class="math inline">\(E_{ F }=0\)</span>. Excited states can be expressed as particle-hole creation. When <span class="math inline">\(N\)</span> is even, the ground state is a singlet <span class="math inline">\(S_{\text {tot }}=0\)</span>, and the excited states start with <span class="math inline">\(S_{\text {tot }}=0\)</span> or <span class="math inline">\(S_{\text {tot }}=1\)</span>.</p>
+<p>The fact that this is expressed as particle-hole creation shows that fermions have spin <span class="math inline">\(S=1 / 2\)</span></p>
+<p>Roughly speaking, one spin flip is realized by introducing two kinks, and therefore two fermions are necessary. In Fig. 1.4, the excitation energy of the particle- hole pair is shown as a function of <span class="math inline">\(q=k_{p}-k_{h}\)</span> (with <span class="math inline">\(k_{p}\)</span> and <span class="math inline">\(k_{h}\)</span> being the excitation energy of the particle and the hole, respectively).</p>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210621151906626.png" srcset="/img/loading.gif" style="zoom:67%;" /></p>
+<blockquote>
+<p>Fig. 1.4. The excitation of a particle-hole pair with wave number <span class="math inline">\(q\)</span></p>
+</blockquote>
+<p>In such a manner, in the <span class="math inline">\(X Y\)</span> model, it is not the spin itself, but rather the kink-in the present case expressed as the Jordan-Wigner fermion that is the elementary excitation, and the spin excitations can be expressed in terms of such combinations. In interacting particle systems <span class="math inline">\(-\)</span> called manybody systems - in many cases new particles different from those that describe the original model are more fundamental. The quantum kink described here is such an example.</p>
+<h2 id="the-bethe-ansatz-and-the-exact-solution"><span class="math inline">\(1.3\)</span> The Bethe Ansatz and the Exact Solution</h2>
+<p>In Sect. <span class="math inline">\(1.1\)</span> and <span class="math inline">\(1.2\)</span>, we examined the classical limit <span class="math inline">\(\left(J_{\perp}=0\right)\)</span> and the quantum limit <span class="math inline">\(\left(J_{z}=0\right)\)</span> of the Hamiltonian (1.1.1). In fact, there exists an exact solution of the Hamiltonian (1.1.1) <span class="math inline">\([(1.1 .9)] .\)</span> However, even when the wave function of the ground state is determined, this does not mean that all physical quantities can be calculated. Only by combining various theoretical approaches will it be possible to obtain a complete picture.</p>
+<p>First, we start with the simple case of ferromagnetic interaction <span class="math inline">\(\left(J_{z}&lt;0\right)\)</span>. We indicate <span class="math inline">\(n_{i}\)</span> as the site with spin <span class="math inline">\(\uparrow\)</span> at the <span class="math inline">\(i\)</span> th side from the left. The wave function of the state where <span class="math inline">\(r\)</span> spins are <span class="math inline">\(\uparrow\)</span> can be written as <span class="math display">\[
+\Phi_{n_{1} n_{2} \ldots n_{r}}
+\]</span> The total number of spins is given by <span class="math inline">\(N\)</span>, therefore <span class="math inline">\(N-r\)</span> spins are <span class="math inline">\(\downarrow .\)</span> The state <span class="math inline">\(\Phi_{0}\)</span> where all spins are <span class="math inline">\(\downarrow\)</span> is an eigenfunction of <span class="math inline">\((1.1 .1)\)</span> : <span class="math display">\[
+H \Phi_{0}=\frac{J_{z}}{4} N \Phi_{0} \equiv E_{0} \Phi_{0}
+\]</span> Here, we assume that the <span class="math inline">\(N\)</span> spins are aligned as a one-dimensional ring (fulfilling periodic boundary conditions). Next, we consider the space of wave functions where just one spin is <span class="math inline">\(\uparrow\)</span>, and with <span class="math inline">\(c_{n}\)</span> being the coefficients of the linear superposition, we write <span class="math display">\[
+\Psi=\sum_{n=1}^{N} c_{n} \Phi_{n} \quad\left(c_{n+N}=c_{n}\right)
+\]</span> Acting with (1.1.1) on this state, we obtain <span class="math display">\[
+\begin{aligned}
+H \Psi &amp;=\frac{J_{z}}{4}(N-4) \Psi+\frac{J_{\perp}}{2} \sum_{n=1}^{N} c_{n}\left(\Phi_{n-1}+\Phi_{n+1}\right) \\
+&amp;=\frac{J_{z}}{4}(N-4) \Psi+\frac{J_{\perp}}{2} \sum_{n=1}^{N}\left(c_{n+1}+c_{n-1}\right) \Phi_{n}
+\end{aligned}
+\]</span> Writing <span class="math inline">\(E \Psi\)</span> for the right-hand side of <span class="math inline">\((1.3 .4)\)</span> and comparing the coefficients of the <span class="math inline">\(\Phi_{n}\)</span>, we obtain <span class="math display">\[
+E c_{n}=\left(E_{0}-J_{z}\right) c_{n}+\frac{J_{\perp}}{2}\left(c_{n+1}+c_{n-1}\right)
+\]</span> This equation can be solved with plane waves <span class="math display">\[
+c_{n}=\frac{1}{\sqrt{N}} e ^{ i k n}
+\]</span> leading to the eigenvalues <span class="math display">\[
+E_{k}=E_{0}-J_{z}+J_{\perp} \cos k
+\]</span> Obviously, these are spin waves with wave number <span class="math inline">\(k\)</span>. Owing to the boundary conditions <span class="math inline">\(c_{n}=c_{n+N}\)</span>, the wave number is quantized as <span class="math inline">\(k=(2 \pi / N) m\)</span> with <span class="math inline">\(m\)</span> being an integer. The excitation energy <span class="math inline">\(\varepsilon_{k}=E_{k}-E_{0}\)</span> measured from the ground state energy is given by <span class="math display">\[
+\varepsilon_{k}=\left|J_{z}\right|+J_{\perp} \cos k
+\]</span> and for <span class="math inline">\(\left|J_{z}\right| \geq\left|J_{\perp}\right|, \varepsilon_{k}\)</span> is non-negative. However, for <span class="math inline">\(\left|J_{z}\right|&lt;\left|J_{\perp}\right|, \varepsilon_{k}\)</span> becomes negative, leading to a contradiction with the assumption made at the beginning that <span class="math inline">\(\Phi_{0}\)</span> is the ground state. In this case, as described in Sect. <span class="math inline">\(1.2\)</span>, a spin liquid arises. In what follows, we assume that <span class="math inline">\(\left|J_{z}\right| \geq\left|J_{\perp}\right|\)</span>. Next, we consider the case where two spin waves are present <span class="math inline">\((r=2)\)</span>. <span class="math display">\[
+\Psi=\sum_{n_{1}&lt;n_{2}} c_{n_{1} n_{2}} \Phi_{n_{1} n_{2}}
+\]</span> Acting with <span class="math inline">\(H\)</span>, it becomes clear that the case <span class="math inline">\(n_{2}=n_{1}+1\)</span> differs from the other cases. That is, <span class="math display">\[
+\begin{aligned}
+H \Phi_{n_{1} n_{2}}=&amp;\left(E_{0}-\frac{J_{z}}{2} \cdot 4\right) \Phi_{n_{1} n_{2}} \\
+&amp;+\frac{J_{\perp}}{2}\left(\Phi_{n_{1}-1, n_{2}}+\Phi_{n_{1}+1, n_{2}}+\Phi_{n_{1}, n_{2}-1}+\Phi_{n_{1}, n_{2}+1}\right) \\
+&amp;\left(n_{2}&gt;n_{1}+1\right) \\
+H \Phi_{n_{1}, n_{1}+1}=(&amp;\left.E_{0}-\frac{J_{z}}{2} \cdot 2\right) \Phi_{n_{1}, n_{1}+1}+\frac{J_{\perp}}{2}\left(\Phi_{n_{1}-1, n_{1}+1}+\Phi_{n_{1}, n_{1}+2}\right) .
+\end{aligned}
+\]</span> Transforming the problem again to an eigenvalue problem of the coefficients <span class="math inline">\(c_{n_{1}, n_{2}}\)</span>, with <span class="math inline">\(\varepsilon=E-E_{0}\)</span>, we obtain <span class="math display">\[
+\begin{array}{c}
+\varepsilon c_{n_{1} n_{2}}=-2 J_{z} c_{n_{1} n_{2}}+\frac{J_{\perp}}{2}\left(c_{n_{1}+1, n_{2}}+c_{n_{1}-1, n_{2}}+c_{n_{1}, n_{2}+1}+c_{n_{1}, n_{2}-1}\right) \\
+\left(n_{2}&gt;n_{1}+1\right) \\
+\varepsilon c_{n_{1}, n_{1}+1}=-J_{z} c_{n_{1}, n_{1}+1}+\frac{J_{\perp}}{2}\left(c_{n_{1}-1, n_{1}+1}+c_{n_{1}, n_{1}+2}\right)
+\end{array}
+\]</span> First, we study the case when <span class="math inline">\(n_{2}&gt;n_{1}+1\)</span>. We set <span class="math display">\[
+c_{n_{1} n_{2}}=c_{1} e ^{ i \left(k_{1} n_{1}+k_{2} n_{2}\right)}+c_{2} e ^{ i \left(k_{2} n_{1}+k_{1} n_{2}\right)} .
+\]</span> This is the expression of two propagating spin waves with wave number <span class="math inline">\(k_{1}\)</span> and <span class="math inline">\(k_{2}\)</span>. Here, because the restriction <span class="math inline">\(n_{2}&gt;n_{1}\)</span> has been imposed, in contrast to the first term where the spin wave with wave number <span class="math inline">\(k_{1}\)</span> runs behind <span class="math inline">\(k_{2}\)</span>,</p>
+<p>the second term can be seen as the part where <span class="math inline">\(k_{1}\)</span> 'surpassed' <span class="math inline">\(k_{2} .\)</span> In general, when this 'surpassing' arises, energy and momentum transfer might occur. In a single dimension, the equations <span class="math display">\[
+\begin{array}{c}
+k_{1}+k_{2}=k_{3}+k_{4} \\
+\varepsilon_{k_{1}}+\varepsilon_{k_{2}}=\varepsilon_{k_{3}}+\varepsilon_{k_{4}}
+\end{array}
+\]</span> are only satisfied for <span class="math inline">\(k_{3}\)</span> and <span class="math inline">\(k_{4}\)</span> with <span class="math inline">\(\left(k_{3}, k_{4}\right)=\left(k_{1}, k_{2}\right)\)</span> or <span class="math inline">\(\left(k_{2}, k_{1}\right) .\)</span> Therefore, equation (1.3.12) holds. So, how does the spin wave scattering during the 'surpassing' process show up? The answer is a 'phase shift'. Scattering arises when the spins are neighbouring, as described by (1.3.11b). We consider now the case when <span class="math inline">\(n_{1} \leq n_{2} \leq n_{1}+1 .\)</span> To do so, we perform a little trick. <span class="math inline">\(c_{n_{1} n_{2}}\)</span> in equation (1.3.12) as it stands is defined for <span class="math inline">\(n_{1}&lt;n_{2}\)</span>. Generalizing also for the case <span class="math inline">\(n_{1}=n_{2}, c_{n_{1} n_{1}}\)</span> can be defined in the following manner. Assuming that (1.3.11b) is consistent with (1.3.11a) in this case, (1.3.12) as it stands is the solution to the eigenvalue problem. Comparing (1.3.11a) with (1.3.11b), the condition that determines <span class="math inline">\(c_{n_{1} n_{1}}\)</span> is given by <span class="math display">\[
+-J_{z} c_{n_{1}, n_{1}+1}+\frac{J_{\perp}}{2}\left(c_{n_{1}, n_{1}}+c_{n_{1}+1, n_{1}+1}\right)=0
+\]</span> Under this condition, (1.3.11a) is valid for all <span class="math inline">\(n_{1}\)</span> and <span class="math inline">\(n_{2}\)</span>; and (1.3.12) corresponds to the eigenstate with eigenvalue <span class="math display">\[
+\varepsilon=\varepsilon_{k_{1}}+\varepsilon_{k_{2}}
+\]</span> Then, for <span class="math inline">\(c_{1}\)</span> and <span class="math inline">\(c_{2}\)</span> (1.3.14) leads to the condition: <span class="math display">\[
+-2 J_{z}\left(c_{1} e ^{ i k_{2}}+c_{2} e ^{ i k_{1}}\right)+J_{\perp}\left(c_{1}+c_{2}\right)\left(1+ e ^{ i \left(k_{1}+k_{2}\right)}\right)=0
+\]</span> This equals <span class="math display">\[
+\frac{c_{1}}{c_{2}}=-\frac{J_{z} e ^{ i \frac{k_{1}-k_{2}}{2}}-J_{\perp} \cos \frac{k_{1}+k_{2}}{2}}{J_{z} e ^{- i \frac{k_{1}-k_{2}}{2}}-J_{\perp} \cos \frac{k_{1}+k_{2}}{2}}
+\]</span> Because the numerator is the complex conjugate of the denominator, <span class="math inline">\(\left|c_{1} / c_{2}\right|=1\)</span>. Introducing the 'phase shift' <span class="math inline">\(\phi\)</span>, we can write <span class="math display">\[
+c_{1}= e ^{ i \phi / 2}, \quad c_{2}= e ^{- i \phi / 2} .
+\]</span> Then, <span class="math inline">\((1.3 .16)\)</span> can be expressed as <span class="math display">\[
+\cot \frac{\phi}{2}=\frac{J_{z} \sin \frac{k_{1}-k_{2}}{2}}{J_{\perp} \cos \frac{k_{1}+k_{2}}{2}-J_{z} \cos \frac{k_{1}-k_{2}}{2}} .
+\]</span> This equation determines <span class="math inline">\(\phi .\)</span> Choosing the region <span class="math inline">\(|\phi|&lt;\pi\)</span>, and considering the case of the Heisenberg model <span class="math inline">\(J_{\perp}=J_{z},(1.3 .19)\)</span> becomes <span class="math display">\[
+\begin{aligned}
+\cot \frac{\phi}{2} &amp;=\frac{\sin \frac{k_{1}}{2} \cos \frac{k_{2}}{2}-\cos \frac{k_{1}}{2} \sin \frac{k_{2}}{2}}{-2 \sin \frac{k_{1}}{2} \sin \frac{k_{2}}{2}} \\
+&amp;=\frac{1}{2}\left(\cot \frac{k_{1}}{2}-\cot \frac{k_{2}}{2}\right)
+\end{aligned}
+\]</span> Imposing periodic boundary conditions <span class="math display">\[
+c_{n_{1} n_{2}}=c_{n_{2}, n_{1}+N},
+\]</span> we obtain from <span class="math inline">\((1.3 .12)\)</span> <span class="math display">\[
+e ^{ i \phi / 2}= e ^{ i k_{1} N- i \phi / 2}, \quad e ^{- i \phi / 2}= e ^{ i k_{2} N+ i \phi / 2} .
+\]</span> We conclude that with <span class="math inline">\(m_{1}, m_{2}=0,1,2, \ldots, N-1\)</span>, we obtain <span class="math display">\[
+\begin{array}{c}
+k_{1} N=\phi+2 \pi m_{1} \\
+k_{2} N=-\phi+2 \pi m_{2} .
+\end{array}
+\]</span> Comparing this with the wave number <span class="math inline">\(k=2 \pi m / N\)</span> of a single spin wave introduced below (1.3.7), we conclude from (1.3.23) that the phase shift is just given by <span class="math inline">\(\pm \phi / N\)</span>. In this manner, the interaction of the spin waves shows up.</p>
+<p>Having fixed <span class="math inline">\(m_{1}\)</span> and <span class="math inline">\(m_{2}\)</span>, by <span class="math inline">\((1.3 .23), k_{1}\)</span> and <span class="math inline">\(k_{2}\)</span> can be expressed only with <span class="math inline">\(\phi\)</span>. We insert this expression into <span class="math inline">\((1.3 .20) .\)</span> In this manner, an equation for <span class="math inline">\(\phi\)</span> is obtained.</p>
+<p><img src="https://jptanjing.oss-cn-beijing.aliyuncs.com/img/image-20210621152227943.png" srcset="/img/loading.gif" style="zoom: 67%;" /></p>
+<blockquote>
+<p>Fig. 1.5. <span class="math inline">\(\phi\)</span> as a function of <span class="math inline">\(\cot \phi / 2 . \phi\)</span> is restricted to the interval <span class="math inline">\([-\pi, \pi]\)</span>. The relation to <span class="math inline">\(\xi\)</span> is explained in the text below <span class="math inline">\((1.3 .48)\)</span></p>
+</blockquote>
+<p>Fig. <span class="math inline">\(1.5\)</span> shows <span class="math inline">\(\phi\)</span> as a function of <span class="math inline">\(\cot (\phi / 2)\)</span>. Because now, <span class="math inline">\(m_{1}\)</span> and <span class="math inline">\(m_{2}\)</span> can be interchanged, we set <span class="math inline">\(m_{1} \leq m_{2} .\)</span> Fixing <span class="math inline">\(k_{2}\)</span>, when <span class="math inline">\(k_{1}\)</span> changes from 0 to <span class="math inline">\(k_{2}\)</span>, the right-hand side of <span class="math inline">\((1.3 .20)\)</span> decreases from <span class="math inline">\(\infty\)</span> to zero, and therefore <span class="math inline">\(\phi\)</span> changes from zero to <span class="math inline">\(\pi\)</span>, and <span class="math inline">\(m_{1}\)</span> from zero to <span class="math inline">\(m_{2}-1\)</span>. For <span class="math inline">\(m_{1}=m_{2}-1\)</span>, since <span class="math inline">\(\phi=\pi\)</span>, the relationship <span class="math inline">\(k_{1}=k_{2}=k\)</span> holds. However, because of <span class="math display">\[
+\begin{aligned}
+c_{n_{1} n_{2}} &amp;= e ^{ i \phi / 2+ i k\left(n_{1}+n_{2}\right)}+ e ^{- i \phi / 2+ i k\left(n_{1}+n_{2}\right)} \\
+&amp;=2 e ^{ i k\left(n_{1}+n_{2}\right)} \cos \frac{\phi}{2}=0
+\end{aligned}
+\]</span> in this case a solution does not exist.</p>
+<p>On the other hand, for the <span class="math inline">\(m_{2}-1\)</span> values <span class="math inline">\(m_{1}=0,1, \ldots, m_{2}-2, c_{n_{1}, n_{2}}\)</span> is finite and can be used. The solution for the excitation energy as a function of the total wave number <span class="math inline">\(K=k_{1}+k_{2}\)</span> with real <span class="math inline">\(k_{1}\)</span> and <span class="math inline">\(k_{2}\)</span> leads to a dispersion relation with continuous spectrum. That is, with <span class="math inline">\(q=k_{1}-k_{2}\)</span>, the excitation energy of two spin waves is given by <span class="math display">\[
+\varepsilon(K, q)=\varepsilon_{\frac{K+q}{2}}+\varepsilon_{\frac{K-q}{2}}=2\left|J_{z}\right|\left(1-\cos \frac{K}{2} \cos \frac{q}{2}\right)
+\]</span> For every <span class="math inline">\(K\)</span>, the spectrum is continuous with a half width of <span class="math inline">\(4\left|J_{z}\right| \cos K / 2\)</span>. Now, is this the complete solution? To see this, we count the number of solutions. The number of the above scattering solutions is <span class="math display">\[
+N_{ s }=\sum_{m_{2}=2}^{N-1}\left(m_{2}-1\right)=\frac{(N-1)(N-2)}{2}
+\]</span> Because the number of independent solutions is <span class="math display">\[
+N_{ t }=\sum_{m_{2}=1}^{N-1} m_{2}=\frac{N(N-1)}{2}
+\]</span> there are still <span class="math inline">\(N_{ t }-N_{ s }=N-1\)</span> solutions missing. These remaining solutions correspond to bound states of two spin waves. In the limit <span class="math inline">\(\left|J_{z}\right| \gg\left|J_{\perp}\right|\)</span>, the existence of bound state solutions should be evident. The energy cost expressed in the <span class="math inline">\(J_{z}\)</span> term is reduced by half when two <span class="math inline">\(\uparrow\)</span> spins are next to each other.</p>
+<p>However, for the case <span class="math inline">\(\left|J_{z}\right|=\left|J_{\perp}\right|\)</span> of the Heisenberg model, this is not evident. Because for a bound state the wave function should exponentially decay with the distance between the two <span class="math inline">\(\uparrow\)</span> spins, we expect that <span class="math inline">\(k_{1}-k_{2}\)</span> is purely imaginary. On the other hand, because the centre of mass movement should be a plane wave, <span class="math inline">\(K=k_{1}+k_{2}\)</span> should still be real. With real <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>, we write <span class="math display">\[
+\begin{array}{l}
+k_{1}=u+ i v \\
+k_{2}=u- i v
+\end{array}
+\]</span> Then, (1.3.23) becomes <span class="math display">\[
+u=\frac{\pi}{N}\left(m_{1}+m_{2}\right)
+\]</span> <span class="math display">\[
+\phi=\pi\left(m_{2}-m_{1}\right)+ i N v
+\]</span> Inserting <span class="math inline">\((1.3 .29)\)</span> into <span class="math inline">\((1.3 .17)\left(\right.\)</span> and setting <span class="math inline">\(\left.J_{z}=J_{\perp}\right)\)</span>, we obtain <span class="math display">\[
+e ^{ i \pi\left(m_{2}-m_{1}\right)} e ^{-N v}=-\frac{\cos u- e ^{-v}}{\cos u- e ^{v}}
+\]</span> Performing the limit <span class="math inline">\(N \rightarrow \infty\)</span> with <span class="math inline">\(v\)</span> resting finite, we obtain <span class="math display">\[
+e ^{-v}=\cos u
+\]</span> When <span class="math inline">\(u=K / 2\)</span> is fixed, this equation determines <span class="math inline">\(v\)</span>. As becomes clear when (1.3.28) is inserted into <span class="math inline">\((1.3 .12), v\)</span> is the inverse of the localization length for the relative coordinate <span class="math inline">\(n_{1}-n_{2} .\)</span> The energy of the bound state can be calculated as <span class="math display">\[
+\begin{aligned}
+\varepsilon_{ B }(K) &amp;=2\left|J_{z}\right|-\left|J_{z}\right|\{\cos (u+ i v)+\cos (u- i v)\} \\
+&amp;=2\left|J_{z}\right|(1-\cos u \cosh v) \\
+&amp;=2\left|J_{z}\right|\left(1-\frac{\cos ^{2} u+1}{2}\right)=\left|J_{z}\right|\left(1-\cos ^{2} \frac{K}{2}\right) \\
+&amp;=\frac{1}{2}\left|J_{z}\right|(1-\cos K)
+\end{aligned}
+\]</span> Above, the ferromagnetic spin wave has been considered. Next, we discuss the ground state and excitations in the anti-ferromagnetic Heisenberg model <span class="math inline">\(\left(J_{z}=J_{\perp}=J&gt;0\right) .\)</span> In this case, <span class="math inline">\(r=N / 2\)</span> spins are <span class="math inline">\(\uparrow\)</span> in the ground state. That is, the ground state solution does exist in the subspace <span class="math inline">\(S_{ tot }^{z}=0 .\)</span> <span class="math display">\[
+\Psi=\sum_{n_{1}&lt;n_{2}&lt;\cdots&lt;n_{r}} c_{n_{1} n_{2} \ldots n_{r}} \Phi_{n_{1} n_{2} \ldots n_{r}} \quad\left(r=\frac{N}{2}\right)
+\]</span> Now, we try for <span class="math inline">\(c_{n_{1} n_{2} \ldots n_{r}}\)</span> the following Ansatz, which is called Bethe Ansatz: <span class="math display">\[
+c_{n_{1} n_{2} \ldots n_{r}}=\sum_{P} \exp \left[ i \left(\sum_{j=1}^{r} k_{P_{j}} n_{j}+\frac{1}{2} \sum_{j&lt;1} \phi_{P_{j}, P_{l}}\right)\right]
+\]</span> Here, <span class="math inline">\(P\)</span> is the permutation operator of the numbers <span class="math inline">\(1 \ldots r\)</span>, and <span class="math inline">\(\phi_{j, l}\)</span> is the phase shift, satisfying <span class="math inline">\(\phi_{j, l}=\phi_{l, j} .\)</span> Furthermore, we impose periodic boundary conditions for <span class="math inline">\(c_{n_{1} n_{2} \ldots n_{r}}\)</span> : <span class="math display">\[
+c_{n_{1} n_{2} \ldots n_{r}}=c_{n_{2} n_{3} \ldots n_{r}, n_{1}+N}
+\]</span> (1.3.33) is the generalization of (1.3.12). It has been assumed that the scattering of <span class="math inline">\(\uparrow\)</span> only interchanges the wave numbers <span class="math inline">\(k_{1} k_{2} \ldots k_{r}\)</span>, leading to a new wave function, and that many-particle scattering can be expressed as a product of two-body scattering. Indeed, when acting with <span class="math inline">\(H\)</span> on <span class="math inline">\(\Psi\)</span> (1.3.32), applying the same trick as when (1.3.32) was deduced, we obtain <span class="math display">\[
+2 c_{n_{1}, \ldots, n_{k}, n_{k+1}, \ldots, n_{r}}=c_{n_{1}, \ldots, n_{k}, n_{k}, \ldots, n_{r}}+c_{n_{1}, \ldots, n_{k+1}, n_{k+1}, \ldots, n_{r}}
+\]</span> and can prove that <span class="math display">\[
+H \Psi=E \Psi
+\]</span> In this case, the energy eigenvalue is given by <span class="math display">\[
+E=-\frac{N J}{4}+J \sum_{j=1}^{r} \cos k_{j}=\frac{N J}{4}-J \sum_{j=1}^{r}\left(1-\cos k_{j}\right)
+\]</span> Performing a calculation similar to the derivation of <span class="math inline">\((1.3 .20)\)</span>, we obtain from <span class="math inline">\((1.3 .35)\)</span> <span class="math display">\[
+\cot \frac{\phi_{j, l}}{2}=\frac{1}{2}\left(\cot \frac{k_{j}}{2}-\cot \frac{k_{l}}{2}\right)
+\]</span> On the other hand, the right-hand side of the periodic boundary condition (1.3.34) becomes <span class="math display">\[
+\begin{aligned}
+c_{n_{2} n_{3} \ldots n_{r}, n_{1}+N} &amp;=\sum_{P} \exp \left[ i \sum_{j=1}^{r} k_{P_{j}} n_{j+1}+ i k_{P_{r}}\left(n_{1}+N\right)+\frac{ i }{2} \sum_{j&lt;1} \phi_{P_{j}, P_{l}}\right] \\
+&amp;=\sum_{P^{\prime}} \exp \left[ i \sum_{j=2}^{r-1} k_{P_{j-1}^{\prime}} n_{j}+ i k_{P_{r}^{\prime}}\left(n_{1}+N\right)+\frac{ i }{2} \sum_{j&lt;l} \phi_{P_{j}^{\prime}, P_{l}^{\prime}}\right]
+\end{aligned}
+\]</span> Here, we substituted the sum over <span class="math inline">\(P\)</span> by <span class="math inline">\(P^{\prime}\)</span>. Because the left-hand side of equation <span class="math inline">\((1.3 .34)\)</span> is <span class="math inline">\((1.3 .33)\)</span>, there must be a correspondence between this summation in <span class="math inline">\(P\)</span> and the summation in <span class="math inline">\(P^{\prime}\)</span> appearing at the far right-hand side of <span class="math inline">\((1.3 .39)\)</span> : <span class="math display">\[
+\begin{aligned}
+P_{j-1}^{\prime} &amp;=P_{j}, \\
+P_{r}^{\prime} &amp;=P_{1} \quad(r \geqq j \geqq 2)
+\end{aligned}
+\]</span> for every single term. We obtain the condition <span class="math display">\[
+N k_{P_{r}^{\prime}}+\frac{1}{2} \sum_{j&lt;l} \phi_{P_{j}^{\prime}, P_{j}^{\prime}}-\frac{1}{2} \sum_{j&lt;l} \phi_{P_{j}, P_{l}}=2 \pi m_{P_{r}^{\prime}}
+\]</span> We look at the left-hand side of this equation a bit more in detail. <span class="math display">\[
+\begin{array}{r}
+N k_{P_{1}}+\frac{1}{2} \sum_{j&lt;l \leqq r-1} \phi_{P_{j+1}, P_{l+1}}+\frac{1}{2} \sum_{j=1}^{r-1} \phi_{P_{j+1}, P_{1}}-\frac{1}{2} \sum_{2 \leqq j&lt;1} \phi_{P_{j}, P_{l}}-\frac{1}{2} \sum_{l=2}^{r} \phi_{P_{1}, P_{l}} \\
+=N k_{P_{1}}-\sum_{l=2}^{r} \phi_{P_{1}, P_{l}}=2 \pi m_{P_{1}}
+\end{array}
+\]</span> Because <span class="math inline">\(P_{1}\)</span> is variable, <span class="math inline">\((1.3 .42)\)</span> can be expressed as <span class="math display">\[
+N k_{j}=\sum_{l \neq j} \phi_{j, l}+2 \pi m_{j}
+\]</span> The meaning of this equation is obvious. When one particle goes around the ring, it scatters once with every particle, and the resulting total phase shift is given by the first term at the right-hand side.</p>
+<p>Next, the state is determined by a combination <span class="math inline">\(\left\{m_{i}\right\}\)</span> of integer numbers, and the ground state is given by <span class="math display">\[
+\left\{m_{j}\right\}=\{1,3,5,7, \ldots, N-1\}
+\]</span> This is owing to the fact that two neighbouring <span class="math inline">\(m\)</span> correspond to an antibound state, as follows from the ferromagnetic spin wave theory developed above. That is, in the case of anti-ferromagnetic interaction, the energy becomes larger when an anti-binding state of two neighbouring <span class="math inline">\(\uparrow\)</span> spins arises. Next, we consider the thermodynamic limit <span class="math inline">\(N \rightarrow \infty\)</span> and introduce continuous variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in <span class="math inline">\((1.3 .43):\)</span> <span class="math display">\[
+x=\frac{2 j-1}{N}, \quad y=\frac{2 l-1}{N} .
+\]</span> Recalling <span class="math inline">\(m_{j}=2 j-1\)</span> and dividing by <span class="math inline">\(N\)</span> on both sides in <span class="math inline">\((1.3 .43)\)</span>, we obtain <span class="math display">\[
+k(x)=2 \pi x+\frac{1}{2} \int_{0}^{1} d y \phi(k(x), k(y))
+\]</span> Here, owing to <span class="math inline">\((1.3 .38), \phi(k(x), k(y))\)</span> is given by <span class="math display">\[
+\cot \frac{\phi(k(x), k(y))}{2}=\frac{1}{2}\left(\cot \frac{k(x)}{2}-\cot \frac{k(y)}{2}\right)
+\]</span> and from (1.3.37) we conclude that the energy is given by <span class="math display">\[
+\begin{aligned}
+E &amp;=\frac{N J}{4}-J \sum_{j=1}^{N / 2}\left[1-\cos k_{j}\right] \\
+&amp;=\frac{N J}{4}-\frac{N J}{2} \int_{0}^{1} d x[1-\cos k(x)]
+\end{aligned}
+\]</span> Setting <span class="math inline">\(\xi=\cot k(x) / 2, k(0)=0\)</span> corresponds to <span class="math inline">\(\xi=+\infty\)</span>, and <span class="math inline">\(k(1)=2 \pi\)</span> corresponds to <span class="math inline">\(\xi=-\infty\)</span>. As shown in Fig. <span class="math inline">\(1.5\)</span> and given by <span class="math inline">\((1.3 .47)\)</span>, the transformation <span class="math inline">\(\phi(k(x), k(y))=\phi(\xi, \eta)\)</span> with <span class="math inline">\(\eta \equiv \cot k(y) / 2\)</span> leads to the identification <span class="math inline">\(\phi(\xi, \eta)=+0\)</span> at <span class="math inline">\(\xi=+\infty, \phi(\xi, \eta)=\pi\)</span> at <span class="math inline">\(\xi=\eta+0, \phi(\xi, \eta)=-\pi\)</span> at <span class="math inline">\(\xi=\eta-0\)</span>, and <span class="math inline">\(\phi(\xi, \eta)=-0\)</span> at <span class="math inline">\(\xi=-\infty\)</span>. Writing (1.3.46) as <span class="math display">\[
+k(x)=2 \pi x+\int_{0}^{1} \cot ^{-1} \frac{\xi(x)-\eta(y)}{2} d y
+\]</span> we conclude that <span class="math inline">\(\cot ^{-1}(\xi-\eta) / 2\)</span> jumps at <span class="math inline">\(\xi=\eta\)</span> from <span class="math inline">\(+\pi\)</span> to <span class="math inline">\(-\pi\)</span>. Differentiating both sides from (1.3.49) with respect to <span class="math inline">\(x\)</span>, we obtain <span class="math display">\[
+\begin{aligned}
+\frac{ d k(x)}{ d x} &amp;=2 \pi+\int_{+\infty}^{-\infty}\left[\frac{-1}{1+(\xi-\eta)^{2} / 4}+2 \pi \delta(\xi-\eta)\right] \frac{1}{2} \frac{ d \xi}{d x} \frac{ d y}{ d \eta} d \eta \\
+&amp;=\pi+\int_{-\infty}^{+\infty} \frac{2}{4+(\xi-\eta)^{2}} \frac{ d y}{ d \eta} d \eta \cdot \frac{ d \xi}{ d x}
+\end{aligned}
+\]</span> Introducing the function <span class="math display">\[
+\frac{ d \xi}{ d x}=-\frac{1}{g(\xi)}
+\]</span> owing to <span class="math display">\[
+\begin{aligned}
+\frac{ d \xi(x)}{ d x} &amp;=\frac{ d }{ d x}\left[\cot \frac{k(x)}{2}\right]=-\frac{1}{2} \frac{1}{\sin ^{2} \frac{k(x)}{2}} \frac{ d k(x)}{ d x} \\
+&amp;=-\frac{1}{2}\left(1+\cot ^{2} \frac{k(x)}{2}\right) \frac{ d k(x)}{ d x}=-\frac{1}{2}\left(1+\xi(x)^{2}\right) \frac{ d k(x)}{ d x}
+\end{aligned}
+\]</span> we obtain <span class="math display">\[
+\frac{ d k(x)}{ d x}=-\frac{2}{1+\xi^{2}} \frac{ d \xi}{ d x}=\frac{2}{1+\xi^{2}} \frac{1}{g(\xi)}
+\]</span> Using this, (1.3.50) can be re-expressed as <span class="math display">\[
+\frac{2}{1+\xi^{2}}=\pi g(\xi)+2 \int_{-\infty}^{\infty} \frac{g(\eta)}{4+(\xi-\eta)^{2}} d \eta
+\]</span> Introducing the Fourier transformation <span class="math display">\[
+G(u)=\int_{-\infty}^{\infty} g(\xi) e^{ i \xi u} d \xi
+\]</span> we obtain from <span class="math inline">\((1.3 .52)\)</span> the result <span class="math display">\[
+G(u)=\frac{1}{\cosh u} .
+\]</span> We now determine the energy. From (1.3.48), we deduce that <span class="math display">\[
+\begin{aligned}
+E-\frac{N J}{4} &amp;=-\frac{N J}{2} \int_{0}^{1} d x(1-\cos k(x))=-J N \int_{0}^{1} d x \sin ^{2} \frac{k(x)}{2} \\
+&amp;=-J N \int_{+\infty}^{-\infty} \frac{1}{1+\cot ^{2} \frac{k(x)}{2}} \frac{ d x}{ d \xi} d \xi=-J N \int_{-\infty}^{\infty} \frac{g(\xi)}{1+\xi^{2}} d \xi \\
+&amp;=-J N \int_{-\infty}^{\infty} \frac{ d \xi}{2 \pi} \int_{-\infty}^{\infty} d u \frac{ e ^{- i \xi u}}{1+\xi^{2}} G(u) \\
+&amp;=-\frac{J N}{2} \int_{-\infty}^{\infty} d u \frac{ e ^{-|u|}}{\cosh u}=-J N \ln 2
+\end{aligned}
+\]</span> Above, we developed the Bethe Ansatz for the ground state. Next, we discuss low energy excitations. Now, we alter the combination of <span class="math inline">\(\left\{m_{i}\right\}\)</span> slightly: <span class="math display">\[
+\left\{m_{j}\right\}=\{0,2,4, \ldots,(2 n-2),(2 n+1), \ldots,(N-1)\},
+\]</span> by shifting the first <span class="math inline">\(n\)</span> integers <span class="math inline">\(m_{j}\)</span> one step to the left. Then, the total momentum is given by <span class="math display">\[
+K=\sum_{j} k_{j}=\frac{2 \pi}{N} \sum_{j} m_{j}
+\]</span> Calling <span class="math inline">\(q\)</span> the difference momentum measured from the ground state, we obtain <span class="math display">\[
+q=\frac{2 \pi}{N} \sum_{j=1}^{n}[(2 j-2)-(2 j-1)]=-\frac{2 \pi n}{N} \text { . }
+\]</span> Performing the continuum limit and setting <span class="math inline">\(x=(2 j-1) / N\)</span>, we introduce <span class="math inline">\(\lambda(x)\)</span> as <span class="math display">\[
+\lambda(x)=x-\frac{1}{N} \theta\left(\frac{|q|}{\pi}-x\right) \text { . }
+\]</span> The second term on the right-hand side corresponds to the shift of <span class="math inline">\(n\)</span> integers <span class="math inline">\(m_{j}\)</span> one step to the left. Then, instead of <span class="math inline">\((1.3 .49)\)</span>, we obtain <span class="math display">\[
+k(x)=2 \pi \lambda(x)+\int_{0}^{1} \cot ^{-1} \frac{\xi-n}{2} d y
+\]</span> and instead of <span class="math inline">\((1.3 .52)\)</span> we obtain <span class="math display">\[
+\frac{2}{1+\xi^{2}}-\frac{2 \pi}{N} \delta\left(\xi-\xi_{0}\right)=\pi g(\xi)+2 \int_{-\infty}^{\infty} \frac{g(\eta)}{4+(\xi-\eta)^{2}} d \eta
+\]</span> Here, <span class="math inline">\(\xi_{0}\)</span> is given by <span class="math inline">\(\xi_{0}=\cot \frac{1}{2} k(|q| / \pi)\)</span>.</p>
+<p>The <span class="math inline">\(o\left(\frac{1}{N}\right)\)</span> order correction on the left-hand side leads to a correction of the same order for <span class="math inline">\(g(\xi)\)</span> and <span class="math inline">\(G(u)\)</span>, and an excitation energy of order <span class="math inline">\(o(1)\)</span> emerges. This will be explained in what follows. From (1.3.61), the Fourier transformation <span class="math inline">\(G(u)\)</span> is determined to be <span class="math display">\[
+G(u)=\frac{1}{\cosh u}-\frac{2}{N} \cdot \frac{ e ^{ i u \xi_{0}}}{1+ e ^{-2|u|}}
+\]</span> From this equation, we obtain <span class="math display">\[
+\begin{aligned}
+\Delta E &amp;=-N J \int_{-\infty}^{\infty} \frac{\Delta g(\xi)}{1+\xi^{2}} d \xi=+\frac{J}{2} \int_{-\infty}^{\infty} d u \frac{ e ^{ i u \xi_{0}}}{\cosh u} \\
+&amp;=\frac{\pi J / 2}{\cosh \left(\pi \xi_{0} / 2\right)}
+\end{aligned}
+\]</span> Now, only the relationship between <span class="math inline">\(\xi_{0}\)</span> and <span class="math inline">\(q\)</span> has to be determined. From (1.3.51) we obtain <span class="math display">\[
+x\left(\xi_{0}\right)-x(-\infty)=-\int_{-\infty}^{\xi_{0}} g(\xi) d \xi
+\]</span> and it is sufficient to use <span class="math inline">\(g(\xi)\)</span> as given in <span class="math inline">\((1.3 .54)\)</span> without higher order corrections. Performing the Fourier transformation in (1.3.54), we obtain <span class="math display">\[
+g(\xi)=\frac{1}{2 \cosh \frac{\pi \xi}{2}}
+\]</span> Owing to <span class="math inline">\(x(\xi=-\infty)=1\)</span>, it follows that <span class="math display">\[
+\begin{aligned}
+x\left(\xi_{0}\right) &amp;=1-\int_{-\infty}^{t_{0}} \frac{ d \xi}{2 \cosh \frac{\pi \epsilon}{2}}=1-\int_{-\infty}^{y_{0}} \frac{ d y}{\pi\left(1+y^{2}\right)} \\
+&amp;=\frac{1}{\pi} \cot ^{-1}\left(\sinh \frac{\pi \xi_{0}}{2}\right)
+\end{aligned}
+\]</span> Here, the substitution <span class="math inline">\(y=\sinh \pi \xi / 2\)</span> and the boundary condition <span class="math inline">\(\cot ^{-1}(-\infty)\)</span> <span class="math inline">\(=-0\)</span> for <span class="math inline">\(\xi_{0} \rightarrow-\infty\)</span> have been used. By taking the cot on both sides of the equation <span class="math display">\[
+x\left(\varepsilon_{0}\right)=\frac{|q|}{\pi}=\frac{1}{\pi} \cot ^{-1}\left(\sinh \frac{\pi \xi_{0}}{2}\right) \text { , }
+\]</span> we obtain <span class="math display">\[
+\cot |q|=\sinh \frac{\pi \xi_{a}}{2}
+\]</span> and therefore <span class="math display">\[
+\cosh \frac{\pi \xi_{0}}{2}=\sqrt{1+\left(\sinh \frac{\pi \xi_{0}}{2}\right)^{2}}=\sqrt{1+\cot ^{2}|q|}=\frac{1}{\sin |q|}
+\]</span> Finally, we obtain the result <span class="math display">\[
+\Delta E=\frac{\pi J}{2}|\sin q| .
+\]</span> This is the scattering relation of the so-called des Cloiseaux-Pearson excitation mode. This mode behaves like the spin wave excitations which would appear when anti-ferromagnetic long-range ordering is present. That is, at <span class="math inline">\(q=0\)</span> and <span class="math inline">\(q=\pi\)</span>, the dispersion is linear, and at <span class="math inline">\(q=\pm \pi / 2\)</span>, the Brioullin zone is folded. However, notice that neither long-range ordering, nor the symmetry breaking occurs. Rather than to the dispersion relation of spin waves. (1.3.69) corresponds to the lower bound of the continuum spectrum shown in Fig. <span class="math inline">\(1.2\)</span> and Fig. 1.4. In Fig. <span class="math inline">\(1.2\)</span>, with increasing <span class="math inline">\(J_{\perp}\)</span>, the oblique region becomes larger, and for <span class="math inline">\(\left|J_{\perp}\right|=J_{z}\)</span>, the lowest boundary of the energy spectrum becomes zero for <span class="math inline">\(q=0\)</span> and <span class="math inline">\(q=\pm \pi .\)</span> In the limit <span class="math inline">\(\left|J_{\perp}\right| / J_{z} \rightarrow \infty\)</span>, the excitation spectrum becomes similar to Fig. <span class="math inline">\(1.4 .\)</span></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Fields-of-Quantum-ManyBody/">Fields of Quantum ManyBody</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Fields-of-Quantum-ManyBody/Nagaosa/">Nagaosa</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Spin/">Spin</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/22/QC05_paper_02/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">量子计算40年</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/20/CMP_17_TN02_Basic01/">
+                        <span class="hidden-mobile">TN笔记1-张量网络基础</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 1,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Nagaosa笔记1 量子自旋链&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
